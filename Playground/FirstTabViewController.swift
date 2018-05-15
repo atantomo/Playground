@@ -57,9 +57,15 @@ extension FirstTabViewController: UIToolbarDelegate {
 
 class TabBar: UITabBar {
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        frame = CGRect(x: 0, y: 618, width: 375, height: 49)
+    }
+
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         var sizeThatFits = super.sizeThatFits(size)
-        sizeThatFits.height = 1088
+        sizeThatFits.height = 88
 
         return sizeThatFits
     }
@@ -83,16 +89,17 @@ class TallTabBarController: UITabBarController, UITabBarControllerDelegate {
         var newSafeArea = UIEdgeInsets()
         newSafeArea.bottom += 39
 
-        if #available(iOS 11.0, *) {
-            additionalSafeAreaInsets = newSafeArea
-        } else {
-            // Fallback on earlier versions
-        }
 
-         let framea = CGRect(x: 0, y: 100, width: 375, height: h)
-        for child in childViewControllers {
-            child.view.frame = framea
-        }
+//        if #available(iOS 11.0, *) {
+//            additionalSafeAreaInsets = newSafeArea
+//        } else {
+//            // Fallback on earlier versions
+//        }
+//
+//         let framea = CGRect(x: 0, y: 100, width: 375, height: h)
+//        for child in childViewControllers {
+//            child.view.frame = framea
+//        }
 //        view.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: 39).isActive = true
 
         //print(bottomLayoutGuide.length)

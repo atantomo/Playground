@@ -155,6 +155,9 @@ extension MagicBoxTransition: UIViewControllerAnimatedTransitioning {
                 toVC.view.alpha = 0
                 UIView.animate(withDuration: 1, delay: 0
                     , options: .curveEaseInOut, animations:  {
+                        let oldFrame = fromVC.navigationController!.navigationBar.frame
+                        let newFrame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y - oldFrame.size.height - 20, width: oldFrame.size.width, height: oldFrame.size.height)
+                        fromVC.navigationController?.navigationBar.frame = newFrame
                         fromVC.sampleImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
 
                 }, completion: { _ in
@@ -165,10 +168,10 @@ extension MagicBoxTransition: UIViewControllerAnimatedTransitioning {
             let anim2 = { () -> Void in
 
                 //toVC.mapView.frame = fromVC.sampleImageView.frame
-                toVC.mapView.transform = fromVC.sampleImageView.transform
+                toVC.view.transform = fromVC.sampleImageView.transform
                 UIView.animate(withDuration: 1, delay: 0
                     , options: .curveEaseInOut, animations:  {
-                        fromVC.sampleImageView.alpha = 0
+                        //fromVC.sampleImageView.alpha = 0
                         toVC.view.alpha = 1
 
                 }, completion: { _ in

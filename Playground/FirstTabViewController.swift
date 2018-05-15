@@ -12,8 +12,8 @@ class FirstTabViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        print(bottomLayoutGuide.length)
+        print(tabBarController?.bottomLayoutGuide.length)
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,15 +46,61 @@ class FirstTabViewController: UIViewController {
             })
         }
     }
+}
 
-    /*
-    // MARK: - Navigation
+extension FirstTabViewController: UIToolbarDelegate {
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        return UIBarPosition.topAttached
     }
-    */
+}
+
+class TabBar: UITabBar {
+
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        var sizeThatFits = super.sizeThatFits(size)
+        sizeThatFits.height = 1088
+
+        return sizeThatFits
+    }
+}
+
+class TallTabBarController: UITabBarController, UITabBarControllerDelegate {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        delegate = self
+
+        let h: CGFloat = 88
+        let frame = CGRect(x: 0, y: view.bounds.height - h, width: 375, height: h)
+        let v = UIView(frame: frame)
+        v.backgroundColor = UIColor.red
+        v.alpha = 0.2
+
+        view.insertSubview(v, belowSubview: tabBar)
+
+        var newSafeArea = UIEdgeInsets()
+        newSafeArea.bottom += 39
+
+        if #available(iOS 11.0, *) {
+            additionalSafeAreaInsets = newSafeArea
+        } else {
+            // Fallback on earlier versions
+        }
+
+         let framea = CGRect(x: 0, y: 100, width: 375, height: h)
+        for child in childViewControllers {
+            child.view.frame = framea
+        }
+//        view.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: 39).isActive = true
+
+        //print(bottomLayoutGuide.length)
+        //tabBar.isHidden = true
+    }
+    
 
 }
+
+
+

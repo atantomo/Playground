@@ -90,13 +90,12 @@ extension OpacityTransition: UIViewControllerAnimatedTransitioning {
             let fromVC = transitionContext.viewController(forKey:.from) as! SecondCustomTransitionViewController
             let toVC = transitionContext.viewController(forKey:.to) as! FirstCustomTransitionViewController
 
-            toVC.productThumbnailView.transform = .identity
             let destinationBounds = fromVC.productImageView.bounds
             let originalBounds = toVC.productThumbnailView.bounds
             let widthDiffScale = (destinationBounds.width - expandGap * 2) / originalBounds.width
 
-            fromVC.productDescriptionTopConstraint.constant = -fromVC.productDescriptionView.bounds.height
-            fromVC.productDescriptionBottomConstraint.constant = fromVC.productDescriptionView.bounds.height
+//            fromVC.productDescriptionTopConstraint.constant = -fromVC.productDescriptionView.bounds.height
+//            fromVC.productDescriptionBottomConstraint.constant = fromVC.productDescriptionView.bounds.height
 
             fromVC.expandableViewTopConstraint.constant = expandGap
             fromVC.expandableViewLeadingConstraint.constant = expandGap
@@ -165,20 +164,22 @@ extension OpacityTransition: UIViewControllerAnimatedTransitioning {
                 options: .calculationModeCubic,
                 animations: {
                     // 2
-                    UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 3 / 5) {
+                    UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 6 / 12) {
                         fromVC.view.setNeedsLayout()
                         fromVC.view.layoutIfNeeded()
                     }
 
-                    UIView.addKeyframe(withRelativeStartTime: 3 / 5, relativeDuration: 1 / 100) {
-                        fromVC.expandableViewBottomConstraint.constant = fromVC.productDescriptionView.bounds.height + self.expandGap
+                    UIView.addKeyframe(withRelativeStartTime: (6 / 12), relativeDuration: 2 / 12) {
+                        fromVC.productDescriptionView.center = CGPoint(x: fromVC.productDescriptionView.center.x, y: fromVC.productDescriptionView.center.y - fromVC.productDescriptionView.bounds.height)
+                    }
+
+                    UIView.addKeyframe(withRelativeStartTime: (8 / 12), relativeDuration: 1 / 12) {
+//                        fromVC.expandableViewBottomConstraint.constant = fromVC.productDescriptionView.bounds.height + self.expandGap
                         fromVC.view.alpha = 0
-                        fromVC.view.setNeedsLayout()
-                        fromVC.view.layoutIfNeeded()
                     }
 
                     // 3
-                    UIView.addKeyframe(withRelativeStartTime: (3 / 5) + (1 / 100), relativeDuration: (2 / 5) - (1 / 100)) {
+                    UIView.addKeyframe(withRelativeStartTime: (9 / 12), relativeDuration: (3 / 12)) {
                         toVC.productThumbnailView.transform = .identity
                         toVC.productThumbnailView.center = originalCenter
                     }
@@ -294,8 +295,9 @@ class CustomNavigationController: UINavigationController {
             interactionController = UIPercentDrivenInteractiveTransition()
             popViewController(animated: true)
         } else if gestureRecognizer.state == .changed {
-            if percent > 0.5 {
+            if percent > 0.9 {
                 interactionController?.finish()
+                interactionController = nil
             } else {
                 interactionController?.update(percent)
             }

@@ -12,6 +12,7 @@ import MapKit
 class SecondNavViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapContainerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
 
@@ -32,6 +33,13 @@ class SecondNavViewController: UIViewController {
         tableView.delegate = self
         tableView.isScrollEnabled = false
         tableViewHeightConstraint.constant = 8 * 44 + 7
+
+        print(mapView.center)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        print(mapContainerView.convert(mapView.center, to: view))
+        navigationController?.view.setNeedsLayout()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

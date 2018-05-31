@@ -34,10 +34,10 @@ class FirstNavViewController: UIViewController {
 //        navigationItem.title = "Love"
 //        navigationItem.prompt = "Love is the greatest of all"
 
-        let melonButton = UIBarButtonItem(image: #imageLiteral(resourceName: "melon-s"), style: .plain, target: self, action: nil)
-        setToolbarItems([melonButton], animated: false)
-        navigationController?.setToolbarHidden(false, animated: false)
-        hidesBottomBarWhenPushed = true
+//        let melonButton = UIBarButtonItem(image: #imageLiteral(resourceName: "melon-s"), style: .plain, target: self, action: nil)
+//        setToolbarItems([melonButton], animated: false)
+//        navigationController?.setToolbarHidden(false, animated: false)
+//        hidesBottomBarWhenPushed = true
 
        // navigationController?.hidesBarsOnSwipe = true
 
@@ -106,12 +106,13 @@ extension FirstNavViewController: UIScrollViewDelegate {
 }
 
 class MagicBoxTransition: NSObject {
+    let transitionDuration: TimeInterval = 1.0
 }
 
 extension MagicBoxTransition: UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using ctx: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 2
+        return transitionDuration
     }
 
     func animateTransition(using ctx: UIViewControllerContextTransitioning) {
@@ -127,6 +128,12 @@ extension MagicBoxTransition: UIViewControllerAnimatedTransitioning {
         //let r2end = ctx.finalFrame(for:vc2!)
 
         con.addSubview(v2)
+//        vc2!.navigationController?.view.setNeedsLayout()
+//        vc2!.navigationController?.view.layoutIfNeeded()
+//
+//        vc1!.navigationController?.view.setNeedsLayout()
+//        vc1!.navigationController?.view.layoutIfNeeded()
+
 
         if let _ = vc1!.navigationController?.viewControllers.index(of: vc1!) { // presenting
 
@@ -153,12 +160,17 @@ extension MagicBoxTransition: UIViewControllerAnimatedTransitioning {
 
             let anim1 = { (anim: (() -> Void)?) -> Void in
                 toVC.view.alpha = 0
-                UIView.animate(withDuration: 1, delay: 0
+                UIView.animate(withDuration: self.transitionDuration / 2, delay: 0
                     , options: .curveEaseInOut, animations:  {
-                        let oldFrame = fromVC.navigationController!.navigationBar.frame
-                        let newFrame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y - oldFrame.size.height - 20, width: oldFrame.size.width, height: oldFrame.size.height)
-                        fromVC.navigationController?.navigationBar.frame = newFrame
-                        fromVC.sampleImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+//                        let oldFrame = fromVC.navigationController!.navigationBar.frame
+//                        let newFrame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y - oldFrame.size.height - 20, width: oldFrame.size.width, height: oldFrame.size.height)
+//                        fromVC.navigationController?.navigationBar.frame = newFrame
+                        fromVC.sampleImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+
+                        let mapCenter = toVC.mapView.superview!.convert(toVC.mapView.center, to: toVC.view)
+                        let centerToMove = fromVC.view.convert(mapCenter, to: fromVC.sampleImageView.superview)
+
+                        fromVC.sampleImageView.center = centerToMove
 
                 }, completion: { _ in
                     anim?()
@@ -168,8 +180,8 @@ extension MagicBoxTransition: UIViewControllerAnimatedTransitioning {
             let anim2 = { () -> Void in
 
                 //toVC.mapView.frame = fromVC.sampleImageView.frame
-                toVC.view.transform = fromVC.sampleImageView.transform
-                UIView.animate(withDuration: 1, delay: 0
+                //toVC.view.transform = fromVC.sampleImageView.transform
+                UIView.animate(withDuration: self.transitionDuration / 2, delay: 0
                     , options: .curveEaseInOut, animations:  {
                         //fromVC.sampleImageView.alpha = 0
                         toVC.view.alpha = 1
@@ -187,7 +199,7 @@ extension MagicBoxTransition: UIViewControllerAnimatedTransitioning {
             v1.frame = r1initial
             v1.alpha = 1
 
-            UIView.animate(withDuration: 2, delay: 0
+            UIView.animate(withDuration: transitionDuration, delay: 0
                 , options: .curveEaseInOut, animations:  {
                     v1.alpha = 0
                     v2.alpha = 1

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E80ADC120BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */; };
+		2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */; };
 		4909802C20A451540078CA4E /* FirstTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909802B20A451540078CA4E /* FirstTabViewController.swift */; };
 		491572521DCEA0AD0046AD0D /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491572511DCEA0AD0046AD0D /* CustomView.swift */; };
 		49172CB01C54ABE70008B61B /* MemeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49172CAF1C54ABE70008B61B /* MemeTextField.swift */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstCustomTransitionViewController.swift; sourceTree = "<group>"; };
+		2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		4909802B20A451540078CA4E /* FirstTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabViewController.swift; sourceTree = "<group>"; };
 		491572511DCEA0AD0046AD0D /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		49172CAF1C54ABE70008B61B /* MemeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTextField.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 				499992C7205CA934001871CF /* LabelViewController.swift */,
 				491572511DCEA0AD0046AD0D /* CustomView.swift */,
 				494873F61C53555800B689D3 /* Main.storyboard */,
+				2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */,
+				2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */,
 				4909802B20A451540078CA4E /* FirstTabViewController.swift */,
 				49702DF5208F5A1000064C84 /* TableMovementViewController.swift */,
 				491C11FB208F44B400C59999 /* ConstrainedLabelViewController.swift */,
@@ -157,7 +163,7 @@
 				TargetAttributes = {
 					494873EE1C53555800B689D3 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = GZA5R9P42G;
+						DevelopmentTeam = 65J9XQ5X7G;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -228,7 +234,9 @@
 				4979EC622063E2FB0024BC6F /* SkeletonTestViewController.swift in Sources */,
 				499992C8205CA934001871CF /* LabelViewController.swift in Sources */,
 				498BA3F2208207AC00BAF4FB /* ColorPageViewController.swift in Sources */,
+				2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */,
 				491C11FC208F44B400C59999 /* ConstrainedLabelViewController.swift in Sources */,
+				2E80ADC120BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift in Sources */,
 				49702DF6208F5A1000064C84 /* TableMovementViewController.swift in Sources */,
 				4909802C20A451540078CA4E /* FirstTabViewController.swift in Sources */,
 				49A98043207253EA00A492D5 /* StaticNavBar.swift in Sources */,
@@ -344,6 +352,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 65J9XQ5X7G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -363,6 +372,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 65J9XQ5X7G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

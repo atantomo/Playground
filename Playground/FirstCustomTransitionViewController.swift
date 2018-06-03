@@ -8,9 +8,40 @@
 
 import UIKit
 
+protocol CardDrawingTransitionPresenting {
+    var topCardView: UIView { get }
+    var rootView: UIView { get }
+}
+
+extension CardDrawingTransitionPresenting where Self: UIViewController {
+    var rootView: UIView {
+        return view
+    }
+}
+
+protocol CardDrawingTransitionPresented {
+    var topCardView: UIView { get }
+    var bottomCardView: UIView { get }
+    var rootView: UIView { get }
+}
+
+extension CardDrawingTransitionPresented where Self: UIViewController {
+    var rootView: UIView {
+        return view
+    }
+}
+
 class FirstCustomTransitionViewController: UIViewController {
 
     @IBOutlet weak var productThumbnailView: UIView!
+    @IBOutlet weak var productThumbnailImageView: UIImageView!
+
+    @IBOutlet weak var eventThumbnailView: UIView!
+
+    @IBOutlet var productViewTapGestureRecognizer: UITapGestureRecognizer!
+    @IBOutlet var eventViewTapGestureRecognizer: UITapGestureRecognizer!
+
+    var viewForTransition: UIView!
 
     override var prefersStatusBarHidden: Bool {
         return false
@@ -19,10 +50,224 @@ class FirstCustomTransitionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let senderString = sender as? String,
+            let itemVC = segue.destination as? SecondCustomTransitionViewController else {
+                return
+        }
+        switch senderString {
+        case "product":
+            viewForTransition = productThumbnailView
+            let _ = itemVC.view
+            itemVC.productMainImageView.image = #imageLiteral(resourceName: "melon-s")
+        case "event":
+            viewForTransition = eventThumbnailView
+            let _ = itemVC.view
+            itemVC.productMainImageView.image = #imageLiteral(resourceName: "forest_house")
+        default:
+            break
+        }
+    }
+
+    @IBAction func productImageTapped(_ sender: Any) {
+        performSegue(withIdentifier: "ListItemTransition", sender: "product")
+    }
+
+    @IBAction func eventImageTapped(_ sender: Any) {
+        performSegue(withIdentifier: "ListItemTransition", sender: "event")
+    }
+}
+
+extension FirstCustomTransitionViewController: CardDrawingTransitionPresenting {
+
+    var topCardView: UIView {
+        return viewForTransition
+    }
+}
+
+class CardDrawingTransition: NSObject {
+    let transitionDuration: TimeInterval = 0.8
+    let expandGap: CGFloat = 32.0
+    let presenting: Bool
+
+    init(presenting: Bool) {
+        self.presenting = presenting
+    }
+}
+
+extension CardDrawingTransition: UIViewControllerAnimatedTransitioning {
+
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return transitionDuration
+    }
+
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+
+        guard let fromView = transitionContext.view(forKey: .from),
+            let toView = transitionContext.view(forKey: .to) else {
+                return
+        }
+
+        let container = transitionContext.containerView
+        if presenting {
+            container.addSubview(toView)
+            toView.alpha = 0.0
+        } else {
+            container.insertSubview(toView, belowSubview: fromView)
+        }
+
+        if presenting {
+
+            guard let presentingVC = transitionContext.viewController(forKey:.from) as? CardDrawingTransitionPresenting,
+                let presentedVC = transitionContext.viewController(forKey:.to) as? CardDrawingTransitionPresented else {
+                    return
+            }
+
+            presentingVC.topCardView.superview?.bringSubview(toFront: presentingVC.topCardView)
+
+            presentedVC.rootView.setNeedsLayout()
+            presentedVC.rootView.layoutIfNeeded()
+
+            let originalBounds = presentingVC.topCardView.bounds
+            let destinationBounds = presentedVC.topCardView.bounds
+
+            let originTopCardTransformationScale = (destinationBounds.width - expandGap * 2) / originalBounds.width
+            let destinationTopCardInitialScale = (destinationBounds.width - expandGap * 2) / destinationBounds.width
+
+            let scale = CGAffineTransform(scaleX: destinationTopCardInitialScale, y: destinationTopCardInitialScale)
+            presentedVC.rootView.transform = scale
+
+            presentedVC.bottomCardView.transform = CGAffineTransform(translationX: 0, y: -(presentedVC.bottomCardView.bounds.height))
+            presentedVC.rootView.backgroundColor = UIColor.clear
+
+            UIView.animateKeyframes(
+                withDuration: transitionDuration,
+                delay: 0,
+                options: .calculationModeLinear,
+                animations: {
+
+                    var start: Double = 0
+                    var duration: Double = 6 / 12
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+
+                        let scale = CGAffineTransform(scaleX: originTopCardTransformationScale, y: originTopCardTransformationScale)
+
+                        let convertedPresentedTopCardCenter = presentedVC.topCardView.superview!.convert(presentedVC.topCardView.center, to: presentedVC.rootView)
+
+                        let convertedPresentedTopCardCenterA = presentedVC.topCardView.superview!.convert(presentedVC.rootView.center, to: presentedVC.rootView)
+
+
+                        let scaledY = convertedPresentedTopCardCenterA.y - ((convertedPresentedTopCardCenterA.y - convertedPresentedTopCardCenter.y) * destinationTopCardInitialScale)
+                        
+                        let translate = CGAffineTransform(translationX: convertedPresentedTopCardCenter.x - presentingVC.topCardView.center.x, y: scaledY - presentingVC.topCardView.center.y)
+
+                        let transform = scale.concatenating(translate)
+
+                        presentingVC.topCardView.transform = transform
+                    }
+
+                    start += duration
+                    duration = 1 / 12
+
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+                        presentedVC.rootView.alpha = 1
+                    }
+
+                    start += duration
+                    duration = 5 / 12
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+                        presentedVC.rootView.transform = .identity
+                        presentedVC.bottomCardView.transform = .identity
+                    }
+            },
+                completion: { _ in
+                    presentedVC.rootView.backgroundColor = UIColor.white
+                    presentingVC.topCardView.transform = .identity
+                    transitionContext.completeTransition(true)
+            })
+
+        } else {
+
+            guard let presentingVC = transitionContext.viewController(forKey:.to) as? CardDrawingTransitionPresenting,
+                let presentedVC = transitionContext.viewController(forKey:.from) as? CardDrawingTransitionPresented else {
+                    return
+            }
+
+            let originalBounds = presentedVC.topCardView.bounds
+            let destinationBounds = presentingVC.topCardView.bounds
+
+            let originTopCardTransformationScale = (originalBounds.width - expandGap * 2) / destinationBounds.width
+            let destinationTopCardInitialScale = (originalBounds.width - expandGap * 2) / originalBounds.width
+
+            let scale = CGAffineTransform(scaleX: originTopCardTransformationScale, y: originTopCardTransformationScale)
+
+            let convertedPresentedTopCardCenter = presentedVC.topCardView.superview!.convert(presentedVC.topCardView.center, to: presentedVC.rootView)
+
+            let translate = CGAffineTransform(translationX: convertedPresentedTopCardCenter.x - presentingVC.topCardView.center.x, y: convertedPresentedTopCardCenter.y - presentingVC.topCardView.center.y + expandGap / 2)
+
+            let transform = scale.concatenating(translate)
+
+            presentingVC.topCardView.transform = transform
+
+            presentedVC.rootView.backgroundColor = UIColor.clear
+
+            UIView.animateKeyframes(
+                withDuration: transitionDuration,
+                delay: 0,
+                options: .calculationModeLinear,
+                animations: {
+
+                    var start: Double = 0
+                    var duration: Double = 4 / 12
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+
+                        let scale = CGAffineTransform(scaleX: destinationTopCardInitialScale, y: destinationTopCardInitialScale)
+                        presentedVC.rootView.transform = scale
+                    }
+
+                    start += duration
+                    duration = 4 / 12
+
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+                        presentedVC.bottomCardView.transform = CGAffineTransform(translationX: 0, y: -(presentedVC.bottomCardView.bounds.height))
+                    }
+
+                    start += duration
+                    duration = 1 / 12
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+                        presentedVC.rootView.alpha = 0
+                    }
+
+                    start += duration
+                    duration = 3 / 12
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+                        presentingVC.topCardView.transform = .identity
+                    }
+            },
+                completion: { _ in
+                    let success = !transitionContext.transitionWasCancelled
+                    if !success {
+                        presentedVC.rootView.alpha = 1
+                        toView.removeFromSuperview()
+                        presentedVC.rootView.backgroundColor = UIColor.white
+                    }
+                    transitionContext.completeTransition(success)
+            })
+        }
+
+    }
 }
 
 class OpacityTransition: NSObject {
-    let transitionDuration: TimeInterval = 0.7
+    let transitionDuration: TimeInterval = 0.8
     let expandGap: CGFloat = 32.0
     let presenting: Bool
 
@@ -94,13 +339,15 @@ extension OpacityTransition: UIViewControllerAnimatedTransitioning {
             let originalBounds = toVC.productThumbnailView.bounds
             let widthDiffScale = (destinationBounds.width - expandGap * 2) / originalBounds.width
 
+            let widthDiffScalea = (destinationBounds.width - expandGap * 2) / destinationBounds.width
+
 //            fromVC.productDescriptionTopConstraint.constant = -fromVC.productDescriptionView.bounds.height
 //            fromVC.productDescriptionBottomConstraint.constant = fromVC.productDescriptionView.bounds.height
 
-            fromVC.expandableViewTopConstraint.constant = expandGap
-            fromVC.expandableViewLeadingConstraint.constant = expandGap
-            fromVC.expandableViewTrailingConstraint.constant = expandGap
-            fromVC.expandableViewBottomConstraint.constant = /*fromVC.productDescriptionView.bounds.height +*/ expandGap
+//            fromVC.expandableViewTopConstraint.constant = expandGap
+//            fromVC.expandableViewLeadingConstraint.constant = expandGap
+//            fromVC.expandableViewTrailingConstraint.constant = expandGap
+//            fromVC.expandableViewBottomConstraint.constant = /*fromVC.productDescriptionView.bounds.height +*/ expandGap
 
             toVC.view.setNeedsLayout()
             toVC.view.layoutIfNeeded()
@@ -161,25 +408,45 @@ extension OpacityTransition: UIViewControllerAnimatedTransitioning {
             UIView.animateKeyframes(
                 withDuration: transitionDuration,
                 delay: 0,
-                options: .calculationModeCubic,
+                options: .calculationModeLinear,
                 animations: {
-                    // 2
-                    UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 6 / 12) {
-                        fromVC.view.setNeedsLayout()
-                        fromVC.view.layoutIfNeeded()
+
+                    var start: Double = 0
+                    var duration: Double = 4 / 12
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+//                        fromVC.view.setNeedsLayout()
+//                        fromVC.view.layoutIfNeeded()
+
+                        let point = CGPoint(x: fromVC.view.center.x, y: fromVC.view.center.y - 16)
+
+                        fromVC.view.center = point
+
+                        fromVC.view.transform = CGAffineTransform(scaleX: widthDiffScalea, y: widthDiffScalea)
                     }
 
-                    UIView.addKeyframe(withRelativeStartTime: (6 / 12), relativeDuration: 2 / 12) {
-                        fromVC.productDescriptionView.center = CGPoint(x: fromVC.productDescriptionView.center.x, y: fromVC.productDescriptionView.center.y - fromVC.productDescriptionView.bounds.height)
+                    start += duration
+                    duration = 4 / 12
+
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+                        let point = CGPoint(x: fromVC.productDescriptionView.center.x, y: fromVC.productDescriptionView.center.y - fromVC.productDescriptionView.bounds.height)
+
+                        fromVC.productDescriptionView.center = point
                     }
 
-                    UIView.addKeyframe(withRelativeStartTime: (8 / 12), relativeDuration: 1 / 12) {
+                    start += duration
+                    duration = 1 / 12
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
 //                        fromVC.expandableViewBottomConstraint.constant = fromVC.productDescriptionView.bounds.height + self.expandGap
                         fromVC.view.alpha = 0
                     }
 
-                    // 3
-                    UIView.addKeyframe(withRelativeStartTime: (9 / 12), relativeDuration: (3 / 12)) {
+                    start += duration
+                    duration = 3 / 12
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
                         toVC.productThumbnailView.transform = .identity
                         toVC.productThumbnailView.center = originalCenter
                     }
@@ -212,6 +479,8 @@ extension OpacityTransition: UIViewControllerAnimatedTransitioning {
         let originalBounds = fromVC.productThumbnailView.bounds
         let widthDiffScale = (destinationBounds.width - expandGap * 2) / originalBounds.width
 
+        let widthDiffScalea = ((destinationBounds.width) / originalBounds.width) / widthDiffScale
+
         toVC.productDescriptionTopConstraint.constant = -toVC.productDescriptionView.bounds.height
         toVC.productDescriptionBottomConstraint.constant = toVC.productDescriptionView.bounds.height
 
@@ -228,6 +497,8 @@ extension OpacityTransition: UIViewControllerAnimatedTransitioning {
             UIView.animate(withDuration: self.transitionDuration * 2 / 5, delay: 0
                 , options: .curveEaseIn, animations:  {
                     fromVC.productThumbnailView.transform = CGAffineTransform(scaleX: widthDiffScale, y: widthDiffScale)
+
+                    fromVC.productThumbnailImageView.transform = CGAffineTransform(scaleX: widthDiffScalea, y: widthDiffScalea)
 
                     let productImageViewCenter = toVC.productImageView.superview!.convert(toVC.productImageView.center, to: toVC.view)
                     let centerToMove = fromVC.view.convert(productImageViewCenter, to: fromVC.productThumbnailView.superview)
@@ -262,6 +533,7 @@ extension OpacityTransition: UIViewControllerAnimatedTransitioning {
             }, completion: { _ in
                 toVC.view.backgroundColor = UIColor.white
                 fromVC.productThumbnailView.transform = .identity
+                fromVC.productThumbnailImageView.transform = .identity
                 transitionContext.completeTransition(true)
             })
         }
@@ -295,7 +567,7 @@ class CustomNavigationController: UINavigationController {
             interactionController = UIPercentDrivenInteractiveTransition()
             popViewController(animated: true)
         } else if gestureRecognizer.state == .changed {
-            if percent > 0.9 {
+            if percent > 0.4 {
                 interactionController?.finish()
                 interactionController = nil
             } else {
@@ -318,9 +590,9 @@ extension CustomNavigationController: UINavigationControllerDelegate {
 
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if operation == .push {
-            return OpacityTransition(presenting: true)
+            return CardDrawingTransition(presenting: true)
         } else {
-            return OpacityTransition(presenting: false)
+            return CardDrawingTransition(presenting: false)
         }
     }
 

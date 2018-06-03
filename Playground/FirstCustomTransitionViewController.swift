@@ -87,7 +87,7 @@ extension FirstCustomTransitionViewController: CardDrawingTransitionPresenting {
 }
 
 class CardDrawingTransition: NSObject {
-    let transitionDuration: TimeInterval = 0.8
+    let transitionDuration: TimeInterval = 8
     let expandGap: CGFloat = 32.0
     let presenting: Bool
 
@@ -156,10 +156,10 @@ extension CardDrawingTransition: UIViewControllerAnimatedTransitioning {
 
                         let convertedPresentedTopCardCenter = presentedVC.topCardView.superview!.convert(presentedVC.topCardView.center, to: presentedVC.rootView)
 
-                        let convertedPresentedTopCardCenterA = presentedVC.topCardView.superview!.convert(presentedVC.rootView.center, to: presentedVC.rootView)
+                        let presenteRootViewCenter = presentedVC.rootView.center
 
 
-                        let scaledY = convertedPresentedTopCardCenterA.y - ((convertedPresentedTopCardCenterA.y - convertedPresentedTopCardCenter.y) * destinationTopCardInitialScale)
+                        let scaledY = presenteRootViewCenter.y - ((presenteRootViewCenter.y - convertedPresentedTopCardCenter.y) * destinationTopCardInitialScale)
                         
                         let translate = CGAffineTransform(translationX: convertedPresentedTopCardCenter.x - presentingVC.topCardView.center.x, y: scaledY - presentingVC.topCardView.center.y)
 
@@ -207,7 +207,12 @@ extension CardDrawingTransition: UIViewControllerAnimatedTransitioning {
 
             let convertedPresentedTopCardCenter = presentedVC.topCardView.superview!.convert(presentedVC.topCardView.center, to: presentedVC.rootView)
 
-            let translate = CGAffineTransform(translationX: convertedPresentedTopCardCenter.x - presentingVC.topCardView.center.x, y: convertedPresentedTopCardCenter.y - presentingVC.topCardView.center.y + expandGap / 2)
+            let presenteRootViewCenter = presentedVC.rootView.center
+
+
+            let scaledY = presenteRootViewCenter.y - ((presenteRootViewCenter.y - convertedPresentedTopCardCenter.y) * destinationTopCardInitialScale)
+
+            let translate = CGAffineTransform(translationX: convertedPresentedTopCardCenter.x - presentingVC.topCardView.center.x, y: scaledY - presentingVC.topCardView.center.y)
 
             let transform = scale.concatenating(translate)
 

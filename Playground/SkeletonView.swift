@@ -16,59 +16,100 @@ final class SkeletonView: UIView {
         static let highlightedBackgroundColor: UIColor = UIColor.lightGray
     }
 
-    private let roundedCornerTypes: [UIView.Type] = [
-        UILabel.self
-    ]
-
     private var viewParts: [(reference: UIView, skeleton: UIView)] = [(UIView, UIView)]()
 
-    init(referenceParent: UIView, referenceParts: [UIView]) {
-        super.init(frame: referenceParent.frame)
+    init(parentFrame: CGRect, roundedCornerParts: [UIView] = [], sharpCornerParts: [UIView] = []) {
+        super.init(frame: parentFrame)
+        translatesAutoresizingMaskIntoConstraints = false
 
+        isUserInteractionEnabled = false
         backgroundColor = UIColor.white
-        for referencePart in referenceParts {
 
-            let skeletonPart = UIView(frame: referencePart.frame)
-            skeletonPart.backgroundColor = Constant.defaultBackgroundColor
-
-            for thisType in roundedCornerTypes {
-                if type(of: referencePart) === thisType {
-                    skeletonPart.layer.cornerRadius = Constant.roundedSkeletonCornerRadius
-                }
-            }
-            addSubview(skeletonPart)
-            viewParts.append((referencePart, skeletonPart))
-        }
+        setupParts(referenceParts: roundedCornerParts, isRounded: true)
+        setupParts(referenceParts: sharpCornerParts, isRounded: false)
+        setupObservers()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func didMoveToSuperview() {
-        blinkSkeletonParts()
+        guard let superview = self.superview else {
+            return
+        }
+        NSLayoutConstraint.activate([
+            leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+            trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+            topAnchor.constraint(equalTo: superview.topAnchor),
+            bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+            ])
+    }
+
+    override func layoutSubviews() {
+        syncSkeletonFrames()
+        super.layoutSubviews()
     }
 
     func show() {
-        layer.removeAllAnimations()
+        syncSkeletonFrames()
+        blinkSkeletonParts()
+
         alpha = 1.0
         isHidden = false
     }
 
-    func hide() {
-        UIView.animate(withDuration: 0.3, animations: {
+    func hide(animated: Bool = true) {
+        let hideHandler = {
+            self.stopBlinkingSkeletonParts()
             self.alpha = 0.0
-        }, completion: { completed in
-            if completed {
+            self.isHidden = true
+        }
+        if animated {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.alpha = 0.0
-                self.isHidden = true
+            }, completion: { _ in
+                hideHandler()
+            })
+        } else {
+            hideHandler()
+        }
+    }
+
+    private func setupParts(referenceParts: [UIView], isRounded: Bool) {
+        for referencePart in referenceParts {
+
+            let skeletonPart = UIView(frame: referencePart.frame)
+            skeletonPart.backgroundColor = Constant.defaultBackgroundColor
+            if isRounded {
+                skeletonPart.layer.cornerRadius = Constant.roundedSkeletonCornerRadius
             }
-        })
+            addSubview(skeletonPart)
+            viewParts.append((referencePart, skeletonPart))
+        }
+    }
+
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(removeAnimation),
+                                               name: NSNotification.Name.UIApplicationWillResignActive,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(resumeAnimation),
+                                               name: NSNotification.Name.UIApplicationWillEnterForeground,
+                                               object: nil)
     }
 
     private func blinkSkeletonParts() {
-        UIView.animate(withDuration: 2.0,
-                       delay: 1,
+        for viewPart in self.viewParts {
+            viewPart.skeleton.backgroundColor = Constant.defaultBackgroundColor
+        }
+        UIView.animate(withDuration: 1.0,
+                       delay: 0,
                        options: [.repeat, .autoreverse, .curveEaseInOut, .allowUserInteraction],
                        animations: {
                         for viewPart in self.viewParts {
@@ -76,13 +117,35 @@ final class SkeletonView: UIView {
                         }
         })
     }
-}
 
-extension Double {
-    private static let arc4randomMax = Double(UInt32.max)
-
-    static func random0to1() -> Double {
-        return Double(arc4random()) / arc4randomMax
+    private func stopBlinkingSkeletonParts() {
+        for viewPart in self.viewParts {
+            viewPart.skeleton.layer.removeAllAnimations()
+        }
     }
-}
 
+    private func syncSkeletonFrames() {
+        print(superview?.frame)
+        superview?.setNeedsLayout()
+        superview?.layoutIfNeeded()
+        print(superview?.frame)
+
+        for part in viewParts {
+            guard let partSuperview = part.reference.superview else {
+                continue
+            }
+            part.skeleton.frame = partSuperview.convert(part.reference.frame, to: superview)
+        }
+    }
+
+    @objc
+    private func removeAnimation() {
+        stopBlinkingSkeletonParts()
+    }
+
+    @objc
+    private func resumeAnimation() {
+        blinkSkeletonParts()
+    }
+
+}

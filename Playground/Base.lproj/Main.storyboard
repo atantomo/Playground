@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ELI-3W-lIP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jIt-3V-e1y">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -765,7 +765,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ms. Mowz Ms. Mowz Ms. Mowz Ms. Mowz Ms. Mowz" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCt-mf-i25">
-                                                    <rect key="frame" x="16" y="32" width="239" height="39.5"/>
+                                                    <rect key="frame" x="16" y="32" width="239" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -791,15 +791,16 @@
                                                 <constraint firstItem="vCt-mf-i25" firstAttribute="leading" secondItem="LU6-uA-MzD" secondAttribute="leading" constant="16" id="6RO-qf-Fhk"/>
                                                 <constraint firstItem="SVP-qo-6rJ" firstAttribute="centerY" secondItem="LU6-uA-MzD" secondAttribute="centerY" id="6aT-5f-XeS"/>
                                                 <constraint firstAttribute="trailing" secondItem="SVP-qo-6rJ" secondAttribute="trailing" constant="16" id="Aw8-NL-9fB"/>
-                                                <constraint firstAttribute="bottom" secondItem="vCt-mf-i25" secondAttribute="bottom" priority="999" constant="32" id="Lo2-DI-u4d"/>
+                                                <constraint firstAttribute="bottom" secondItem="vCt-mf-i25" secondAttribute="bottom" priority="250" constant="32" id="Lo2-DI-u4d"/>
                                                 <constraint firstItem="SVP-qo-6rJ" firstAttribute="leading" secondItem="vCt-mf-i25" secondAttribute="trailing" constant="16" id="MCu-TH-L5H"/>
-                                                <constraint firstItem="SVP-qo-6rJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LU6-uA-MzD" secondAttribute="top" constant="8" id="UDe-e7-I0C"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SVP-qo-6rJ" secondAttribute="bottom" constant="8" id="rGc-SS-soF"/>
+                                                <constraint firstItem="SVP-qo-6rJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LU6-uA-MzD" secondAttribute="top" priority="999" constant="8" id="UDe-e7-I0C"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SVP-qo-6rJ" secondAttribute="bottom" priority="999" constant="8" id="rGc-SS-soF"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="mowzLabel" destination="vCt-mf-i25" id="UeZ-CY-zCv"/>
                                             <outlet property="smoochButton" destination="SVP-qo-6rJ" id="hwi-3G-Ykm"/>
+                                            <outletCollection property="skeletonParts" destination="vCt-mf-i25" collectionClass="NSMutableArray" id="ipq-SC-CfW"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -819,6 +820,21 @@
                                     <action selector="replenishButtonTapped:" destination="jIt-3V-e1y" eventType="touchUpInside" id="nG3-cJ-hcr"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AoK-Nl-Sic">
+                                <rect key="frame" x="271" y="563" width="88" height="88"/>
+                                <color key="backgroundColor" red="0.9075858161" green="0.70953241469999995" blue="0.78551106690000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="DcS-5t-iDY"/>
+                                    <constraint firstAttribute="width" constant="88" id="PhD-Iq-TMy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Reset text!">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetTextButtonTapped:" destination="jIt-3V-e1y" eventType="touchUpInside" id="Rw9-u6-yC3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -826,8 +842,10 @@
                             <constraint firstItem="9St-Vl-orL" firstAttribute="top" secondItem="wXg-cW-ksY" secondAttribute="bottom" constant="16" id="4NS-Ja-bg8"/>
                             <constraint firstItem="wXg-cW-ksY" firstAttribute="top" secondItem="zgI-Ef-Zp0" secondAttribute="bottom" constant="8" id="6LX-Qa-isy"/>
                             <constraint firstItem="zgI-Ef-Zp0" firstAttribute="top" secondItem="Qkk-zt-8kT" secondAttribute="top" id="DBf-9V-uuc"/>
+                            <constraint firstAttribute="trailing" secondItem="AoK-Nl-Sic" secondAttribute="trailing" constant="16" id="InM-fm-eA5"/>
                             <constraint firstAttribute="trailing" secondItem="zgI-Ef-Zp0" secondAttribute="trailing" id="Vw6-cr-yj2"/>
                             <constraint firstItem="zgI-Ef-Zp0" firstAttribute="leading" secondItem="Qkk-zt-8kT" secondAttribute="leading" id="lJt-q1-5gH"/>
+                            <constraint firstItem="9St-Vl-orL" firstAttribute="top" secondItem="AoK-Nl-Sic" secondAttribute="bottom" constant="16" id="uEZ-2N-lE1"/>
                         </constraints>
                     </view>
                     <connections>

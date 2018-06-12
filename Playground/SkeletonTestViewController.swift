@@ -13,7 +13,7 @@ class SkeletonTestViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var skeletonParts: [UIView]!
     private lazy var skeletonView: SkeletonView = {
-        return SkeletonView(referenceParent: self.containerView, referenceParts: self.skeletonParts)
+        return SkeletonView(parentFrame: self.view.frame, roundedCornerParts: self.skeletonParts)
     }()
 
     override func awakeFromNib() {

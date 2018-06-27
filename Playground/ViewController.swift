@@ -182,7 +182,7 @@ class PlaygroundViewController: UIViewController {
     }
 
     func printTest(notif: Notification) {
-        print("A")
+        print("Test")
     }
 
     override func viewDidLayoutSubviews() {

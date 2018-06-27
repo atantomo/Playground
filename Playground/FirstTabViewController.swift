@@ -12,8 +12,8 @@ class FirstTabViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(bottomLayoutGuide.length)
-        print(tabBarController?.bottomLayoutGuide.length)
+//        print(bottomLayoutGuide.length)
+//        print(tabBarController?.bottomLayoutGuide.length)
     }
 
     override func didReceiveMemoryWarning() {

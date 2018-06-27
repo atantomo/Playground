@@ -1,5 +1,5 @@
 //
-//  TableMovementViewController.swift
+//  CollectionMovementViewController.swift
 //  Playground
 //
 //  Created by Andrew Tantomo on 2018/04/24.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class TableMovementViewController: UIViewController {
+class CollectionMovementViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
 
     lazy var dataSourceBackup: [String] = {
         let a = [
@@ -35,16 +35,12 @@ class TableMovementViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        //tableView.estimatedRowHeight = 44.0
-        tableView.rowHeight = UITableViewAutomaticDimension
-
-        let nib = UINib(nibName: "AutoLayoutTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "AutoLayout")
+        collectionView.dataSource = self
 
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(deleteCell(sender:)), name: NotificationName.DeleteCell, object: nil)
     }
+
     override func viewWillAppear(_ animated: Bool) {
         print("A")
     }
@@ -60,69 +56,47 @@ class TableMovementViewController: UIViewController {
 
     @IBAction func replenishButtonTapped(_ sender: Any) {
         dataSource = dataSourceBackup
-        tableView.reloadData()
+        collectionView.reloadData()
     }
 
     @IBAction func resetTextButtonTapped(_ sender: Any) {
         dataSource = dataSourceBackupB
-        tableView.reloadData()
+        collectionView.reloadData()
     }
 
     func deleteCell(sender: Notification) {
 
         let button = sender.object as! UIButton
-        let position = button.superview!.convert(button.center, to: tableView)
-        if let indexPath = tableView.indexPathForRow(at: position) {
+        let position = button.superview!.convert(button.center, to: collectionView)
+        if let indexPath = collectionView.indexPathForItem(at: position) {
 
             dataSource.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .left)
+            collectionView.deleteItems(at: [indexPath])
         }
     }
 
 }
 
-extension TableMovementViewController: UITableViewDataSource {
+extension CollectionMovementViewController: UICollectionViewDataSource {
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "mowz", for: indexPath) as! MowzTableViewCell
-//        cell.mowzLabel.text = dataSource[indexPath.row]
-//        cell.skeletonView.show()
-//        return cell
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AutoLayout", for: indexPath) as! AutoLayoutTableViewCell
-        cell.messageLabel.text = dataSource[indexPath.row]
-        cell.skeletonView.show()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mowz", for: indexPath) as! MowzCollectionViewCell
+        cell.mowzLabel.text = dataSource[indexPath.row]
         return cell
     }
+
 }
 
-class MowzTableViewCell: UITableViewCell {
+class MowzCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var mowzLabel: UILabel!
     @IBOutlet weak var smoochButton: UIButton!
 
-    @IBOutlet var skeletonParts: [UIView]!
-    lazy var skeletonView: SkeletonView = {
-        let view = SkeletonView(parentFrame: self.frame, roundedCornerParts: self.skeletonParts)
-        view.backgroundColor = UIColor.clear
-        return view
-    }()
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        addSubview(skeletonView)
-    }
-
     @IBAction func smoochButtonTapped(_ sender: Any) {
         NotificationCenter.default.post(name: NotificationName.DeleteCell, object: smoochButton)
     }
-}
-
-struct NotificationName {
-
-    static let DeleteCell = NSNotification.Name(rawValue: "DeleteCell")
 }

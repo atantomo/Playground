@@ -53,7 +53,8 @@ class FirstCustomTransitionViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let senderString = sender as? String,
-            let itemVC = segue.destination as? SecondCustomTransitionViewController else {
+            let itemVC = segue.destination as? SecondCustomTransitionViewController,
+            let navVC = navigationController as? CustomNavigationController else {
                 return
         }
         switch senderString {
@@ -61,10 +62,14 @@ class FirstCustomTransitionViewController: UIViewController {
             viewForTransition = productThumbnailView
             let _ = itemVC.view
             itemVC.productMainImageView.image = #imageLiteral(resourceName: "melon-s")
+            itemVC.productMainImageView.contentMode = UIViewContentMode.scaleAspectFit
+            navVC.transitionDelegate.type = CardDrawingTransitionType.expand
         case "event":
             viewForTransition = eventThumbnailView
             let _ = itemVC.view
             itemVC.productMainImageView.image = #imageLiteral(resourceName: "forest_house")
+            itemVC.productMainImageView.contentMode = UIViewContentMode.scaleAspectFill
+            navVC.transitionDelegate.type = CardDrawingTransitionType.uncoverAndExpand
         default:
             break
         }
@@ -86,14 +91,16 @@ extension FirstCustomTransitionViewController: CardDrawingTransitionPresenting {
     }
 }
 
+enum CardDrawingTransitionType {
+    case expand
+    case uncoverAndExpand
+}
+
 class CardDrawingTransition: NSObject {
     let transitionDuration: TimeInterval = 8
     let expandGap: CGFloat = 32.0
-    let presenting: Bool
-
-    init(presenting: Bool) {
-        self.presenting = presenting
-    }
+    var presenting: Bool = true
+    var type: CardDrawingTransitionType = CardDrawingTransitionType.expand
 }
 
 extension CardDrawingTransition: UIViewControllerAnimatedTransitioning {
@@ -117,7 +124,7 @@ extension CardDrawingTransition: UIViewControllerAnimatedTransitioning {
             container.insertSubview(toView, belowSubview: fromView)
         }
 
-        if presenting {
+        if presenting && type == .expand {
 
             guard let presentingVC = transitionContext.viewController(forKey:.from) as? CardDrawingTransitionPresenting,
                 let presentedVC = transitionContext.viewController(forKey:.to) as? CardDrawingTransitionPresented else {
@@ -166,6 +173,81 @@ extension CardDrawingTransition: UIViewControllerAnimatedTransitioning {
                         let transform = scale.concatenating(translate)
 
                         presentingVC.topCardView.transform = transform
+                        print(presentingVC.topCardView.layer.position)
+                    }
+
+                    start += duration
+                    duration = 1 / 12
+
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+                        presentedVC.rootView.alpha = 1
+                    }
+
+                    start += duration
+                    duration = 5 / 12
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+                        presentedVC.rootView.transform = .identity
+                        presentedVC.bottomCardView.transform = .identity
+                    }
+            },
+                completion: { _ in
+                    presentedVC.rootView.backgroundColor = UIColor.white
+                    presentingVC.topCardView.transform = .identity
+                    transitionContext.completeTransition(true)
+            })
+
+        } else if presenting && type == .uncoverAndExpand {
+
+            guard let presentingVC = transitionContext.viewController(forKey:.from) as? CardDrawingTransitionPresenting,
+                let presentedVC = transitionContext.viewController(forKey:.to) as? CardDrawingTransitionPresented else {
+                    return
+            }
+
+            presentingVC.topCardView.superview?.bringSubview(toFront: presentingVC.topCardView)
+
+            presentedVC.rootView.setNeedsLayout()
+            presentedVC.rootView.layoutIfNeeded()
+
+            let originalBounds = presentingVC.topCardView.bounds
+            let destinationBounds = presentedVC.topCardView.bounds
+
+            let originTopCardTransformationScale = (destinationBounds.width - expandGap * 2) / originalBounds.width
+            let destinationTopCardInitialScale = (destinationBounds.width - expandGap * 2) / destinationBounds.width
+
+            let scale = CGAffineTransform(scaleX: destinationTopCardInitialScale, y: destinationTopCardInitialScale)
+            presentedVC.rootView.transform = scale
+
+            presentedVC.bottomCardView.transform = CGAffineTransform(translationX: 0, y: -(presentedVC.bottomCardView.bounds.height))
+            presentedVC.rootView.backgroundColor = UIColor.clear
+
+            UIView.animateKeyframes(
+                withDuration: transitionDuration,
+                delay: 0,
+                options: .calculationModeLinear,
+                animations: {
+
+                    var start: Double = 0
+                    var duration: Double = 6 / 12
+
+                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+
+                        let scale = CGAffineTransform(scaleX: originTopCardTransformationScale, y: originTopCardTransformationScale)
+
+                        let convertedPresentedTopCardCenter = presentedVC.topCardView.superview!.convert(presentedVC.topCardView.center, to: presentedVC.rootView)
+
+                        let presenteRootViewCenter = presentedVC.rootView.center
+
+
+                        let scaledY = presenteRootViewCenter.y - ((presenteRootViewCenter.y - convertedPresentedTopCardCenter.y) * destinationTopCardInitialScale)
+
+                        let translate = CGAffineTransform(translationX: convertedPresentedTopCardCenter.x - presentingVC.topCardView.center.x, y: scaledY - presentingVC.topCardView.center.y)
+
+                        let transform = scale.concatenating(translate)
+
+                        presentingVC.topCardView.transform = transform
+                        print(presentingVC.topCardView.layer.position)
                     }
 
                     start += duration
@@ -232,7 +314,7 @@ extension CardDrawingTransition: UIViewControllerAnimatedTransitioning {
                     UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
 
                         let scale = CGAffineTransform(scaleX: destinationTopCardInitialScale, y: destinationTopCardInitialScale)
-                        presentedVC.rootView.transform = scale
+                        //presentedVC.rootView.bounds = scale
                     }
 
                     start += duration
@@ -550,6 +632,8 @@ extension OpacityTransition: UIViewControllerAnimatedTransitioning {
 
 class CustomNavigationController: UINavigationController {
 
+    var transitionDelegate: CardDrawingTransition = CardDrawingTransition()
+
     var interactionController: UIPercentDrivenInteractiveTransition?
     private var edgeSwipeGestureRecognizer: UIScreenEdgePanGestureRecognizer?
 
@@ -595,10 +679,11 @@ extension CustomNavigationController: UINavigationControllerDelegate {
 
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if operation == .push {
-            return CardDrawingTransition(presenting: true)
+            transitionDelegate.presenting = true
         } else {
-            return CardDrawingTransition(presenting: false)
+            transitionDelegate.presenting = false
         }
+        return transitionDelegate
     }
 
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {

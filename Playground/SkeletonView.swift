@@ -125,16 +125,30 @@ final class SkeletonView: UIView {
     }
 
     private func syncSkeletonFrames() {
+        print("")
+        print("before")
         print(superview?.frame)
+
+
         superview?.setNeedsLayout()
         superview?.layoutIfNeeded()
+
+        print("")
+        print("after")
         print(superview?.frame)
 
         for part in viewParts {
             guard let partSuperview = part.reference.superview else {
                 continue
             }
+            part.reference.setNeedsUpdateConstraints()
+            part.reference.updateConstraintsIfNeeded()
+
             part.skeleton.frame = partSuperview.convert(part.reference.frame, to: superview)
+
+            print("")
+            print("converted")
+            print(partSuperview.convert(part.reference.frame, to: superview))
         }
     }
 

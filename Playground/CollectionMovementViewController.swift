@@ -18,6 +18,7 @@ class CollectionMovementViewController: UIViewController {
             "Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24",
             "Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24",
             "Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24",
+            "Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24",
         ]
         return a //+ a + a
     }()
@@ -37,8 +38,15 @@ class CollectionMovementViewController: UIViewController {
         super.viewDidLoad()
         collectionView.dataSource = self
 
+        let nib = UINib(nibName: "AutoLayoutCollectionViewCell", bundle: nil)
+        collectionView.register(nib, forCellWithReuseIdentifier: "AutoLayout")
+
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(deleteCell(sender:)), name: NotificationName.DeleteCell, object: nil)
+
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -84,8 +92,8 @@ extension CollectionMovementViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mowz", for: indexPath) as! MowzCollectionViewCell
-        cell.mowzLabel.text = dataSource[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AutoLayout", for: indexPath) as! AutoLayoutCollectionViewCell
+        cell.messageLabel.text = dataSource[indexPath.row]
         return cell
     }
 

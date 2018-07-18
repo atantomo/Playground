@@ -86,6 +86,14 @@ extension CollectionMovementViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mowz", for: indexPath) as! MowzCollectionViewCell
         cell.mowzLabel.text = dataSource[indexPath.row]
+
+        cell.mowzHideConstraint.priority = UILayoutPriorityDefaultHigh
+        cell.mowzHideConstraint.priority = UILayoutPriorityDefaultLow
+        cell.mowzHideConstraint.priority = UILayoutPriorityRequired
+//        cell.updateConstraintsIfNeeded()
+//        cell.mowzLeading.priority = UILayoutPriorityRequired
+        cell.setNeedsLayout()
+//        cell.layoutIfNeeded()
         return cell
     }
 
@@ -93,8 +101,23 @@ extension CollectionMovementViewController: UICollectionViewDataSource {
 
 class MowzCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var mowzHideConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mowzLeading: NSLayoutConstraint!
     @IBOutlet weak var mowzLabel: UILabel!
     @IBOutlet weak var smoochButton: UIButton!
+
+//    override func updateConstraints() {
+//        mowzHideConstraint.isActive = true
+//        super.updateConstraints()
+//    }
+//    override func awakeFromNib() {
+//        mowzLeading.priority = UILayoutPriorityDefaultHigh
+//        setNeedsLayout()
+//        layoutIfNeeded()
+//        mowzLeading.priority = UILayoutPriorityRequired
+//        setNeedsLayout()
+//        layoutIfNeeded()
+//    }
 
     @IBAction func smoochButtonTapped(_ sender: Any) {
         NotificationCenter.default.post(name: NotificationName.DeleteCell, object: smoochButton)

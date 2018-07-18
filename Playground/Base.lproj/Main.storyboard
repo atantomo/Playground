@@ -1396,8 +1396,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14Y-vy-INS">
-                                                    <rect key="frame" x="16" y="16" width="118" height="118"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14Y-vy-INS">
+                                                    <rect key="frame" x="75" y="16" width="0.0" height="118"/>
+                                                    <color key="backgroundColor" red="1" green="0.81568627449999997" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" priority="750" id="g6V-R9-dP4"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1405,13 +1409,16 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="14Y-vy-INS" firstAttribute="leading" secondItem="hW5-Rz-W8B" secondAttribute="leading" constant="16" id="9aw-P8-cMW"/>
+                                            <constraint firstItem="14Y-vy-INS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hW5-Rz-W8B" secondAttribute="leading" constant="16" id="9aw-P8-cMW"/>
                                             <constraint firstItem="14Y-vy-INS" firstAttribute="top" secondItem="hW5-Rz-W8B" secondAttribute="top" constant="16" id="Mwy-Nq-LUn"/>
+                                            <constraint firstItem="14Y-vy-INS" firstAttribute="centerX" secondItem="hW5-Rz-W8B" secondAttribute="centerX" id="kD9-g0-lgJ"/>
                                             <constraint firstAttribute="bottom" secondItem="14Y-vy-INS" secondAttribute="bottom" constant="16" id="m2d-AW-XKy"/>
-                                            <constraint firstAttribute="trailing" secondItem="14Y-vy-INS" secondAttribute="trailing" constant="16" id="yli-FO-Jd0"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="14Y-vy-INS" secondAttribute="trailing" constant="16" id="yli-FO-Jd0"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="mowzHideConstraint" destination="g6V-R9-dP4" id="qVc-UE-Ddq"/>
                                             <outlet property="mowzLabel" destination="14Y-vy-INS" id="i4v-qO-XkD"/>
+                                            <outlet property="mowzLeading" destination="9aw-P8-cMW" id="rOa-wI-xwH"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

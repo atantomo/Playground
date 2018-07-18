@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2E80ADC120BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */; };
 		2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */; };
+		2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */; };
+		2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */; };
 		4909802C20A451540078CA4E /* FirstTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909802B20A451540078CA4E /* FirstTabViewController.swift */; };
 		49116FA420E3C24C00C4C31C /* CollectionMovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49116FA320E3C24C00C4C31C /* CollectionMovementViewController.swift */; };
 		491572521DCEA0AD0046AD0D /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491572511DCEA0AD0046AD0D /* CustomView.swift */; };
@@ -39,6 +41,8 @@
 /* Begin PBXFileReference section */
 		2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCustomTransitionViewController.swift; sourceTree = "<group>"; };
+		2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayoutCollectionViewCell.swift; sourceTree = "<group>"; };
+		2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoLayoutCollectionViewCell.xib; sourceTree = "<group>"; };
 		4909802B20A451540078CA4E /* FirstTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabViewController.swift; sourceTree = "<group>"; };
 		49116FA320E3C24C00C4C31C /* CollectionMovementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionMovementViewController.swift; sourceTree = "<group>"; };
 		491572511DCEA0AD0046AD0D /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 				494873F61C53555800B689D3 /* Main.storyboard */,
 				49FDA13E20D071D500750592 /* AutoLayoutTableViewCell.xib */,
 				49FDA14020D0758100750592 /* AutoLayoutTableViewCell.swift */,
+				2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */,
+				2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */,
 				2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */,
 				2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */,
 				4909802B20A451540078CA4E /* FirstTabViewController.swift */,
@@ -201,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				494873FD1C53555800B689D3 /* LaunchScreen.storyboard in Resources */,
+				2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */,
 				494873FA1C53555800B689D3 /* Assets.xcassets in Resources */,
 				49FDA13F20D071D500750592 /* AutoLayoutTableViewCell.xib in Resources */,
 				494873F81C53555800B689D3 /* Main.storyboard in Resources */,
@@ -239,6 +246,7 @@
 				494873F51C53555800B689D3 /* ViewController.swift in Sources */,
 				494873F31C53555800B689D3 /* AppDelegate.swift in Sources */,
 				49172CB01C54ABE70008B61B /* MemeTextField.swift in Sources */,
+				2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */,
 				498BA3F42082E29B00BAF4FB /* ColorSelectViewController.swift in Sources */,
 				49A9803B2072504F00A492D5 /* FirstNavViewController.swift in Sources */,
 				49FDA14120D0758100750592 /* AutoLayoutTableViewCell.swift in Sources */,

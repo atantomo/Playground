@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E318B45210547C500E6EF83 /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E318B44210547C500E6EF83 /* SearchBarViewController.swift */; };
 		2E80ADC120BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */; };
 		2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */; };
 		2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E318B44210547C500E6EF83 /* SearchBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
 		2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayoutCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				499992C7205CA934001871CF /* LabelViewController.swift */,
 				491572511DCEA0AD0046AD0D /* CustomView.swift */,
 				494873F61C53555800B689D3 /* Main.storyboard */,
+				2E318B44210547C500E6EF83 /* SearchBarViewController.swift */,
 				49FDA13E20D071D500750592 /* AutoLayoutTableViewCell.xib */,
 				49FDA14020D0758100750592 /* AutoLayoutTableViewCell.swift */,
 				2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */,
@@ -239,6 +242,7 @@
 			files = (
 				49A9803D2072506500A492D5 /* SecondNavViewController.swift in Sources */,
 				491572521DCEA0AD0046AD0D /* CustomView.swift in Sources */,
+				2E318B45210547C500E6EF83 /* SearchBarViewController.swift in Sources */,
 				49A98041207253D700A492D5 /* StaticNavController.swift in Sources */,
 				49A9803F2072508100A492D5 /* ThirdNavViewController.swift in Sources */,
 				494874051C5371C600B689D3 /* Meme.swift in Sources */,

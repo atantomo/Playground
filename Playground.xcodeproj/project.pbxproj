@@ -33,6 +33,8 @@
 		49A9803F2072508100A492D5 /* ThirdNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9803E2072508100A492D5 /* ThirdNavViewController.swift */; };
 		49A98041207253D700A492D5 /* StaticNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A98040207253D700A492D5 /* StaticNavController.swift */; };
 		49A98043207253EA00A492D5 /* StaticNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A98042207253EA00A492D5 /* StaticNavBar.swift */; };
+		49D169FC210B159500518365 /* NavigationBarDisappearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D169FB210B159500518365 /* NavigationBarDisappearViewController.swift */; };
+		49D169FE210B15A600518365 /* NavigationBarAppearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D169FD210B15A600518365 /* NavigationBarAppearViewController.swift */; };
 		49D56ECE2088D9AF006A32F0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D56ECD2088D9AF006A32F0 /* MapKit.framework */; };
 		49FDA13F20D071D500750592 /* AutoLayoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49FDA13E20D071D500750592 /* AutoLayoutTableViewCell.xib */; };
 		49FDA14120D0758100750592 /* AutoLayoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDA14020D0758100750592 /* AutoLayoutTableViewCell.swift */; };
@@ -67,6 +69,8 @@
 		49A9803E2072508100A492D5 /* ThirdNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdNavViewController.swift; sourceTree = "<group>"; };
 		49A98040207253D700A492D5 /* StaticNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticNavController.swift; sourceTree = "<group>"; };
 		49A98042207253EA00A492D5 /* StaticNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticNavBar.swift; sourceTree = "<group>"; };
+		49D169FB210B159500518365 /* NavigationBarDisappearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarDisappearViewController.swift; sourceTree = "<group>"; };
+		49D169FD210B15A600518365 /* NavigationBarAppearViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarAppearViewController.swift; sourceTree = "<group>"; };
 		49D56ECD2088D9AF006A32F0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		49FDA13E20D071D500750592 /* AutoLayoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AutoLayoutTableViewCell.xib; sourceTree = "<group>"; };
 		49FDA14020D0758100750592 /* AutoLayoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayoutTableViewCell.swift; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 				499992C7205CA934001871CF /* LabelViewController.swift */,
 				491572511DCEA0AD0046AD0D /* CustomView.swift */,
 				494873F61C53555800B689D3 /* Main.storyboard */,
+				49D169FB210B159500518365 /* NavigationBarDisappearViewController.swift */,
+				49D169FD210B15A600518365 /* NavigationBarAppearViewController.swift */,
 				49FDA13E20D071D500750592 /* AutoLayoutTableViewCell.xib */,
 				49FDA14020D0758100750592 /* AutoLayoutTableViewCell.swift */,
 				2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */,
@@ -254,7 +260,9 @@
 				4979EC622063E2FB0024BC6F /* SkeletonTestViewController.swift in Sources */,
 				499992C8205CA934001871CF /* LabelViewController.swift in Sources */,
 				498BA3F2208207AC00BAF4FB /* ColorPageViewController.swift in Sources */,
+				49D169FE210B15A600518365 /* NavigationBarAppearViewController.swift in Sources */,
 				2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */,
+				49D169FC210B159500518365 /* NavigationBarDisappearViewController.swift in Sources */,
 				491C11FC208F44B400C59999 /* ConstrainedLabelViewController.swift in Sources */,
 				2E80ADC120BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift in Sources */,
 				49702DF6208F5A1000064C84 /* TableMovementViewController.swift in Sources */,

@@ -29,6 +29,9 @@ class NavigationBarDisappearViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "icon-heart"), style: .plain, target: self, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage()
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage()
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
 

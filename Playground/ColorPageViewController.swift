@@ -26,9 +26,20 @@ class ButtonedViewController: UIViewController {
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             button.widthAnchor.constraint(equalToConstant: 100),
-            button.heightAnchor.constraint(equalToConstant: 100)
+            button.heightAnchor.constraint(equalToConstant: 100),
+            button.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 50),
+            button.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -50),
+            button.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: 50),
+            button.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -50)
         ])
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+
+
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            view.widthAnchor.constraint(equalToConstant: 300),
+//            view.heightAnchor.constraint(equalToConstant: 300)
+//            ])
 
 //        let leftTapViewFrame = CGRect(x: 0, y: 0, width: 100, height: view.bounds.height)
 //        let leftTapView = UIView(frame: leftTapViewFrame)

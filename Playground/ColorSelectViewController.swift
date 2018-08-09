@@ -11,6 +11,9 @@ import UIKit
 class ColorSelectViewController: UIViewController {
 
     @IBOutlet weak var colorPageView: UIView!
+    @IBOutlet weak var labelContainer: UIView!
+    @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var emptyView: UIView!
 
     @IBOutlet weak var skyButton: UIButton!
     @IBOutlet weak var seaButton: UIButton!
@@ -88,6 +91,18 @@ class ColorSelectViewController: UIViewController {
                 break
             }
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        print(sizeLabel.intrinsicContentSize)
+//        print(labelContainer.intrinsicContentSize)
+
+//        print(sizeLabel.systemLayoutSizeFitting(UILayoutFittingCompressedSize))
+//        print(labelContainer.systemLayoutSizeFitting(UILayoutFittingCompressedSize))
+//        print(colorPageVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize))
+        print(colorPageVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize))
+        print("sizesize")
     }
     
     @IBAction func colorPageButtonTapped(_ sender: Any) {
@@ -196,3 +211,19 @@ class ColorSelectViewController: UIViewController {
 
 
 }
+
+//class IntrinsicSizedPageViewController: UIPageViewController {
+//
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//
+//        if __CGSizeEqualToSize(bounds.size, intrinsicContentSize) {
+//            invalidateIntrinsicContentSize()
+//        }
+//    }
+//
+//    override var intrinsicContentSize: CGSize {
+//
+//        return collectionViewLayout.collectionViewContentSize
+//    }
+//}

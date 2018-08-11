@@ -81,7 +81,6 @@ class ButtonedViewController: UIViewController {
         }
     }
 
-
     func buttonTapped(button: UIButton) {
         pageVC.setViewControllers([pageVC.childVCs.last!], direction: UIPageViewControllerNavigationDirection.reverse, animated: true) { (completed) in
             if !completed {
@@ -123,6 +122,7 @@ class ColorPageViewController: UIPageViewController {
     }()
 
     var pageChangeHandler: (([UIViewController]) -> (Void))?
+    var scrollView: UIScrollView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -161,13 +161,23 @@ class ColorPageViewController: UIPageViewController {
                 UIApplication.shared.endIgnoringInteractionEvents()
             }
         }
+
+        scrollView = traverseScrollView()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+    func traverseScrollView() -> UIScrollView? {
+        for v in view.subviews{
+            if v.isKind(of: UIScrollView){
+                return v as! UIScrollView
+            }
+        }
+        return nil
+    }
 
     /*
     // MARK: - Navigation
@@ -225,7 +235,10 @@ extension ColorPageViewController: UIPageViewControllerDelegate {
         }
         pageChangeHandler?(pageViewController.viewControllers!)
     }
-    
+
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        print("a")
+    }
     
 }
 

@@ -93,6 +93,17 @@ class ColorSelectViewController: UIViewController {
         }
     }
 
+    @IBAction func buttonTapped(button: UIButton) {
+        colorPageVC.scrollView?.isScrollEnabled = false
+        colorPageVC.setViewControllers([colorPageVC.childVCs[1]], direction: UIPageViewControllerNavigationDirection.reverse, animated: true) { (completed) in
+//            if !completed {
+//                self.colorPageVC.scrollView?.isScrollEnabled = true
+//                return
+//            }
+            self.colorPageVC.scrollView?.isScrollEnabled = true
+        }
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        print(sizeLabel.intrinsicContentSize)

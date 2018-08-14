@@ -30,7 +30,8 @@ class CuteCollectionViewCell: UICollectionViewCell {
         let labelWidth = width - labelSidePadding
         let labelHeight = getTextHeight(text: text, font: theLabel.font, width: labelWidth)
 
-        return imageHeight + labelHeight + cellPaddingHeight
+        let sum = imageHeight + labelHeight + cellPaddingHeight
+        return sum
     }
 
     func getConstantsSum(constraints: [NSLayoutConstraint]) -> CGFloat {
@@ -47,6 +48,6 @@ class CuteCollectionViewCell: UICollectionViewCell {
                                      options: [.usesLineFragmentOrigin],
                                      attributes: [NSFontAttributeName: font],
                                      context: nil).size
-        return size.height
+        return size.height + 2
     }
 }

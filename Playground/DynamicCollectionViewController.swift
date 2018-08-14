@@ -15,6 +15,20 @@ struct DynamicCollectionViewControllerData {
         "Love Love Love Love Love",
         "Love Love Love Love Love Love Love",
         "Love Love Love Love Love Love Love Love Love",
+        "Love",
+        "Love Love Love",
+        "Love Love Love Love Love",
+        "Love Love Love Love Love Love Love",
+        "Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love",
+        "Love",
+        "Love Love Love",
+        "Love Love Love Love Love",
+        "Love Love Love Love Love Love Love",
+        "Love Love Love Love Love Love Love Love Love",
+        "Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love",
+        "Love Love Love",
+        "Love Love Love Love Love",
+        "Love Love Love Love Love Love Love"
         ]
 }
 
@@ -23,9 +37,25 @@ class DynamicCollectionViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewDidLoad() {
-        for i in stride(from: 0, to: 5, by: 2) {
-            print(i)
-        }
+        collectionView.register(UINib(nibName: "CuteCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "heart")
+
+//        collectionView.register(PillarCollectionReusableView.self, forSupplementaryViewOfKind: "decoration", withReuseIdentifier: "pillar")
+
+//        let n = UINib(nibName: "PillarCollectionReusableView", bundle: nil).instantiate(withOwner: self, options: nil).first
+//        print(n)
+        collectionView.dataSource = self
+
+//        let heights = DynamicCollectionViewControllerData.data.map { d in
+//            self.getTextHeight(text: d, font: UIFont.systemFont(ofSize: 17.0), width: 155)
+//
+//        }
+//        print(heights)
+//        print(heights)
+
+
+//        for i in stride(from: 0, to: 5, by: 2) {
+//            print(i)
+//        }
 //        collectionView.removeFromSuperview()
 ////        let h1 = measurementModel.heightForWidth(width: 137, text: data[0])
 ////        let h2 = measurementModel.heightForWidth(width: 137, text: data[1])
@@ -49,13 +79,21 @@ class DynamicCollectionViewController: UIViewController {
 //            ])
     }
 
-    lazy var measurementModel: CuteCollectionViewCell = {
-        let nib = UINib(nibName: "CuteCollectionViewCell", bundle: nil)
-        guard let view = nib.instantiate(withOwner: self, options: nil).first as? CuteCollectionViewCell else {
-            fatalError()
-        }
-        return view
-    }()
+//    lazy var measurementModel: CuteCollectionViewCell = {
+//        let nib = UINib(nibName: "CuteCollectionViewCell", bundle: nil)
+//        guard let view = nib.instantiate(withOwner: self, options: nil).first as? CuteCollectionViewCell else {
+//            fatalError()
+//        }
+//        return view
+//    }()
+
+    func getTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
+        let size = text.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
+                                     options: [.usesLineFragmentOrigin],
+                                     attributes: [NSFontAttributeName: font],
+                                     context: nil).size
+        return size.height
+    }
 }
 
 extension DynamicCollectionViewController: UICollectionViewDataSource {
@@ -72,4 +110,9 @@ extension DynamicCollectionViewController: UICollectionViewDataSource {
         cell.theLabel.text = DynamicCollectionViewControllerData.data[indexPath.row]
         return cell
     }
+
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        let dequeuedView = collectionView.dequeueReusableSupplementaryView(ofKind: "decoration", withReuseIdentifier: "pillar", for: indexPath)
+//        return dequeuedView
+//    }
 }

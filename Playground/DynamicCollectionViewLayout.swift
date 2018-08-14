@@ -25,6 +25,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }()
 
     lazy var rowHeights: [CGFloat] = {
+        print(self.collectionView!.bounds.size.width)
         let rawHeights = DynamicCollectionViewControllerData.data.map { text -> CGFloat in
             let h = self.measurementModel.heightForWidth(width: self.collectionView!.bounds.size.width / 2, text: text)
             return h
@@ -40,6 +41,16 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         }
         return heights
     }()
+
+    override init() {
+        super.init()
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "decoration")
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "decoration")
+    }
 
     override var collectionViewContentSize: CGSize {
         let contentWidth = collectionView!.bounds.size.width
@@ -62,10 +73,41 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let visibleIndexPaths = indexPathsOfItemsInRect(rect: rect)
         for indexPath in visibleIndexPaths {
             if let attributes = layoutAttributesForItem(at: indexPath) {
-            layoutAttributes.append(attributes)
+                layoutAttributes.append(attributes)
+            }
+        }
+
+        let pillarIndexPaths = indexPathsOfPillarInRect(rect: rect)
+        for pillarIndexPath in pillarIndexPaths {
+            if let attributes = layoutAttributesForDecorationView(ofKind: "decoration", at: pillarIndexPath) {
+                layoutAttributes.append(attributes)
             }
         }
         return layoutAttributes
+    }
+
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        attributes.frame = frameForItem(at: indexPath)
+        return attributes;
+    }
+
+    override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
+
+        let columnWidth = collectionViewContentSize.width / 2
+
+        attributes.frame = CGRect(x: columnWidth, y: 0, width: 2, height: collectionViewContentSize.height)
+        attributes.zIndex = 10
+        return attributes;
+    }
+
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        return true
+    }
+
+    private func indexPathsOfPillarInRect(rect: CGRect) -> [IndexPath] {
+        return [IndexPath(row: 0, section: 0)]
     }
 
     private func indexPathsOfItemsInRect(rect: CGRect) -> [IndexPath] {
@@ -76,8 +118,8 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let maxVisibleRow = rowIndexFromYCoordinate(yPosition: rect.maxY)
 
         var indexes = [Int]()
-        let startingIndex = 2 * minVisibleRow + minVisibleColumn
-        indexes.append(startingIndex)
+//        let startingIndex = 2 * minVisibleRow + minVisibleColumn
+//        indexes.append(startingIndex)
 
 
         var firstColumnIndexes = [Int]()
@@ -86,28 +128,29 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
             firstColumnIndexes.append(firstColumnIndex)
         }
 
-        for i in 0..<(maxVisibleColumn - minVisibleColumn) {
+        for i in 0...(maxVisibleColumn - minVisibleColumn) {
             for j in firstColumnIndexes {
                 let columnIndex = j + i
-                indexes.append(columnIndex)
+                if columnIndex < DynamicCollectionViewControllerData.data.count {
+                    indexes.append(columnIndex)
+                }
             }
         }
         return indexes.map { index in
             return IndexPath(row: index, section: 0)
         }
-
     }
 
     private func columnIndexFromXCoordinate(xPosition: CGFloat) -> Int {
         let contentWidth = collectionViewContentSize.width // - HourHeaderWidth;
-        let widthPerColumn = contentWidth / 2 // need to subtract separator;
+        let widthPerColumn = (contentWidth + 1) / 2 // need to subtract separator;
         let columnIndex = max(0, Int(xPosition / widthPerColumn))
         return columnIndex
     }
 
     private func rowIndexFromYCoordinate(yPosition: CGFloat) -> Int {
 //        let contentHeight = collectionViewContentSize.height // - HourHeaderWidth;
-
+//        print(rowHeights)
         var yPositionMutable = yPosition
         for (index, rowHeight) in rowHeights.enumerated() {
             yPositionMutable -= rowHeight
@@ -115,6 +158,23 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
                 return index
             }
         }
-        return 0
+        return rowHeights.count - 1
     }
+
+    private func frameForItem(at indexPath: IndexPath) -> CGRect {
+        let columnWidth = collectionViewContentSize.width / 2
+        let index = CGFloat(indexPath.row)
+
+        let columnCount: CGFloat = 2
+        let x = index.truncatingRemainder(dividingBy: columnCount) * columnWidth
+
+        let rowIndex = Int(index / 2)
+        let y = rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
+            return lhs + rhs
+        }
+
+        let frame = CGRect(x: x, y: y, width: columnWidth, height: rowHeights[rowIndex])
+        return frame
+    }
+    
 }

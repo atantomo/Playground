@@ -16,6 +16,8 @@
 		2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */; };
 		2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */; };
 		2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */; };
+		490224B22122EEF8009E9AC4 /* PillarCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 490224B12122EEF8009E9AC4 /* PillarCollectionReusableView.xib */; };
+		490224B42122EF7E009E9AC4 /* PillarCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490224B32122EF7E009E9AC4 /* PillarCollectionReusableView.swift */; };
 		4909802C20A451540078CA4E /* FirstTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909802B20A451540078CA4E /* FirstTabViewController.swift */; };
 		49116FA420E3C24C00C4C31C /* CollectionMovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49116FA320E3C24C00C4C31C /* CollectionMovementViewController.swift */; };
 		491572521DCEA0AD0046AD0D /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491572511DCEA0AD0046AD0D /* CustomView.swift */; };
@@ -55,6 +57,8 @@
 		2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayoutCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoLayoutCollectionViewCell.xib; sourceTree = "<group>"; };
+		490224B12122EEF8009E9AC4 /* PillarCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PillarCollectionReusableView.xib; sourceTree = "<group>"; };
+		490224B32122EF7E009E9AC4 /* PillarCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillarCollectionReusableView.swift; sourceTree = "<group>"; };
 		4909802B20A451540078CA4E /* FirstTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabViewController.swift; sourceTree = "<group>"; };
 		49116FA320E3C24C00C4C31C /* CollectionMovementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionMovementViewController.swift; sourceTree = "<group>"; };
 		491572511DCEA0AD0046AD0D /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 				2E7FB43A21225791000A852D /* DynamicCollectionViewLayout.swift */,
 				2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */,
 				2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */,
+				490224B12122EEF8009E9AC4 /* PillarCollectionReusableView.xib */,
+				490224B32122EF7E009E9AC4 /* PillarCollectionReusableView.swift */,
 				2E318B44210547C500E6EF83 /* SearchBarViewController.swift */,
 				49D169FB210B159500518365 /* NavigationBarDisappearViewController.swift */,
 				49D169FD210B15A600518365 /* NavigationBarAppearViewController.swift */,
@@ -230,6 +236,7 @@
 				494873FD1C53555800B689D3 /* LaunchScreen.storyboard in Resources */,
 				2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */,
 				494873FA1C53555800B689D3 /* Assets.xcassets in Resources */,
+				490224B22122EEF8009E9AC4 /* PillarCollectionReusableView.xib in Resources */,
 				2E7FB43521225123000A852D /* CuteCollectionViewCell.xib in Resources */,
 				49FDA13F20D071D500750592 /* AutoLayoutTableViewCell.xib in Resources */,
 				494873F81C53555800B689D3 /* Main.storyboard in Resources */,
@@ -280,6 +287,7 @@
 				4979EC622063E2FB0024BC6F /* SkeletonTestViewController.swift in Sources */,
 				499992C8205CA934001871CF /* LabelViewController.swift in Sources */,
 				498BA3F2208207AC00BAF4FB /* ColorPageViewController.swift in Sources */,
+				490224B42122EF7E009E9AC4 /* PillarCollectionReusableView.swift in Sources */,
 				49D169FE210B15A600518365 /* NavigationBarAppearViewController.swift in Sources */,
 				2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */,
 				49D169FC210B159500518365 /* NavigationBarDisappearViewController.swift in Sources */,

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2E318B45210547C500E6EF83 /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E318B44210547C500E6EF83 /* SearchBarViewController.swift */; };
+		2E7FB43521225123000A852D /* CuteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */; };
+		2E7FB43721225208000A852D /* CuteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */; };
+		2E7FB43921225518000A852D /* DynamicCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */; };
+		2E7FB43B21225791000A852D /* DynamicCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FB43A21225791000A852D /* DynamicCollectionViewLayout.swift */; };
 		2E80ADC120BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */; };
 		2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */; };
 		2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */; };
@@ -43,6 +47,10 @@
 
 /* Begin PBXFileReference section */
 		2E318B44210547C500E6EF83 /* SearchBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
+		2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CuteCollectionViewCell.xib; sourceTree = "<group>"; };
+		2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuteCollectionViewCell.swift; sourceTree = "<group>"; };
+		2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCollectionViewController.swift; sourceTree = "<group>"; };
+		2E7FB43A21225791000A852D /* DynamicCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCollectionViewLayout.swift; sourceTree = "<group>"; };
 		2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayoutCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -120,6 +128,10 @@
 				499992C7205CA934001871CF /* LabelViewController.swift */,
 				491572511DCEA0AD0046AD0D /* CustomView.swift */,
 				494873F61C53555800B689D3 /* Main.storyboard */,
+				2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */,
+				2E7FB43A21225791000A852D /* DynamicCollectionViewLayout.swift */,
+				2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */,
+				2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */,
 				2E318B44210547C500E6EF83 /* SearchBarViewController.swift */,
 				49D169FB210B159500518365 /* NavigationBarDisappearViewController.swift */,
 				49D169FD210B15A600518365 /* NavigationBarAppearViewController.swift */,
@@ -218,6 +230,7 @@
 				494873FD1C53555800B689D3 /* LaunchScreen.storyboard in Resources */,
 				2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */,
 				494873FA1C53555800B689D3 /* Assets.xcassets in Resources */,
+				2E7FB43521225123000A852D /* CuteCollectionViewCell.xib in Resources */,
 				49FDA13F20D071D500750592 /* AutoLayoutTableViewCell.xib in Resources */,
 				494873F81C53555800B689D3 /* Main.storyboard in Resources */,
 			);
@@ -252,12 +265,15 @@
 				49A98041207253D700A492D5 /* StaticNavController.swift in Sources */,
 				49A9803F2072508100A492D5 /* ThirdNavViewController.swift in Sources */,
 				494874051C5371C600B689D3 /* Meme.swift in Sources */,
+				2E7FB43B21225791000A852D /* DynamicCollectionViewLayout.swift in Sources */,
+				2E7FB43721225208000A852D /* CuteCollectionViewCell.swift in Sources */,
 				49116FA420E3C24C00C4C31C /* CollectionMovementViewController.swift in Sources */,
 				494873F51C53555800B689D3 /* ViewController.swift in Sources */,
 				494873F31C53555800B689D3 /* AppDelegate.swift in Sources */,
 				49172CB01C54ABE70008B61B /* MemeTextField.swift in Sources */,
 				2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */,
 				498BA3F42082E29B00BAF4FB /* ColorSelectViewController.swift in Sources */,
+				2E7FB43921225518000A852D /* DynamicCollectionViewController.swift in Sources */,
 				49A9803B2072504F00A492D5 /* FirstNavViewController.swift in Sources */,
 				49FDA14120D0758100750592 /* AutoLayoutTableViewCell.swift in Sources */,
 				4979EC5F2063DDE40024BC6F /* SkeletonView.swift in Sources */,

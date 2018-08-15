@@ -12,6 +12,7 @@ class CuteCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var theImageView: UIImageView!
     @IBOutlet weak var theLabel: UILabel!
+    @IBOutlet weak var theButton: UIButton!
 
     @IBOutlet var heightCalculationConstraints: [NSLayoutConstraint]!
     @IBOutlet var labelSideConstraints: [NSLayoutConstraint]!
@@ -50,5 +51,9 @@ class CuteCollectionViewCell: UICollectionViewCell {
                                      context: nil).size
         let ceilHeight = ceil(size.height)
         return ceilHeight
+    }
+
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        NotificationCenter.default.post(name: NotificationName.DeleteCell, object: theButton)
     }
 }

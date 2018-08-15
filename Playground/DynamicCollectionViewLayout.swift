@@ -8,15 +8,15 @@
 
 import UIKit
 
-public extension Array {
-    subscript(safe idx: Int) -> Element? {
-        return idx < endIndex ? self[idx] : nil
-    }
-}
+//public extension Array {
+//    subscript(safe idx: Int) -> Element? {
+//        return idx < endIndex ? self[idx] : nil
+//    }
+//}
 
 class DynamicCollectionViewLayout: UICollectionViewLayout {
 
-    let columnCount: Int = 5
+    let columnCount: Int = 2
     let separatorWidth: CGFloat = 1
     let separatorZIndex: Int = 10
 
@@ -30,11 +30,15 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     lazy var cellWidth: CGFloat = {
         let totalWidth = self.collectionView?.bounds.size.width ?? 0.0
-//        let contentWidth = totalWidth - self.separatorWidth
-//        let width = contentWidth / self.columnCountCGFloat
-        let width = totalWidth / self.columnCountCGFloat
+        let contentWidth = totalWidth - self.separatorWidth * CGFloat(self.columnCount - 1)
+        let width = contentWidth / self.columnCountCGFloat
+//        let width = totalWidth / self.columnCountCGFloat
         return width
     }()
+
+    var cellAndSeparatorWidth: CGFloat {
+        return cellWidth + separatorWidth
+    }
     
     lazy var measurementCell: CuteCollectionViewCell = {
         let nib = UINib(nibName: "CuteCollectionViewCell", bundle: nil)
@@ -44,18 +48,20 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return cell
     }()
 
-    lazy var rowHeights: [CGFloat] = {
+    var rowHeights: [CGFloat] = [CGFloat]()
+
+    func calculateRowHeights() -> [CGFloat] {
         let cellHeights = DynamicCollectionViewControllerData.data.map { text -> CGFloat in
-            let height = self.measurementCell.heightForWidth(width: self.cellWidth, text: text)
+            let height = measurementCell.heightForWidth(width: cellWidth, text: text)
             return height
         }
 
-        let lastCellIndex = self.cellCount - 1
+        let lastCellIndex = cellCount - 1
         var rowHeights = [CGFloat]()
-        for i in stride(from: 0, to: self.cellCount, by: self.columnCount) {
+        for i in stride(from: 0, to: cellCount, by: columnCount) {
 
             let leftmostCellIndex = i
-            var rightmostCellIndex = i + self.columnCount - 1
+            var rightmostCellIndex = i + columnCount - 1
 
             let cellExistsAtRightmostIndex = rightmostCellIndex <= lastCellIndex
             if !cellExistsAtRightmostIndex {
@@ -65,7 +71,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
             rowHeights.append(maxCellHeight)
         }
         return rowHeights
-    }()
+    }
 
     override init() {
         super.init()
@@ -86,8 +92,9 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return contentSize;
     }
 
-//    override func prepare() {
-//    }
+    override func prepare() {
+        rowHeights = calculateRowHeights()
+    }
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
@@ -172,13 +179,14 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     private func columnIndexFromXCoordinate(xPosition: CGFloat) -> Int {
         let xPositionWithOffset = xPosition - 1
 
-        let contentWidth = collectionViewContentSize.width
-        let widthPerColumn = contentWidth / columnCountCGFloat
-        let columnIndex = Int(xPositionWithOffset / widthPerColumn)
+        let columnIndex = Int(xPositionWithOffset / cellAndSeparatorWidth)
         return columnIndex
     }
 
     private func rowIndexFromYCoordinate(yPosition: CGFloat) -> Int {
+        guard !rowHeights.isEmpty else {
+            return 0
+        }
         var yPositionMutable = yPosition
         for (rowIndex, rowHeight) in rowHeights.enumerated() {
             yPositionMutable -= rowHeight
@@ -194,7 +202,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let index = indexPath.row
 
         let columnIndex = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount))
-        let x = columnIndex * cellWidth
+        let x = columnIndex * cellAndSeparatorWidth
 
         let rowIndex = index / columnCount
         let y = rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
@@ -210,15 +218,19 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let index = indexPath.row
         let interimMultiplier = index + 1
 
-        let lastRowCellCount = CGFloat(cellCount).truncatingRemainder(dividingBy: CGFloat(columnCount))
+        var lastRowCellCount = CGFloat(cellCount).truncatingRemainder(dividingBy: CGFloat(columnCount))
+        if lastRowCellCount == 0 {
+            lastRowCellCount = CGFloat(columnCount)
+        }
         let lastCellColumnIndex = Int(lastRowCellCount - 1)
 
         var separatorHeight = collectionViewContentSize.height
-        if index >= lastCellColumnIndex {
+        let doesNotHaveCellInLastRow = index >= lastCellColumnIndex
+        if doesNotHaveCellInLastRow {
             separatorHeight -= rowHeights.last ?? 0
         }
 
-        let x = CGFloat(interimMultiplier) * cellWidth - (separatorWidth / 2)
+        let x = CGFloat(interimMultiplier) * cellAndSeparatorWidth - separatorWidth
         let frame = CGRect(x: x, y: 0, width: separatorWidth, height: separatorHeight)
         return frame
     }

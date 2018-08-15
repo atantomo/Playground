@@ -9,7 +9,7 @@
 import UIKit
 
 struct DynamicCollectionViewControllerData {
-    static let data: [String] = [
+    static var data: [String] = [
         "Love",
         "Love Love Love",
         "Love Love Love Love Love",
@@ -28,13 +28,14 @@ struct DynamicCollectionViewControllerData {
         "Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love",
         "Love Love Love",
         "Love Love Love Love Love",
-        "Love Love Love Love Love Love Love"
+//        "Love Love Love Love Love Love Love"
         ]
 }
 
 class DynamicCollectionViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionViewLayout: DynamicCollectionViewLayout!
 
     override func viewDidLoad() {
         collectionView.register(UINib(nibName: "CuteCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "heart")
@@ -44,6 +45,8 @@ class DynamicCollectionViewController: UIViewController {
 //        let n = UINib(nibName: "PillarCollectionReusableView", bundle: nil).instantiate(withOwner: self, options: nil).first
 //        print(n)
         collectionView.dataSource = self
+
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteCell(sender:)), name: NotificationName.DeleteCell, object: nil)
 
 //        let heights = DynamicCollectionViewControllerData.data.map { d in
 //            self.getTextHeight(text: d, font: UIFont.systemFont(ofSize: 17.0), width: 155)
@@ -87,12 +90,28 @@ class DynamicCollectionViewController: UIViewController {
 //        return view
 //    }()
 
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NotificationName.DeleteCell, object: nil)
+    }
+
     func getTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
         let size = text.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
                                      options: [.usesLineFragmentOrigin],
                                      attributes: [NSFontAttributeName: font],
                                      context: nil).size
         return size.height
+    }
+
+    func deleteCell(sender: Notification) {
+
+        let button = sender.object as! UIButton
+        let position = button.superview!.convert(button.center, to: collectionView)
+        if let indexPath = collectionView.indexPathForItem(at: position) {
+
+            DynamicCollectionViewControllerData.data.remove(at: indexPath.row)
+            collectionView.deleteItems(at: [indexPath])
+//            collectionViewLayout.invalidateLayout()
+        }
     }
 }
 

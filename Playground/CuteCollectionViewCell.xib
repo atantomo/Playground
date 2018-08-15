@@ -36,7 +36,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Love Love Love Love Love Love Love Love Love" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcH-Z4-ZRg">
                                         <rect key="frame" x="16" y="16" width="123" height="61"/>
-                                        <color key="backgroundColor" red="0.85490196080000003" green="0.85490196080000003" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.9075858161" green="0.70953241469999995" blue="0.78551106690000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -50,6 +50,20 @@
                                     <constraint firstAttribute="bottom" secondItem="KcH-Z4-ZRg" secondAttribute="bottom" constant="16" id="ufy-fD-WmN"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05Q-Xl-ic5">
+                                <rect key="frame" x="115" y="0.0" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="gSJ-Lm-ZdQ"/>
+                                    <constraint firstAttribute="height" constant="40" id="lub-Ng-Z9j"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="✖︎">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteButtonTapped:" destination="Fnc-VD-RN3" eventType="touchUpInside" id="eeS-bN-BXP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -57,9 +71,11 @@
                             <constraint firstItem="w4T-Xd-wbi" firstAttribute="leading" secondItem="q0q-KC-dVn" secondAttribute="leading" id="9Vq-oQ-uZM"/>
                             <constraint firstItem="tlB-xq-Jx2" firstAttribute="top" secondItem="w4T-Xd-wbi" secondAttribute="bottom" id="BMN-bX-grp"/>
                             <constraint firstItem="tlB-xq-Jx2" firstAttribute="leading" secondItem="q0q-KC-dVn" secondAttribute="leading" id="CRR-4W-KwO"/>
+                            <constraint firstItem="05Q-Xl-ic5" firstAttribute="top" secondItem="q0q-KC-dVn" secondAttribute="top" id="MSu-NO-vyO"/>
                             <constraint firstAttribute="bottom" secondItem="tlB-xq-Jx2" secondAttribute="bottom" id="N7n-CY-BFz"/>
                             <constraint firstItem="w4T-Xd-wbi" firstAttribute="top" secondItem="q0q-KC-dVn" secondAttribute="top" id="VT7-IK-uyC"/>
                             <constraint firstAttribute="trailing" secondItem="w4T-Xd-wbi" secondAttribute="trailing" id="u4L-5G-KRs"/>
+                            <constraint firstAttribute="trailing" secondItem="05Q-Xl-ic5" secondAttribute="trailing" id="vbE-kQ-pHE"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -73,6 +89,7 @@
             <viewLayoutGuide key="safeArea" id="mr3-Xo-hGv"/>
             <size key="customSize" width="155" height="245"/>
             <connections>
+                <outlet property="theButton" destination="05Q-Xl-ic5" id="ejp-Ft-JWb"/>
                 <outlet property="theImageView" destination="w4T-Xd-wbi" id="Bj6-7V-P3a"/>
                 <outlet property="theLabel" destination="KcH-Z4-ZRg" id="Q5K-FS-pGb"/>
                 <outletCollection property="heightCalculationConstraints" destination="ePH-gI-LiO" collectionClass="NSMutableArray" id="xdS-aD-eUG"/>

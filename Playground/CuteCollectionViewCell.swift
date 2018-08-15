@@ -48,6 +48,7 @@ class CuteCollectionViewCell: UICollectionViewCell {
                                      options: [.usesLineFragmentOrigin],
                                      attributes: [NSFontAttributeName: font],
                                      context: nil).size
-        return size.height + 2
+        let ceilHeight = ceil(size.height)
+        return ceilHeight
     }
 }

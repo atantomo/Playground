@@ -16,7 +16,7 @@ public extension Array {
 
 class DynamicCollectionViewLayout: UICollectionViewLayout {
 
-    let columnCount: Int = 2
+    let columnCount: Int = 5
     let separatorWidth: CGFloat = 1
     let separatorZIndex: Int = 10
 
@@ -57,8 +57,8 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
             let leftmostCellIndex = i
             var rightmostCellIndex = i + self.columnCount - 1
 
-            let isRightmostIndexNotActualCell = rightmostCellIndex > lastCellIndex
-            if isRightmostIndexNotActualCell {
+            let cellExistsAtRightmostIndex = rightmostCellIndex <= lastCellIndex
+            if !cellExistsAtRightmostIndex {
                 rightmostCellIndex = lastCellIndex
             }
             let maxCellHeight = cellHeights[leftmostCellIndex...rightmostCellIndex].max() ?? 0
@@ -99,7 +99,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
             }
         }
 
-        let pillarIndexPaths = indexPathsOfPillarInRect(rect: rect)
+        let pillarIndexPaths = indexPathsOfSeparatorInRect(rect: rect)
         for pillarIndexPath in pillarIndexPaths {
             if let attributes = layoutAttributesForDecorationView(ofKind: "decoration", at: pillarIndexPath) {
                 layoutAttributes.append(attributes)
@@ -116,18 +116,15 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
-        attributes.frame = frameForSeparator()
+        attributes.frame = frameForSeparator(at: indexPath)
         attributes.zIndex = separatorZIndex
         return attributes
     }
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return true
-    }
-
-    private func indexPathsOfPillarInRect(rect: CGRect) -> [IndexPath] {
-        let theOnlyIndex = IndexPath(row: 0, section: 0)
-        return [theOnlyIndex]
+        let oldBounds = collectionView?.bounds
+        let areBoundsChanged = newBounds.width != oldBounds?.width
+        return areBoundsChanged
     }
 
     private func indexPathsOfItemsInRect(rect: CGRect) -> [IndexPath] {
@@ -151,6 +148,20 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
                     indexes.append(columnIndex)
                 }
             }
+        }
+        let indexPaths = indexes.map { index in
+            return IndexPath(row: index, section: 0)
+        }
+        return indexPaths
+    }
+
+    private func indexPathsOfSeparatorInRect(rect: CGRect) -> [IndexPath] {
+        let minColumnIndex = columnIndexFromXCoordinate(xPosition: rect.minX)
+        let maxColumnIndex = columnIndexFromXCoordinate(xPosition: rect.maxX)
+
+        var indexes = [Int]()
+        for i in minColumnIndex..<maxColumnIndex {
+            indexes.append(i)
         }
         let indexPaths = indexes.map { index in
             return IndexPath(row: index, section: 0)
@@ -195,9 +206,20 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return frame
     }
 
-    private func frameForSeparator() -> CGRect {
-        let x = cellWidth - (separatorWidth / 2)
-        let frame = CGRect(x: x, y: 0, width: separatorWidth, height: collectionViewContentSize.height)
+    private func frameForSeparator(at indexPath: IndexPath) -> CGRect {
+        let index = indexPath.row
+        let interimMultiplier = index + 1
+
+        let lastRowCellCount = CGFloat(cellCount).truncatingRemainder(dividingBy: CGFloat(columnCount))
+        let lastCellColumnIndex = Int(lastRowCellCount - 1)
+
+        var separatorHeight = collectionViewContentSize.height
+        if index >= lastCellColumnIndex {
+            separatorHeight -= rowHeights.last ?? 0
+        }
+
+        let x = CGFloat(interimMultiplier) * cellWidth - (separatorWidth / 2)
+        let frame = CGRect(x: x, y: 0, width: separatorWidth, height: separatorHeight)
         return frame
     }
     

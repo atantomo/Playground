@@ -16,6 +16,8 @@ public extension Array {
 
 class DynamicCollectionViewLayout: UICollectionViewLayout {
 
+    let columnCount: Int = 2
+    
     lazy var measurementModel: CuteCollectionViewCell = {
         let nib = UINib(nibName: "CuteCollectionViewCell", bundle: nil)
         guard let view = nib.instantiate(withOwner: self, options: nil).first as? CuteCollectionViewCell else {
@@ -25,21 +27,23 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }()
 
     lazy var rowHeights: [CGFloat] = {
-        print(self.collectionView!.bounds.size.width)
-        let rawHeights = DynamicCollectionViewControllerData.data.map { text -> CGFloat in
-            let h = self.measurementModel.heightForWidth(width: self.collectionView!.bounds.size.width / 2, text: text)
-            return h
+        let cellHeights = DynamicCollectionViewControllerData.data.map { text -> CGFloat in
+            let height = self.measurementModel.heightForWidth(width: self.collectionView!.bounds.size.width / 2, text: text)
+            return height
         }
+        var rowHeights = [CGFloat]()
+        for i in stride(from: 0, to: cellHeights.count, by: self.columnCount) {
 
-        var heights = [CGFloat]()
-        for i in stride(from: 0, to: rawHeights.count, by: 2) {
+            let leftmostCellIndex = i
+            var rightmostCellIndex = i + self.columnCount - 1
+            if rightmostCellIndex > cellHeights.count - 1 {
+                rightmostCellIndex = cellHeights.count - 1
+            }
 
-            let lhs = rawHeights[i]
-            let rhs = rawHeights[safe: (i + 1)] ?? 0.0
-            let maxRowHeight = max(lhs, rhs)
-            heights.append(maxRowHeight)
+            let maxCellHeight = cellHeights[leftmostCellIndex...rightmostCellIndex].max() ?? 0
+            rowHeights.append(maxCellHeight)
         }
-        return heights
+        return rowHeights
     }()
 
     override init() {
@@ -61,11 +65,8 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return contentSize;
     }
 
-    override func prepare() {
-//        DynamicCollectionViewControllerData.data.map
-
-//        let h3 = measurementModel.heightForWidth(width: 137, text: DynamicCollectionViewControllerData.data[2])
-    }
+//    override func prepare() {
+//    }
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
@@ -95,7 +96,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
 
-        let columnWidth = collectionViewContentSize.width / 2
+        let columnWidth = collectionViewContentSize.width / CGFloat(columnCount)
 
         attributes.frame = CGRect(x: columnWidth, y: 0, width: 2, height: collectionViewContentSize.height)
         attributes.zIndex = 10
@@ -118,13 +119,10 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let maxVisibleRow = rowIndexFromYCoordinate(yPosition: rect.maxY)
 
         var indexes = [Int]()
-//        let startingIndex = 2 * minVisibleRow + minVisibleColumn
-//        indexes.append(startingIndex)
-
 
         var firstColumnIndexes = [Int]()
         for i in minVisibleRow...maxVisibleRow {
-            let firstColumnIndex = minVisibleColumn + i * 2
+            let firstColumnIndex = minVisibleColumn + i * columnCount
             firstColumnIndexes.append(firstColumnIndex)
         }
 
@@ -143,7 +141,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     private func columnIndexFromXCoordinate(xPosition: CGFloat) -> Int {
         let contentWidth = collectionViewContentSize.width // - HourHeaderWidth;
-        let widthPerColumn = (contentWidth + 1) / 2 // need to subtract separator;
+        let widthPerColumn = (contentWidth + 1) / CGFloat(columnCount) // need to subtract separator;
         let columnIndex = max(0, Int(xPosition / widthPerColumn))
         return columnIndex
     }
@@ -162,13 +160,12 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     private func frameForItem(at indexPath: IndexPath) -> CGRect {
-        let columnWidth = collectionViewContentSize.width / 2
+        let columnWidth = collectionViewContentSize.width / CGFloat(columnCount)
         let index = CGFloat(indexPath.row)
 
-        let columnCount: CGFloat = 2
-        let x = index.truncatingRemainder(dividingBy: columnCount) * columnWidth
+        let x = index.truncatingRemainder(dividingBy: CGFloat(columnCount)) * columnWidth
 
-        let rowIndex = Int(index / 2)
+        let rowIndex = Int(index / CGFloat(columnCount))
         let y = rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
             return lhs + rhs
         }

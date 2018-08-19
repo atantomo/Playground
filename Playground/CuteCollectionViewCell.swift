@@ -12,35 +12,42 @@ class CuteCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var theImageView: UIImageView!
     @IBOutlet weak var theLabel: UILabel!
+    @IBOutlet weak var theLabel2: UILabel!
+    @IBOutlet weak var theLabel3: UILabel!
     @IBOutlet weak var theButton: UIButton!
 
+    @IBOutlet var imageAspectConstraint: NSLayoutConstraint!
     @IBOutlet var heightCalculationConstraints: [NSLayoutConstraint]!
     @IBOutlet var labelSideConstraints: [NSLayoutConstraint]!
+    @IBOutlet var label2SideConstraints: [NSLayoutConstraint]!
 
     lazy var cellPaddingHeight: CGFloat = {
-        return self.getConstantsSum(constraints: self.heightCalculationConstraints)
+        return self.heightCalculationConstraints.getConstantsSum()
     }()
 
     lazy var labelSidePadding: CGFloat = {
-        return self.getConstantsSum(constraints: self.heightCalculationConstraints)
+        return self.labelSideConstraints.getConstantsSum()
     }()
 
-    func heightForWidth(width: CGFloat, text: String) -> CGFloat {
-        let imageHeight = width
+    lazy var label2SidePadding: CGFloat = {
+        return self.label2SideConstraints.getConstantsSum()
+    }()
+
+    func heightForWidth(width: CGFloat, model: DynamicCollectionCellModel) -> CGFloat {
+        let imageHeight = width * imageAspectConstraint.multiplier
 
         let labelWidth = width - labelSidePadding
-        let labelHeight = getTextHeight(text: text, font: theLabel.font, width: labelWidth)
+        let labelHeight = getTextHeight(text: model.firstText, font: theLabel.font, width: labelWidth)
 
-        let sum = imageHeight + labelHeight + cellPaddingHeight
-        return sum
-    }
+        let label2Width = (width - label2SidePadding) / 2
+        let label2Height = getTextHeight(text: model.secondText, font: theLabel2.font, width: label2Width)
 
-    func getConstantsSum(constraints: [NSLayoutConstraint]) -> CGFloat {
-        let sum = constraints.map { constraint in
-            return constraint.constant
-            }.reduce(0) { lhs, rhs in
-                return lhs + rhs
-        }
+        let label3Width = (width - label2SidePadding) / 2
+        let label3Height = getTextHeight(text: model.thirdText, font: theLabel3.font, width: label3Width)
+
+        let bottomLabelHeight = max(label2Height, label3Height)
+
+        let sum = imageHeight + labelHeight + bottomLabelHeight + cellPaddingHeight
         return sum
     }
 
@@ -55,5 +62,18 @@ class CuteCollectionViewCell: UICollectionViewCell {
 
     @IBAction func deleteButtonTapped(_ sender: Any) {
         NotificationCenter.default.post(name: NotificationName.DeleteCell, object: theButton)
+    }
+}
+
+extension Array where Element: NSLayoutConstraint {
+
+    func getConstantsSum() -> CGFloat {
+        let sum = map { constraint in
+            return constraint.constant
+            }
+            .reduce(0) { lhs, rhs in
+                return lhs + rhs
+        }
+        return sum
     }
 }

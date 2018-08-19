@@ -8,8 +8,14 @@
 
 import UIKit
 
+struct DynamicCollectionCellModel {
+    var firstText: String
+    var secondText: String
+    var thirdText: String
+}
+
 struct DynamicCollectionViewControllerData {
-    static var data: [String] = [
+    static var seed: [String] = [
         "Love",
         "Love Love Love",
         "Love Love Love Love Love",
@@ -30,6 +36,59 @@ struct DynamicCollectionViewControllerData {
         "Love Love Love Love Love",
 //        "Love Love Love Love Love Love Love"
         ]
+
+    static var seed2: [String] = [
+        "Faith",
+        "Faith Faith Faith",
+        "Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith",
+        "Faith Faith Faith Faith Faith",
+        "Faith Faith Faith Faith Faith Faith Faith",
+        "Faith Faith Faith Faith Faith Faith Faith",
+        "Faith Faith Faith Faith Faith Faith Faith Faith Faith",
+        "Faith",
+        "Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith",
+        "Faith Faith Faith",
+        "Faith Faith Faith",
+        "Faith Faith Faith Faith Faith",
+        "Faith",
+        "Faith Faith Faith Faith Faith",
+        "Faith Faith Faith Faith Faith Faith Faith",
+        "Faith Faith Faith Faith Faith Faith Faith Faith Faith",
+        "Faith Faith Faith",
+        "Faith Faith Faith Faith Faith",
+        //        "Faith Faith Faith Faith Faith Faith Faith"
+    ]
+
+    static var seed3: [String] = [
+        "Hope",
+        "Hope Hope Hope",
+        "Hope Hope Hope Hope Hope",
+        "Hope Hope Hope Hope Hope Hope Hope",
+        "Hope Hope Hope Hope Hope Hope Hope Hope Hope",
+        "Hope",
+        "Hope Hope Hope",
+        "Hope Hope Hope Hope Hope",
+        "Hope Hope Hope Hope Hope Hope Hope",
+        "Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope",
+        "Hope",
+        "Hope Hope Hope",
+        "Hope Hope Hope Hope Hope",
+        "Hope Hope Hope Hope Hope Hope Hope",
+        "Hope Hope Hope Hope Hope Hope Hope Hope Hope",
+        "Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope",
+        "Hope Hope Hope",
+        "Hope Hope Hope Hope Hope",
+        //        "Hope Hope Hope Hope Hope Hope Hope"
+    ]
+
+    static var data: [DynamicCollectionCellModel] = {
+        var d = [DynamicCollectionCellModel]()
+        for i in 0..<DynamicCollectionViewControllerData.seed.count {
+            let model = DynamicCollectionCellModel(firstText: DynamicCollectionViewControllerData.seed[i], secondText: DynamicCollectionViewControllerData.seed2[i], thirdText: DynamicCollectionViewControllerData.seed3[i])
+            d  .append(model)
+        }
+        return d
+    }()
 }
 
 class DynamicCollectionViewController: UIViewController {
@@ -126,7 +185,9 @@ extension DynamicCollectionViewController: UICollectionViewDataSource {
         guard let cell = dequeuedCell as? CuteCollectionViewCell else {
             return dequeuedCell
         }
-        cell.theLabel.text = DynamicCollectionViewControllerData.data[indexPath.row]
+        cell.theLabel.text = DynamicCollectionViewControllerData.data[indexPath.row].firstText
+        cell.theLabel2.text = DynamicCollectionViewControllerData.data[indexPath.row].secondText
+        cell.theLabel3.text = DynamicCollectionViewControllerData.data[indexPath.row].thirdText
         return cell
     }
 

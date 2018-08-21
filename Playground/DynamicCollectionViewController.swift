@@ -164,12 +164,12 @@ class DynamicCollectionViewController: UIViewController {
     func getTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
         let size = text.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
                                      options: [.usesLineFragmentOrigin],
-                                     attributes: [NSFontAttributeName: font],
+                                     attributes: [NSAttributedStringKey.font: font],
                                      context: nil).size
         return size.height
     }
 
-    func deleteCell(sender: Notification) {
+    @objc func deleteCell(sender: Notification) {
 
         let button = sender.object as! UIButton
         let position = button.superview!.convert(button.center, to: collectionView)

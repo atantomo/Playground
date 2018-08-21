@@ -68,7 +68,7 @@ class TableMovementViewController: UIViewController {
         tableView.reloadData()
     }
 
-    func deleteCell(sender: Notification) {
+    @objc func deleteCell(sender: Notification) {
 
         let button = sender.object as! UIButton
         let position = button.superview!.convert(button.center, to: tableView)

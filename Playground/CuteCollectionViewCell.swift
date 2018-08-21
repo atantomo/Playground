@@ -54,7 +54,7 @@ class CuteCollectionViewCell: UICollectionViewCell {
     func getTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
         let size = text.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
                                      options: [.usesLineFragmentOrigin],
-                                     attributes: [NSFontAttributeName: font],
+                                     attributes: [NSAttributedStringKey.font: font],
                                      context: nil).size
         let ceilHeight = ceil(size.height)
         return ceilHeight

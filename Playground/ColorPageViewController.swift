@@ -81,7 +81,7 @@ class ButtonedViewController: UIViewController {
         }
     }
 
-    func buttonTapped(button: UIButton) {
+    @objc func buttonTapped(button: UIButton) {
         pageVC.setViewControllers([pageVC.childVCs.last!], direction: UIPageViewControllerNavigationDirection.reverse, animated: true) { (completed) in
             if !completed {
                 return

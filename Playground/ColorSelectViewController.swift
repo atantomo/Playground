@@ -167,8 +167,8 @@ class ColorSelectViewController: UIViewController {
 
     @IBAction func skyButtonTapped(_ sender: Any) {
         resetPriority()
-        pageIndicatorFirstLeadingConstraint.priority = UILayoutPriorityDefaultHigh
-        pageIndicatorFirstTrailingConstraint.priority = UILayoutPriorityDefaultHigh
+        pageIndicatorFirstLeadingConstraint.priority = UILayoutPriority.defaultHigh
+        pageIndicatorFirstTrailingConstraint.priority = UILayoutPriority.defaultHigh
 
         animateIfNeeded()
 
@@ -177,8 +177,8 @@ class ColorSelectViewController: UIViewController {
 
     @IBAction func seaButtonTapped(_ sender: Any) {
         resetPriority()
-        pageIndicatorSecondLeadingConstraint.priority = UILayoutPriorityDefaultHigh
-        pageIndicatorSecondTrailingConstraint.priority = UILayoutPriorityDefaultHigh
+        pageIndicatorSecondLeadingConstraint.priority = UILayoutPriority.defaultHigh
+        pageIndicatorSecondTrailingConstraint.priority = UILayoutPriority.defaultHigh
 
         animateIfNeeded()
 
@@ -187,8 +187,8 @@ class ColorSelectViewController: UIViewController {
 
     @IBAction func meadowButtonTapped(_ sender: Any) {
         resetPriority()
-        pageIndicatorThirdLeadingConstraint.priority = UILayoutPriorityDefaultHigh
-        pageIndicatorThirdTrailingConstraint.priority = UILayoutPriorityDefaultHigh
+        pageIndicatorThirdLeadingConstraint.priority = UILayoutPriority.defaultHigh
+        pageIndicatorThirdTrailingConstraint.priority = UILayoutPriority.defaultHigh
 
         animateIfNeeded()
 
@@ -197,8 +197,8 @@ class ColorSelectViewController: UIViewController {
 
     @IBAction func sunButtonTapped(_ sender: Any) {
         resetPriority()
-        pageIndicatorFourthLeadingConstraint.priority = UILayoutPriorityDefaultHigh
-        pageIndicatorFourthTrailingConstraint.priority = UILayoutPriorityDefaultHigh
+        pageIndicatorFourthLeadingConstraint.priority = UILayoutPriority.defaultHigh
+        pageIndicatorFourthTrailingConstraint.priority = UILayoutPriority.defaultHigh
 
         animateIfNeeded()
 
@@ -207,7 +207,7 @@ class ColorSelectViewController: UIViewController {
 
     func resetPriority() {
         for c in pageIndicatorSidewayConstraints {
-            c.priority = UILayoutPriorityDefaultLow
+            c.priority = UILayoutPriority.defaultLow
         }
     }
 

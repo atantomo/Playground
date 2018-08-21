@@ -134,6 +134,7 @@ class ForecastDisplay: NSObject, DisplayElement {
         NotificationCenter.default.addObserver(self, selector: #selector(self.update), name: notificationName, object: nil)
     }
     
+    @objc
     func update(notification: Notification) {
         
         //print(notification.object)
@@ -181,6 +182,7 @@ class PlaygroundViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    @objc
     func printTest(notif: Notification) {
         print("Test")
     }

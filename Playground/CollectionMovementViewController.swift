@@ -72,7 +72,7 @@ class CollectionMovementViewController: UIViewController {
         collectionView.reloadData()
     }
 
-    func deleteCell(sender: Notification) {
+    @objc func deleteCell(sender: Notification) {
 
         let button = sender.object as! UIButton
         let position = button.superview!.convert(button.center, to: collectionView)
@@ -95,8 +95,8 @@ extension CollectionMovementViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mowz", for: indexPath) as! MowzCollectionViewCell
         cell.mowzLabel.text = dataSource[indexPath.row]
 
-        cell.mowzHideConstraint.priority = UILayoutPriorityDefaultHigh
-        cell.mowzHideConstraint.priority = UILayoutPriorityDefaultLow
+        cell.mowzHideConstraint.priority = UILayoutPriority.defaultHigh
+        cell.mowzHideConstraint.priority = UILayoutPriority.defaultLow
 //        cell.mowzHideConstraint.priority = UILayoutPriorityRequired
 //        cell.updateConstraintsIfNeeded()
 //        cell.mowzLeading.priority = UILayoutPriorityRequired

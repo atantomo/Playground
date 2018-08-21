@@ -313,7 +313,7 @@ extension CardDrawingTransition: UIViewControllerAnimatedTransitioning {
 
                     UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
 
-                        let scale = CGAffineTransform(scaleX: destinationTopCardInitialScale, y: destinationTopCardInitialScale)
+//                        let scale = CGAffineTransform(scaleX: destinationTopCardInitialScale, y: destinationTopCardInitialScale)
                         //presentedVC.rootView.bounds = scale
                     }
 

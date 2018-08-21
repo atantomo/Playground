@@ -56,7 +56,7 @@ class ColorSelectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        parallaxVC = storyboard!.instantiateViewController(withIdentifier: "ParallaxNav")
+        parallaxVC = storyboard!.instantiateViewController(withIdentifier: "navParallax")
 
         colorPageVC = storyboard!.instantiateViewController(withIdentifier: "ColorPage") as! ColorPageViewController
         addChildViewController(colorPageVC)

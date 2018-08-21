@@ -172,8 +172,8 @@ class ColorPageViewController: UIPageViewController {
 
     func traverseScrollView() -> UIScrollView? {
         for v in view.subviews{
-            if v.isKind(of: UIScrollView){
-                return v as! UIScrollView
+            if v.isKind(of: UIScrollView.self){
+                return v as? UIScrollView
             }
         }
         return nil

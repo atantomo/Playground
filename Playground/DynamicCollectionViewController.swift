@@ -103,7 +103,6 @@ class DynamicCollectionViewController: UIViewController {
         collectionView.layer.shadowColor = UIColor.lightGray.cgColor
         collectionView.layer.shadowOffset = CGSize(width: 2, height: 2)
         collectionView.layer.shadowOpacity = 0.3
-        collectionView.layer.zPosition = -100
 
         collectionView.register(UINib(nibName: "CuteCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "heart")
 

@@ -52,7 +52,8 @@ class MenuViewController: UIViewController {
         "tableEdit",
         "collectionEdit",
         "centerScroll",
-        "customSearchBar"
+        "customSearchBar",
+        "skeleton"
     ]
 
     override func viewDidLoad() {

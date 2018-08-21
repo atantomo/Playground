@@ -37,31 +37,55 @@ class CuteCollectionViewCell: UICollectionViewCell {
         let imageHeight = width * imageAspectConstraint.multiplier
 
         let labelWidth = width - labelSidePadding
-        let labelHeight = getTextHeight(text: model.firstText, font: theLabel.font, width: labelWidth)
+        let labelHeight = TextHeightCalculator.getMaxHeight(for: [
+            model.firstText.makeCalculableText(with: theLabel.font, width: labelWidth)
+            ])
 
         let label2Width = (width - label2SidePadding) / 2
-        let label2Height = getTextHeight(text: model.secondText, font: theLabel2.font, width: label2Width)
-
-        let label3Width = (width - label2SidePadding) / 2
-        let label3Height = getTextHeight(text: model.thirdText, font: theLabel3.font, width: label3Width)
-
-        let bottomLabelHeight = max(label2Height, label3Height)
+        let bottomLabelHeight = TextHeightCalculator.getMaxHeight(for: [
+            model.secondText.makeCalculableText(with: theLabel2.font, width: label2Width),
+            model.thirdText.makeCalculableText(with: theLabel3.font, width: label2Width)
+            ])
 
         let sum = imageHeight + labelHeight + bottomLabelHeight + cellPaddingHeight
         return sum
     }
 
-    func getTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
-        let size = text.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
-                                     options: [.usesLineFragmentOrigin],
-                                     attributes: [NSAttributedStringKey.font: font],
-                                     context: nil).size
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        NotificationCenter.default.post(name: NotificationName.DeleteCell, object: theButton)
+    }
+}
+
+struct HeightCalculableText {
+    let text: String
+    let font: UIFont
+    let width: CGFloat
+}
+
+struct TextHeightCalculator {
+
+    static func getMaxHeight(for models: [HeightCalculableText]) -> CGFloat {
+        let heights = models.map { model in
+            return getHeight(for: model)
+        }
+        let maxHeight = heights.max() ?? 0.0
+        return maxHeight
+    }
+
+    private static func getHeight(for model: HeightCalculableText) -> CGFloat {
+        let size = model.text.boundingRect(with: CGSize(width: model.width, height: CGFloat.greatestFiniteMagnitude),
+                                           options: [.usesLineFragmentOrigin],
+                                           attributes: [NSAttributedStringKey.font: model.font],
+                                           context: nil).size
         let ceilHeight = ceil(size.height)
         return ceilHeight
     }
+}
 
-    @IBAction func deleteButtonTapped(_ sender: Any) {
-        NotificationCenter.default.post(name: NotificationName.DeleteCell, object: theButton)
+extension String {
+
+    func makeCalculableText(with font: UIFont, width: CGFloat) -> HeightCalculableText {
+        return HeightCalculableText(text: self, font: font, width: width)
     }
 }
 

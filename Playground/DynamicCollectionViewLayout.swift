@@ -107,7 +107,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-        attributes.frame = frameForItem(at: indexPath)
+        attributes.frame = frameForCell(at: indexPath)
         return attributes
     }
 
@@ -211,7 +211,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return lastRowIndex
     }
 
-    private func frameForItem(at indexPath: IndexPath) -> CGRect {
+    private func frameForCell(at indexPath: IndexPath) -> CGRect {
         let index = indexPath.row
 
         let columnIndex = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount))

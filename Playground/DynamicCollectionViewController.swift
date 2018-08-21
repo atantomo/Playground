@@ -85,7 +85,7 @@ struct DynamicCollectionViewControllerData {
         var d = [DynamicCollectionCellModel]()
         for i in 0..<DynamicCollectionViewControllerData.seed.count {
             let model = DynamicCollectionCellModel(firstText: DynamicCollectionViewControllerData.seed[i], secondText: DynamicCollectionViewControllerData.seed2[i], thirdText: DynamicCollectionViewControllerData.seed3[i])
-            d  .append(model)
+            d.append(model)
         }
         return d
     }()
@@ -97,6 +97,14 @@ class DynamicCollectionViewController: UIViewController {
     @IBOutlet weak var collectionViewLayout: DynamicCollectionViewLayout!
 
     override func viewDidLoad() {
+
+        collectionView.layer.masksToBounds = false
+        collectionView.layer.shadowRadius = 2.0
+        collectionView.layer.shadowColor = UIColor.lightGray.cgColor
+        collectionView.layer.shadowOffset = CGSize(width: 2, height: 2)
+        collectionView.layer.shadowOpacity = 0.3
+        collectionView.layer.zPosition = -100
+
         collectionView.register(UINib(nibName: "CuteCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "heart")
 
 //        collectionView.register(PillarCollectionReusableView.self, forSupplementaryViewOfKind: "decoration", withReuseIdentifier: "pillar")
@@ -188,6 +196,7 @@ extension DynamicCollectionViewController: UICollectionViewDataSource {
         cell.theLabel.text = DynamicCollectionViewControllerData.data[indexPath.row].firstText
         cell.theLabel2.text = DynamicCollectionViewControllerData.data[indexPath.row].secondText
         cell.theLabel3.text = DynamicCollectionViewControllerData.data[indexPath.row].thirdText
+        cell.setNeedsLayout()
         return cell
     }
 

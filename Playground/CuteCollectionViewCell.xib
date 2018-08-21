@@ -46,7 +46,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlB-xq-Jx2">
-                                <rect key="frame" x="0.0" y="155" width="155" height="93"/>
+                                <rect key="frame" x="0.0" y="155" width="155" height="85"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hfp-Q9-ee4">
                                         <rect key="frame" x="16" y="16" width="123" height="61"/>
@@ -70,20 +70,20 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Hfp-Q9-ee4" secondAttribute="bottom" constant="16" id="6RK-I5-t5h"/>
+                                    <constraint firstAttribute="bottom" secondItem="Hfp-Q9-ee4" secondAttribute="bottom" constant="8" id="6RK-I5-t5h"/>
                                     <constraint firstItem="Hfp-Q9-ee4" firstAttribute="top" secondItem="tlB-xq-Jx2" secondAttribute="top" constant="16" id="YHn-gx-zRT"/>
                                     <constraint firstAttribute="trailing" secondItem="Hfp-Q9-ee4" secondAttribute="trailing" constant="16" id="ZFn-Mo-5cD"/>
                                     <constraint firstItem="Hfp-Q9-ee4" firstAttribute="leading" secondItem="tlB-xq-Jx2" secondAttribute="leading" constant="16" id="gni-l1-YFg"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ea0-JP-ymg">
-                                <rect key="frame" x="0.0" y="248" width="155" height="215"/>
+                                <rect key="frame" x="0.0" y="240" width="155" height="207"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xuj-JJ-RJv">
-                                        <rect key="frame" x="16" y="16" width="57.5" height="183"/>
+                                        <rect key="frame" x="16" y="8" width="53.5" height="183"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Faith Faith Faith Faith Faith Faith Faith Faith Faith" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEr-zE-sJk">
-                                                <rect key="frame" x="0.0" y="0.0" width="57.5" height="183"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="53.5" height="183"/>
                                                 <color key="backgroundColor" red="0.78909911144544465" green="0.9075858161" blue="0.72682024070810658" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -99,10 +99,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DM3-GS-hi7">
-                                        <rect key="frame" x="81.5" y="16" width="57.5" height="183"/>
+                                        <rect key="frame" x="85.5" y="8" width="53.5" height="183"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Hope Hope Hope Hope Hope Hope Hope Hope Hope" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zf-mo-Ix5">
-                                                <rect key="frame" x="0.0" y="0.0" width="57.5" height="183"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="53.5" height="183"/>
                                                 <color key="backgroundColor" red="0.77214751729999997" green="0.8235692644" blue="0.9075858161" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -121,13 +121,15 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="DM3-GS-hi7" secondAttribute="trailing" constant="16" id="Ake-dN-PiL"/>
-                                    <constraint firstItem="DM3-GS-hi7" firstAttribute="leading" secondItem="xuj-JJ-RJv" secondAttribute="trailing" constant="8" id="O5d-Ks-SiL"/>
+                                    <constraint firstAttribute="bottom" secondItem="DM3-GS-hi7" secondAttribute="bottom" priority="749" constant="16" id="KHa-WN-yta"/>
+                                    <constraint firstItem="DM3-GS-hi7" firstAttribute="leading" secondItem="xuj-JJ-RJv" secondAttribute="trailing" constant="16" id="O5d-Ks-SiL"/>
                                     <constraint firstItem="xuj-JJ-RJv" firstAttribute="leading" secondItem="ea0-JP-ymg" secondAttribute="leading" constant="16" id="P2j-5O-s34"/>
-                                    <constraint firstAttribute="bottom" secondItem="DM3-GS-hi7" secondAttribute="bottom" priority="749" constant="16" id="RB0-Gk-4cU"/>
-                                    <constraint firstItem="xuj-JJ-RJv" firstAttribute="top" secondItem="ea0-JP-ymg" secondAttribute="top" constant="16" id="XCg-kq-0TY"/>
-                                    <constraint firstItem="DM3-GS-hi7" firstAttribute="top" secondItem="ea0-JP-ymg" secondAttribute="top" constant="16" id="i6j-YS-Vml"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="DM3-GS-hi7" secondAttribute="bottom" constant="16" id="RB0-Gk-4cU"/>
+                                    <constraint firstItem="xuj-JJ-RJv" firstAttribute="top" secondItem="ea0-JP-ymg" secondAttribute="top" constant="8" id="XCg-kq-0TY"/>
+                                    <constraint firstAttribute="bottom" secondItem="xuj-JJ-RJv" secondAttribute="bottom" priority="749" constant="16" id="hfd-Rs-G60"/>
+                                    <constraint firstItem="DM3-GS-hi7" firstAttribute="top" secondItem="ea0-JP-ymg" secondAttribute="top" constant="8" id="i6j-YS-Vml"/>
                                     <constraint firstItem="xuj-JJ-RJv" firstAttribute="width" secondItem="DM3-GS-hi7" secondAttribute="width" id="kHN-pU-NFM"/>
-                                    <constraint firstAttribute="bottom" secondItem="xuj-JJ-RJv" secondAttribute="bottom" priority="749" constant="16" id="uQB-DK-12v"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xuj-JJ-RJv" secondAttribute="bottom" constant="16" id="uQB-DK-12v"/>
                                 </constraints>
                             </view>
                         </subviews>

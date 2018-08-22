@@ -26,13 +26,10 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     var columnCount: Int = 0
     var cellWidth: CGFloat = 0
+    var rowHeights: [CGFloat] = [CGFloat]()
 
     var models: [DynamicCollectionCellModel] {
         return DynamicCollectionViewControllerData.data
-    }
-
-    var columnCountCGFloat: CGFloat {
-        return CGFloat(columnCount)
     }
 
     var cellCount: Int {
@@ -50,8 +47,6 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         }
         return cell
     }()
-
-    var rowHeights: [CGFloat] = [CGFloat]()
 
     override init() {
         super.init()
@@ -131,7 +126,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let separatorCount = columnCount - 1
 
         let contentWidth = totalWidth - Constants.separatorWidth * CGFloat(separatorCount)
-        let width = contentWidth / columnCountCGFloat
+        let width = contentWidth / CGFloat(columnCount)
         return width
     }
 

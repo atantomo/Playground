@@ -34,7 +34,7 @@ struct DynamicCollectionViewControllerData {
         "Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love",
         "Love Love Love",
         "Love Love Love Love Love",
-//        "Love Love Love Love Love Love Love"
+        "Love Love Love Love Love Love Love"
         ]
 
     static var seed2: [String] = [
@@ -56,7 +56,7 @@ struct DynamicCollectionViewControllerData {
         "Faith Faith Faith Faith Faith Faith Faith Faith Faith",
         "Faith Faith Faith",
         "Faith Faith Faith Faith Faith",
-        //        "Faith Faith Faith Faith Faith Faith Faith"
+        "Faith Faith Faith Faith Faith Faith Faith"
     ]
 
     static var seed3: [String] = [
@@ -78,7 +78,7 @@ struct DynamicCollectionViewControllerData {
         "Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope",
         "Hope Hope Hope",
         "Hope Hope Hope Hope Hope",
-        //        "Hope Hope Hope Hope Hope Hope Hope"
+        "Hope Hope Hope Hope Hope Hope Hope"
     ]
 
     static var data: [DynamicCollectionCellModel] = {
@@ -176,7 +176,7 @@ class DynamicCollectionViewController: UIViewController {
 
             DynamicCollectionViewControllerData.data.remove(at: indexPath.row)
             collectionView.deleteItems(at: [indexPath])
-//            collectionViewLayout.invalidateLayout()
+            collectionViewLayout.invalidateLayout()
         }
     }
 }

@@ -185,14 +185,41 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let minColumnIndex = columnIndexFromXCoordinate(xPosition: rect.minX)
         let maxColumnIndex = columnIndexFromXCoordinate(xPosition: rect.maxX)
 
+        let minRowIndex = rowIndexFromYCoordinate(yPosition: rect.minY)
+        let maxRowIndex = rowIndexFromYCoordinate(yPosition: rect.maxY)
+
+        var firstColumnIndexes = [Int]()
+        for i in minRowIndex...maxRowIndex {
+            let firstColumnIndex = minColumnIndex + i * (columnCount - 1)
+//            print(String(firstColumnIndex * columnCount) + " " + String(cellCount - 1))
+            if (firstColumnIndex * columnCount) < (cellCount - 1) {
+                firstColumnIndexes.append(firstColumnIndex)
+            }
+        }
+
         var indexes = [Int]()
-        for i in minColumnIndex..<maxColumnIndex {
-            indexes.append(i)
+        for i in 0...(maxColumnIndex - minColumnIndex - 1) {
+            for firstColumnIndex in firstColumnIndexes {
+                let columnCellIndex = firstColumnIndex + i
+                if columnCellIndex < cellCount {
+                    indexes.append(columnCellIndex)
+                }
+            }
         }
         let indexPaths = indexes.map { index in
             return IndexPath(row: index, section: 0)
         }
+        print(indexPaths)
         return indexPaths
+
+//        var indexes = [Int]()
+//        for i in minColumnIndex..<maxColumnIndex {
+//            indexes.append(i)
+//        }
+//        let indexPaths = indexes.map { index in
+//            return IndexPath(row: index, section: 0)
+//        }
+//        return indexPaths
     }
 
     private func columnIndexFromXCoordinate(xPosition: CGFloat) -> Int {
@@ -235,23 +262,40 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     private func frameForSeparator(at indexPath: IndexPath) -> CGRect {
         let index = indexPath.row
-        let interimMultiplier = index + 1
 
-        var lastRowCellCount = CGFloat(cellCount).truncatingRemainder(dividingBy: CGFloat(columnCount))
-        if lastRowCellCount == 0 {
-            lastRowCellCount = CGFloat(columnCount)
-        }
-        let lastCellColumnIndex = Int(lastRowCellCount - 1)
-
-        var separatorHeight = collectionViewContentSize.height
-        let hasCellsOnBothSides = index < lastCellColumnIndex
-        if !hasCellsOnBothSides {
-            separatorHeight -= rowHeights.last ?? 0
-        }
-
+        let columnIndex = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount - 1))
+        let interimMultiplier = columnIndex + 1
+//        let x = columnIndex * cellAndSeparatorWidth
         let x = CGFloat(interimMultiplier) * cellAndSeparatorWidth - Constants.separatorWidth
-        let frame = CGRect(x: x, y: 0, width: Constants.separatorWidth, height: separatorHeight)
+
+        let rowIndex = index / (columnCount - 1)
+        let y = rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
+            return lhs + rhs
+        }
+        let cellHeight = rowHeights[rowIndex]
+
+        let frame = CGRect(x: x, y: y, width: Constants.separatorWidth, height: cellHeight)
+//        print(frame)
         return frame
+
+//        let index = indexPath.row
+//        let interimMultiplier = index + 1
+//
+//        var lastRowCellCount = CGFloat(cellCount).truncatingRemainder(dividingBy: CGFloat(columnCount))
+//        if lastRowCellCount == 0 {
+//            lastRowCellCount = CGFloat(columnCount)
+//        }
+//        let lastCellColumnIndex = Int(lastRowCellCount - 1)
+//
+//        var separatorHeight = collectionViewContentSize.height
+//        let hasCellsOnBothSides = index < lastCellColumnIndex
+//        if !hasCellsOnBothSides {
+//            separatorHeight -= rowHeights.last ?? 0
+//        }
+//
+//        let x = CGFloat(interimMultiplier) * cellAndSeparatorWidth - Constants.separatorWidth
+//        let frame = CGRect(x: x, y: 0, width: Constants.separatorWidth, height: separatorHeight)
+//        return frame
     }
     
 }

@@ -118,13 +118,24 @@ extension MenuViewController: UITableViewDelegate {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: items[indexPath.row]) else {
             return
         }
-        let backButton = UIButton(frame: CGRect(x: 20, y: 20, width: 44, height: 44))
+        let backButton = UIButton(frame: CGRect.zero)
         backButton.layer.cornerRadius = 4.0
+        backButton.layer.borderColor = UIColor.lightGray.cgColor
+        backButton.layer.borderWidth = 1.0
+        backButton.backgroundColor = UIColor.white
+        backButton.contentEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+
         backButton.setTitle("Back", for: UIControlState.normal)
         backButton.setTitleColor(UIColor.darkGray, for: UIControlState.normal)
         backButton.addTarget(self, action: #selector(dismissVC), for: UIControlEvents.touchUpInside)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
 
         vc.view.addSubview(backButton)
+
+        NSLayoutConstraint.activate([
+            backButton.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor, constant: 16.0),
+            backButton.topAnchor.constraint(equalTo: vc.topLayoutGuide.bottomAnchor, constant: 64.0)
+            ])
         navigationController?.present(vc, animated: true)
     }
 

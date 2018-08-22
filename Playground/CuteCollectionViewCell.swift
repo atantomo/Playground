@@ -10,6 +10,7 @@ import UIKit
 
 class CuteCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var container: UIView!
     @IBOutlet weak var theImageView: UIImageView!
     @IBOutlet weak var theLabel: UILabel!
     @IBOutlet weak var theLabel2: UILabel!
@@ -32,6 +33,18 @@ class CuteCollectionViewCell: UICollectionViewCell {
     lazy var label2SidePadding: CGFloat = {
         return self.label2SideConstraints.getConstantsSum()
     }()
+
+    override var isHighlighted: Bool {
+
+        didSet {
+            if (isHighlighted) {
+                container.backgroundColor = UIColor.lightGray
+            }
+            else {
+                container.backgroundColor = UIColor.white
+            }
+        }
+    }
 
     func heightForWidth(width: CGFloat, model: DynamicCollectionCellModel) -> CGFloat {
         let imageHeight = width * imageAspectConstraint.multiplier

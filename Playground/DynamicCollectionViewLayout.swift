@@ -16,17 +16,16 @@ import UIKit
 
 class DynamicCollectionViewLayout: UICollectionViewLayout {
 
-//    let columnCount: Int = 2
-    let separatorWidth: CGFloat = 1
-    let separatorZIndex: Int = 10
+    private struct Constants {
+        static let portraitColumnCount: Int = 2
+        static let landscapeColumnCount: Int = 4
 
-    var columnCount: Int {
-        if (self.collectionView?.bounds.size.width ?? 0) < (self.collectionView?.bounds.size.height ?? 0) {
-            return 2
-        } else {
-            return 4
-        }
+        static let separatorWidth: CGFloat = 1
+        static let separatorZIndex: Int = 10
     }
+
+    var columnCount: Int = 0
+    var cellWidth: CGFloat = 0
 
     var models: [DynamicCollectionCellModel] {
         return DynamicCollectionViewControllerData.data
@@ -40,17 +39,8 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return models.count
     }
 
-    var cellWidth: CGFloat {
-        let totalWidth = self.collectionView?.bounds.size.width ?? 0.0
-        let separatorCount = self.columnCount - 1
-
-        let contentWidth = totalWidth - self.separatorWidth * CGFloat(separatorCount)
-        let width = contentWidth / self.columnCountCGFloat
-        return width
-    }
-
     var cellAndSeparatorWidth: CGFloat {
-        return cellWidth + separatorWidth
+        return cellWidth + Constants.separatorWidth
     }
     
     lazy var measurementCell: CuteCollectionViewCell = {
@@ -83,6 +73,8 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     override func prepare() {
+        columnCount = calculateColumnCount()
+        cellWidth = calculateCellWidth()
         rowHeights = calculateRowHeights(models: models)
     }
 
@@ -114,7 +106,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
         attributes.frame = frameForSeparator(at: indexPath)
-        attributes.zIndex = separatorZIndex
+        attributes.zIndex = Constants.separatorZIndex
         return attributes
     }
 
@@ -122,6 +114,25 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let oldBounds = collectionView?.bounds
         let areBoundsChanged = newBounds.width != oldBounds?.width
         return areBoundsChanged
+    }
+
+    private func calculateColumnCount() -> Int {
+        let width = collectionView?.bounds.size.width ?? 0
+        let height = collectionView?.bounds.size.height ?? 0
+        if width < height {
+            return Constants.portraitColumnCount
+        } else {
+            return Constants.landscapeColumnCount
+        }
+    }
+
+    private func calculateCellWidth() -> CGFloat {
+        let totalWidth = collectionView?.bounds.size.width ?? 0.0
+        let separatorCount = columnCount - 1
+
+        let contentWidth = totalWidth - Constants.separatorWidth * CGFloat(separatorCount)
+        let width = contentWidth / columnCountCGFloat
+        return width
     }
 
     private func calculateRowHeights(models: [DynamicCollectionCellModel]) -> [CGFloat] {
@@ -243,8 +254,8 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
             separatorHeight -= rowHeights.last ?? 0
         }
 
-        let x = CGFloat(interimMultiplier) * cellAndSeparatorWidth - separatorWidth
-        let frame = CGRect(x: x, y: 0, width: separatorWidth, height: separatorHeight)
+        let x = CGFloat(interimMultiplier) * cellAndSeparatorWidth - Constants.separatorWidth
+        let frame = CGRect(x: x, y: 0, width: Constants.separatorWidth, height: separatorHeight)
         return frame
     }
     

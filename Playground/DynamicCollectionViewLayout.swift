@@ -37,7 +37,15 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     var separatorCount: Int {
-        return cellCount - ((cellCount - 1) / columnCount) - 1
+        let fullRowSeparatorCount = cellCount / columnCount * (columnCount - 1)
+
+        let lastRowRemainderCellsCount = cellCount % columnCount
+        if lastRowRemainderCellsCount != 0 {
+            let lastRowSeparatorCount = lastRowRemainderCellsCount - 1
+            return fullRowSeparatorCount + lastRowSeparatorCount
+        } else {
+            return fullRowSeparatorCount
+        }
     }
 
     var cellAndSeparatorWidth: CGFloat {
@@ -240,8 +248,8 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     private func frameForCell(at indexPath: IndexPath) -> CGRect {
         let index = indexPath.row
 
-        let columnIndex = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount))
-        let x = columnIndex * cellAndSeparatorWidth
+        let columnIndexCGFloat = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount))
+        let x = columnIndexCGFloat * cellAndSeparatorWidth
 
         let rowIndex = index / columnCount
         let y = rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
@@ -256,8 +264,8 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     private func frameForSeparator(at indexPath: IndexPath) -> CGRect {
         let index = indexPath.row
 
-        let columnIndex = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount - 1))
-        let interimMultiplier = columnIndex + 1
+        let columnIndexCGFloat = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount - 1))
+        let interimMultiplier = columnIndexCGFloat + 1
         
         let x = CGFloat(interimMultiplier) * cellAndSeparatorWidth - Constants.separatorWidth
 

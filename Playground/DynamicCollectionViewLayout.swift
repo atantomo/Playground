@@ -8,11 +8,11 @@
 
 import UIKit
 
-//public extension Array {
-//    subscript(safe idx: Int) -> Element? {
-//        return idx < endIndex ? self[idx] : nil
-//    }
-//}
+public extension Array {
+    subscript(safe idx: Int) -> Element? {
+        return idx < endIndex ? self[idx] : nil
+    }
+}
 
 class DynamicCollectionViewLayout: UICollectionViewLayout {
 
@@ -191,12 +191,13 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         var firstColumnIndexes = [Int]()
         for i in minRowIndex...maxRowIndex {
             let firstColumnIndex = minColumnIndex + i * (columnCount - 1)
-//            print(String(firstColumnIndex * columnCount) + " " + String(cellCount - 1))
-            if (firstColumnIndex * columnCount) < (cellCount - 1) {
+//            print(String(firstColumnIndex) + " " + String(firstColumnIndex * (columnCount - 1)) + " " + String((cellCount - (cellCount / columnCount))))
+            if (firstColumnIndex) < (cellCount - (cellCount / columnCount)) {
                 firstColumnIndexes.append(firstColumnIndex)
             }
         }
 
+//        print(firstColumnIndexes)
         var indexes = [Int]()
         for i in 0...(maxColumnIndex - minColumnIndex - 1) {
             for firstColumnIndex in firstColumnIndexes {
@@ -209,7 +210,8 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let indexPaths = indexes.map { index in
             return IndexPath(row: index, section: 0)
         }
-        print(indexPaths)
+//        print(indexPaths)
+//        print(indexPaths)
         return indexPaths
 
 //        var indexes = [Int]()
@@ -269,13 +271,27 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let x = CGFloat(interimMultiplier) * cellAndSeparatorWidth - Constants.separatorWidth
 
         let rowIndex = index / (columnCount - 1)
+//        print(rowHeights)
+        if rowHeights[safe: rowIndex] == nil {
+            return CGRect.zero
+        }
+
+//        var lastRowCellCount = CGFloat(cellCount).truncatingRemainder(dividingBy: CGFloat(columnCount))
+//        if lastRowCellCount == 0 {
+//            lastRowCellCount = CGFloat(columnCount)
+//        }
+//        let lastCellColumnIndex = Int(lastRowCellCount - 1)
+
         let y = rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
             return lhs + rhs
         }
-        let cellHeight = rowHeights[rowIndex]
+        var separatorHeight = rowHeights[rowIndex]
+        print(String(index + 1) + " " + String(cellCount) + " " + String(columnCount) + " " + String(cellCount / columnCount) + " " + String(cellCount - (cellCount / columnCount)))
+        if index + 1 >= cellCount - ((cellCount - 1) / columnCount) {
+            separatorHeight = 0
+        }
 
-        let frame = CGRect(x: x, y: y, width: Constants.separatorWidth, height: cellHeight)
-//        print(frame)
+        let frame = CGRect(x: x, y: y, width: Constants.separatorWidth, height: separatorHeight)
         return frame
 
 //        let index = indexPath.row

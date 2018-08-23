@@ -8,11 +8,11 @@
 
 import UIKit
 
-public extension Array {
-    subscript(safe idx: Int) -> Element? {
-        return idx < endIndex ? self[idx] : nil
-    }
-}
+//public extension Array {
+//    subscript(safe idx: Int) -> Element? {
+//        return idx < endIndex ? self[idx] : nil
+//    }
+//}
 
 class DynamicCollectionViewLayout: UICollectionViewLayout {
 
@@ -22,6 +22,13 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
         static let separatorWidth: CGFloat = 1
         static let separatorZIndex: Int = 10
+    }
+
+    private struct CellIndexRange {
+        let minColumnIndex: Int
+        let maxColumnIndex: Int
+        let minRowIndex: Int
+        let maxRowIndex: Int
     }
 
     var columnCount: Int = 0
@@ -87,15 +94,16 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
+        let range = calculateCellIndexRange(in: rect)
 
-        let cellIndexPaths = indexPathsOfCellsInRect(rect: rect)
+        let cellIndexPaths = indexPathsOfCells(in: range)
         for cellIndexPath in cellIndexPaths {
             if let attributes = layoutAttributesForItem(at: cellIndexPath) {
                 layoutAttributes.append(attributes)
             }
         }
 
-        let separatorIndexPaths = indexPathsOfSeparatorInRect(rect: rect)
+        let separatorIndexPaths = indexPathsOfSeparator(in: range)
         for separatorIndexPath in separatorIndexPaths {
             if let attributes = layoutAttributesForDecorationView(ofKind: "decoration", at: separatorIndexPath) {
                 layoutAttributes.append(attributes)
@@ -165,21 +173,27 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return rowHeights
     }
 
-    private func indexPathsOfCellsInRect(rect: CGRect) -> [IndexPath] {
+    private func calculateCellIndexRange(in rect: CGRect) -> CellIndexRange {
         let minColumnIndex = columnIndexFromXCoordinate(xPosition: rect.minX)
         let maxColumnIndex = columnIndexFromXCoordinate(xPosition: rect.maxX)
 
         let minRowIndex = rowIndexFromYCoordinate(yPosition: rect.minY)
         let maxRowIndex = rowIndexFromYCoordinate(yPosition: rect.maxY)
 
+        let range = CellIndexRange(minColumnIndex: minColumnIndex, maxColumnIndex: maxColumnIndex, minRowIndex: minRowIndex, maxRowIndex: maxRowIndex)
+        return range
+    }
+
+    private func indexPathsOfCells(in range: CellIndexRange) -> [IndexPath] {
+
         var firstColumnIndexes = [Int]()
-        for i in minRowIndex...maxRowIndex {
-            let firstColumnIndex = minColumnIndex + i * columnCount
+        for i in range.minRowIndex...range.maxRowIndex {
+            let firstColumnIndex = range.minColumnIndex + i * columnCount
             firstColumnIndexes.append(firstColumnIndex)
         }
 
         var indexes = [Int]()
-        for i in 0...(maxColumnIndex - minColumnIndex) {
+        for i in 0...(range.maxColumnIndex - range.minColumnIndex) {
             for firstColumnIndex in firstColumnIndexes {
                 let columnIndex = firstColumnIndex + i
                 if columnIndex < cellCount {
@@ -193,27 +207,22 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return indexPaths
     }
 
-    private func indexPathsOfSeparatorInRect(rect: CGRect) -> [IndexPath] {
-        let minColumnIndex = columnIndexFromXCoordinate(xPosition: rect.minX)
-        let maxColumnIndex = columnIndexFromXCoordinate(xPosition: rect.maxX)
-
-        let minRowIndex = rowIndexFromYCoordinate(yPosition: rect.minY)
-        let maxRowIndex = rowIndexFromYCoordinate(yPosition: rect.maxY)
+    private func indexPathsOfSeparator(in range: CellIndexRange) -> [IndexPath] {
 
         var firstColumnIndexes = [Int]()
-        for i in minRowIndex...maxRowIndex {
-            let firstColumnIndex = minColumnIndex + i * (columnCount - 1)
+        for i in range.minRowIndex...range.maxRowIndex {
+            let firstColumnIndex = range.minColumnIndex + i * (columnCount - 1)
             if firstColumnIndex < separatorCount {
                 firstColumnIndexes.append(firstColumnIndex)
             }
         }
 
         var indexes = [Int]()
-        for i in 0...(maxColumnIndex - minColumnIndex - 1) {
+        for i in 0...(range.maxColumnIndex - range.minColumnIndex - 1) {
             for firstColumnIndex in firstColumnIndexes {
-                let columnCellIndex = firstColumnIndex + i
-                if columnCellIndex < cellCount {
-                    indexes.append(columnCellIndex)
+                let columnIndex = firstColumnIndex + i
+                if columnIndex < cellCount {
+                    indexes.append(columnIndex)
                 }
             }
         }
@@ -266,18 +275,15 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
         let columnIndexCGFloat = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount - 1))
         let interimMultiplier = columnIndexCGFloat + 1
-        
-        let x = CGFloat(interimMultiplier) * cellAndSeparatorWidth - Constants.separatorWidth
+        let x = interimMultiplier * cellAndSeparatorWidth - Constants.separatorWidth
 
         let rowIndex = index / (columnCount - 1)
-        if rowHeights[safe: rowIndex] == nil {
+        if rowIndex >= rowHeights.count {
             return CGRect.zero
         }
-
         let y = rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
             return lhs + rhs
         }
-
         var separatorHeight: CGFloat = 0
         if index < separatorCount {
             separatorHeight = rowHeights[rowIndex]

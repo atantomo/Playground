@@ -39,6 +39,10 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     var cellAndSeparatorWidth: CGFloat {
         return cellWidth + Constants.separatorWidth
     }
+
+    var maxSeparatorIndex: Int {
+        return cellCount - ((cellCount - 1) / columnCount)
+    }
     
     lazy var measurementCell: CuteCollectionViewCell = {
         let nib = UINib(nibName: "CuteCollectionViewCell", bundle: nil)
@@ -192,7 +196,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         for i in minRowIndex...maxRowIndex {
             let firstColumnIndex = minColumnIndex + i * (columnCount - 1)
 //            print(String(firstColumnIndex) + " " + String(firstColumnIndex * (columnCount - 1)) + " " + String((cellCount - (cellCount / columnCount))))
-            if (firstColumnIndex) < (cellCount - (cellCount / columnCount)) {
+            if (firstColumnIndex) < maxSeparatorIndex {
                 firstColumnIndexes.append(firstColumnIndex)
             }
         }
@@ -267,7 +271,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
         let columnIndex = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount - 1))
         let interimMultiplier = columnIndex + 1
-//        let x = columnIndex * cellAndSeparatorWidth
+        
         let x = CGFloat(interimMultiplier) * cellAndSeparatorWidth - Constants.separatorWidth
 
         let rowIndex = index / (columnCount - 1)
@@ -276,18 +280,14 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
             return CGRect.zero
         }
 
-//        var lastRowCellCount = CGFloat(cellCount).truncatingRemainder(dividingBy: CGFloat(columnCount))
-//        if lastRowCellCount == 0 {
-//            lastRowCellCount = CGFloat(columnCount)
-//        }
-//        let lastCellColumnIndex = Int(lastRowCellCount - 1)
-
         let y = rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
             return lhs + rhs
         }
         var separatorHeight = rowHeights[rowIndex]
-        print(String(index + 1) + " " + String(cellCount) + " " + String(columnCount) + " " + String(cellCount / columnCount) + " " + String(cellCount - (cellCount / columnCount)))
-        if index + 1 >= cellCount - ((cellCount - 1) / columnCount) {
+//        print(String(index + 1) + " " + String(cellCount) + " " + String(columnCount) + " " + String(cellCount / columnCount) + " " + String((cellCount - 1) - (cellCount / columnCount)))
+//        let maxPossibleIndex = cellCount - ((cellCount - 1) / columnCount)
+        let nextIndex = index + 1
+        if nextIndex >= maxSeparatorIndex {
             separatorHeight = 0
         }
 

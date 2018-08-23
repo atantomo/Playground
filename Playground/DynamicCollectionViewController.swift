@@ -94,12 +94,18 @@ struct DynamicCollectionViewControllerData {
 class DynamicCollectionViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var collectionViewLayout: DynamicCollectionViewLayout!
+    @IBOutlet var collectionViewCustomLayout: DynamicCollectionViewLayout!
+
+    lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 150, height: 150)
+        return layout
+    }()
 
     var collectionData: [DynamicCollectionCellModel] = DynamicCollectionViewControllerData.data
 
     override func viewDidLoad() {
-        collectionViewLayout.models = collectionData
+        collectionViewCustomLayout.models = collectionData
 
         collectionView.layer.masksToBounds = false
         collectionView.layer.shadowRadius = 2.0
@@ -118,11 +124,22 @@ class DynamicCollectionViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NotificationName.DeleteCell, object: nil)
     }
 
+    @IBAction func customButtonTapped(_ sender: UIButton) {
+        collectionView.setCollectionViewLayout(collectionViewCustomLayout, animated: true)
+
+//        let indexPath = IndexPath(item: 0, section: 0)
+//        collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.top, animated: true)
+    }
+
+    @IBAction func flowButtonTapped(_ sender: UIButton) {
+        collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: true)
+    }
+
     @IBAction func addButtonTapped(_ sender: UIButton) {
         let startAddIndex = collectionData.count
 
         collectionData.append(contentsOf: DynamicCollectionViewControllerData.data)
-        collectionViewLayout.models = collectionData
+        collectionViewCustomLayout.models = collectionData
 
         let endAddIndex = collectionData.count - 1
 
@@ -134,7 +151,7 @@ class DynamicCollectionViewController: UIViewController {
             return IndexPath(item: index, section: 0)
         }
         collectionView.insertItems(at: indexPaths)
-        collectionViewLayout.invalidateLayout()
+        collectionViewCustomLayout.invalidateLayout()
     }
 
     func getTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
@@ -152,10 +169,10 @@ class DynamicCollectionViewController: UIViewController {
         if let indexPath = collectionView.indexPathForItem(at: position) {
 
             collectionData.remove(at: indexPath.row)
-            collectionViewLayout.models = collectionData
+            collectionViewCustomLayout.models = collectionData
             
             collectionView.deleteItems(at: [indexPath])
-            collectionViewLayout.invalidateLayout()
+            collectionViewCustomLayout.invalidateLayout()
         }
     }
 }

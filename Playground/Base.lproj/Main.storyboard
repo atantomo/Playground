@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hDs-C0-ilz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hDs-C0-ilz">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -897,11 +897,20 @@
                                 <collectionViewLayout key="collectionViewLayout" id="MTm-Zw-pTN" customClass="DynamicCollectionViewLayout" customModule="Playground" customModuleProvider="target"/>
                                 <cells/>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G0V-vZ-DtG">
+                                <rect key="frame" x="337" y="28" width="30" height="30"/>
+                                <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="addButtonTapped:" destination="rHW-0V-VjF" eventType="touchUpInside" id="pQr-e7-p72"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="abU-h4-eB7" secondAttribute="trailing" id="LKJ-Mj-aQQ"/>
                             <constraint firstItem="jtO-D2-bOF" firstAttribute="top" secondItem="abU-h4-eB7" secondAttribute="bottom" id="Lse-gc-RXA"/>
+                            <constraint firstAttribute="trailing" secondItem="G0V-vZ-DtG" secondAttribute="trailing" constant="8" id="U2O-WM-Dvp"/>
+                            <constraint firstItem="G0V-vZ-DtG" firstAttribute="top" secondItem="WiW-R7-Qqh" secondAttribute="bottom" constant="8" id="bvR-lX-k9U"/>
                             <constraint firstItem="abU-h4-eB7" firstAttribute="top" secondItem="WiW-R7-Qqh" secondAttribute="bottom" id="ynP-Ql-yR5"/>
                             <constraint firstItem="abU-h4-eB7" firstAttribute="leading" secondItem="ym5-vz-8gh" secondAttribute="leading" id="zLV-fg-EfZ"/>
                         </constraints>
@@ -913,7 +922,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cbo-pF-A8t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58" y="3188"/>
+            <point key="canvasLocation" x="-58.399999999999999" y="3187.5562218890559"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="wBI-oB-KOb">

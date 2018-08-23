@@ -96,7 +96,10 @@ class DynamicCollectionViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewLayout: DynamicCollectionViewLayout!
 
+    var collectionData: [DynamicCollectionCellModel] = DynamicCollectionViewControllerData.data
+
     override func viewDidLoad() {
+        collectionViewLayout.models = collectionData
 
         collectionView.layer.masksToBounds = false
         collectionView.layer.shadowRadius = 2.0
@@ -106,58 +109,32 @@ class DynamicCollectionViewController: UIViewController {
 
         collectionView.register(UINib(nibName: "CuteCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "heart")
 
-//        collectionView.register(PillarCollectionReusableView.self, forSupplementaryViewOfKind: "decoration", withReuseIdentifier: "pillar")
-
-//        let n = UINib(nibName: "PillarCollectionReusableView", bundle: nil).instantiate(withOwner: self, options: nil).first
-//        print(n)
         collectionView.dataSource = self
 
         NotificationCenter.default.addObserver(self, selector: #selector(deleteCell(sender:)), name: NotificationName.DeleteCell, object: nil)
-
-//        let heights = DynamicCollectionViewControllerData.data.map { d in
-//            self.getTextHeight(text: d, font: UIFont.systemFont(ofSize: 17.0), width: 155)
-//
-//        }
-//        print(heights)
-//        print(heights)
-
-
-//        for i in stride(from: 0, to: 5, by: 2) {
-//            print(i)
-//        }
-//        collectionView.removeFromSuperview()
-////        let h1 = measurementModel.heightForWidth(width: 137, text: data[0])
-////        let h2 = measurementModel.heightForWidth(width: 137, text: data[1])
-//        let h3 = measurementModel.heightForWidth(width: 137, text: DynamicCollectionViewControllerData.data[2])
-//
-////        print(h1)
-////        print(h2)
-//        print(h3)
-//
-//        measurementModel.theLabel.text = DynamicCollectionViewControllerData.data[2]
-////        measurementModel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        let v = measurementModel.subviews[0]
-//        v.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(v)
-//
-//        NSLayoutConstraint.activate([
-//            v.widthAnchor.constraint(equalToConstant: 137),
-//            v.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            v.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//            ])
     }
-
-//    lazy var measurementModel: CuteCollectionViewCell = {
-//        let nib = UINib(nibName: "CuteCollectionViewCell", bundle: nil)
-//        guard let view = nib.instantiate(withOwner: self, options: nil).first as? CuteCollectionViewCell else {
-//            fatalError()
-//        }
-//        return view
-//    }()
 
     deinit {
         NotificationCenter.default.removeObserver(self, name: NotificationName.DeleteCell, object: nil)
+    }
+
+    @IBAction func addButtonTapped(_ sender: UIButton) {
+        let startAddIndex = collectionData.count
+
+        collectionData.append(contentsOf: DynamicCollectionViewControllerData.data)
+        collectionViewLayout.models = collectionData
+
+        let endAddIndex = collectionData.count - 1
+
+        var indexes = [Int]()
+        for i in startAddIndex...endAddIndex {
+            indexes.append(i)
+        }
+        let indexPaths = indexes.map{ index in
+            return IndexPath(item: index, section: 0)
+        }
+        collectionView.insertItems(at: indexPaths)
+        collectionViewLayout.invalidateLayout()
     }
 
     func getTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
@@ -174,7 +151,9 @@ class DynamicCollectionViewController: UIViewController {
         let position = button.superview!.convert(button.center, to: collectionView)
         if let indexPath = collectionView.indexPathForItem(at: position) {
 
-            DynamicCollectionViewControllerData.data.remove(at: indexPath.row)
+            collectionData.remove(at: indexPath.row)
+            collectionViewLayout.models = collectionData
+            
             collectionView.deleteItems(at: [indexPath])
             collectionViewLayout.invalidateLayout()
         }
@@ -184,7 +163,7 @@ class DynamicCollectionViewController: UIViewController {
 extension DynamicCollectionViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DynamicCollectionViewControllerData.data.count
+        return collectionData.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -192,9 +171,9 @@ extension DynamicCollectionViewController: UICollectionViewDataSource {
         guard let cell = dequeuedCell as? CuteCollectionViewCell else {
             return dequeuedCell
         }
-        cell.theLabel.text = DynamicCollectionViewControllerData.data[indexPath.row].firstText
-        cell.theLabel2.text = DynamicCollectionViewControllerData.data[indexPath.row].secondText
-        cell.theLabel3.text = DynamicCollectionViewControllerData.data[indexPath.row].thirdText
+        cell.theLabel.text = collectionData[indexPath.row].firstText
+        cell.theLabel2.text = collectionData[indexPath.row].secondText
+        cell.theLabel3.text = collectionData[indexPath.row].thirdText
         cell.setNeedsLayout()
         return cell
     }

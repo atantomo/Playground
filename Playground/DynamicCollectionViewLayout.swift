@@ -35,9 +35,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     var cellWidth: CGFloat = 0
     var rowHeights: [CGFloat] = [CGFloat]()
 
-    var models: [DynamicCollectionCellModel] {
-        return DynamicCollectionViewControllerData.data
-    }
+    var models: [DynamicCollectionCellModel] = [DynamicCollectionCellModel]()
 
     var cellCount: Int {
         return models.count

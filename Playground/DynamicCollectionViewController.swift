@@ -94,18 +94,46 @@ struct DynamicCollectionViewControllerData {
 class DynamicCollectionViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet var collectionViewCustomLayout: DynamicCollectionViewLayout!
+//    @IBOutlet var collectionViewCustomLayout: DynamicCollectionViewLayout!
 
-    lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 150, height: 150)
+    lazy var collectionViewGridLayout: DynamicCollectionViewLayout = {
+        let layout = DynamicCollectionViewLayout()
+        layout.portraitColumnCount = 2
+        layout.models = collectionData
+        layout.measurementCell = cuteMeasurementCell
         return layout
     }()
 
+    lazy var collectionViewListLayout: DynamicCollectionViewLayout = {
+        let layout = DynamicCollectionViewLayout()
+        layout.portraitColumnCount = 1
+        layout.models = collectionData
+        layout.measurementCell = adorableMeasurementCell
+        return layout
+    }()
+
+    var identifier: String = "cute"
     var collectionData: [DynamicCollectionCellModel] = DynamicCollectionViewControllerData.data
 
+    lazy var cuteMeasurementCell: CuteCollectionViewCell = {
+        let nib = UINib(nibName: "CuteCollectionViewCell", bundle: nil)
+        guard let cell = nib.instantiate(withOwner: self, options: nil).first as? CuteCollectionViewCell else {
+            fatalError()
+        }
+        return cell
+    }()
+
+    lazy var adorableMeasurementCell: AdorableCollectionViewCell = {
+        let nib = UINib(nibName: "AdorableCollectionViewCell", bundle: nil)
+        guard let cell = nib.instantiate(withOwner: self, options: nil).first as? AdorableCollectionViewCell else {
+            fatalError()
+        }
+        return cell
+    }()
+
+
     override func viewDidLoad() {
-        collectionViewCustomLayout.models = collectionData
+        collectionView.setCollectionViewLayout(collectionViewGridLayout, animated: false)
 
         collectionView.layer.masksToBounds = false
         collectionView.layer.shadowRadius = 2.0
@@ -113,7 +141,8 @@ class DynamicCollectionViewController: UIViewController {
         collectionView.layer.shadowOffset = CGSize(width: 2, height: 2)
         collectionView.layer.shadowOpacity = 0.3
 
-        collectionView.register(UINib(nibName: "CuteCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "heart")
+        collectionView.register(UINib(nibName: "CuteCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cute")
+        collectionView.register(UINib(nibName: "AdorableCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "adorable")
 
         collectionView.dataSource = self
 
@@ -125,21 +154,27 @@ class DynamicCollectionViewController: UIViewController {
     }
 
     @IBAction func customButtonTapped(_ sender: UIButton) {
-        collectionView.setCollectionViewLayout(collectionViewCustomLayout, animated: true)
+        identifier = "cute"
+        collectionView.reloadData()
+        collectionView.setCollectionViewLayout(collectionViewGridLayout, animated: true)
+//        collectionView.reloadData()
 
 //        let indexPath = IndexPath(item: 0, section: 0)
 //        collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.top, animated: true)
     }
 
     @IBAction func flowButtonTapped(_ sender: UIButton) {
-        collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: true)
+        identifier = "adorable"
+        collectionView.reloadData()
+        collectionView.setCollectionViewLayout(collectionViewListLayout, animated: true)
     }
 
     @IBAction func addButtonTapped(_ sender: UIButton) {
         let startAddIndex = collectionData.count
 
         collectionData.append(contentsOf: DynamicCollectionViewControllerData.data)
-        collectionViewCustomLayout.models = collectionData
+        collectionViewGridLayout.models = collectionData
+        collectionViewListLayout.models = collectionData
 
         let endAddIndex = collectionData.count - 1
 
@@ -151,7 +186,8 @@ class DynamicCollectionViewController: UIViewController {
             return IndexPath(item: index, section: 0)
         }
         collectionView.insertItems(at: indexPaths)
-        collectionViewCustomLayout.invalidateLayout()
+        collectionViewGridLayout.invalidateLayout()
+        collectionViewListLayout.invalidateLayout()
     }
 
     func getTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
@@ -169,10 +205,12 @@ class DynamicCollectionViewController: UIViewController {
         if let indexPath = collectionView.indexPathForItem(at: position) {
 
             collectionData.remove(at: indexPath.row)
-            collectionViewCustomLayout.models = collectionData
+            collectionViewGridLayout.models = collectionData
+            collectionViewListLayout.models = collectionData
             
             collectionView.deleteItems(at: [indexPath])
-            collectionViewCustomLayout.invalidateLayout()
+            collectionViewGridLayout.invalidateLayout()
+            collectionViewListLayout.invalidateLayout()
         }
     }
 }
@@ -184,15 +222,22 @@ extension DynamicCollectionViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: "heart", for: indexPath)
-        guard let cell = dequeuedCell as? CuteCollectionViewCell else {
-            return dequeuedCell
+        let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+        if let cell = dequeuedCell as? CuteCollectionViewCell {
+            cell.theLabel.text = collectionData[indexPath.row].firstText
+            cell.theLabel2.text = collectionData[indexPath.row].secondText
+            cell.theLabel3.text = collectionData[indexPath.row].thirdText
+
+            return cell
         }
-        cell.theLabel.text = collectionData[indexPath.row].firstText
-        cell.theLabel2.text = collectionData[indexPath.row].secondText
-        cell.theLabel3.text = collectionData[indexPath.row].thirdText
-        cell.setNeedsLayout()
-        return cell
+        if let cell = dequeuedCell as? AdorableCollectionViewCell {
+            cell.theLabel.text = collectionData[indexPath.row].firstText
+            cell.theLabel2.text = collectionData[indexPath.row].secondText
+            cell.theLabel3.text = collectionData[indexPath.row].thirdText
+
+            return cell
+        }
+        return dequeuedCell
     }
 
 //    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

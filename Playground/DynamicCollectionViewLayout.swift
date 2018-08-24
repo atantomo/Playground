@@ -16,8 +16,10 @@ import UIKit
 
 class DynamicCollectionViewLayout: UICollectionViewLayout {
 
+    var portraitColumnCount: Int = 2
+
     private struct Constants {
-        static let portraitColumnCount: Int = 2
+//        static let portraitColumnCount: Int = 1
         static let landscapeColumnCount: Int = 4
 
         static let separatorWidth: CGFloat = 1
@@ -57,13 +59,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return cellWidth + Constants.separatorWidth
     }
     
-    lazy var measurementCell: CuteCollectionViewCell = {
-        let nib = UINib(nibName: "CuteCollectionViewCell", bundle: nil)
-        guard let cell = nib.instantiate(withOwner: self, options: nil).first as? CuteCollectionViewCell else {
-            fatalError()
-        }
-        return cell
-    }()
+    var measurementCell: HeightCalculable?
 
     override init() {
         super.init()
@@ -133,7 +129,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let width = collectionView?.bounds.size.width ?? 0
         let height = collectionView?.bounds.size.height ?? 0
         if width < height {
-            return Constants.portraitColumnCount
+            return portraitColumnCount
         } else {
             return Constants.landscapeColumnCount
         }
@@ -150,7 +146,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     private func calculateRowHeights(models: [DynamicCollectionCellModel]) -> [CGFloat] {
         let cellHeights = models.map { model -> CGFloat in
-            let height = measurementCell.heightForWidth(width: cellWidth, model: model)
+            let height = measurementCell?.heightForWidth(width: cellWidth, model: model) ?? 0
             return height
         }
 
@@ -216,11 +212,13 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         }
 
         var indexes = [Int]()
-        for i in 0...(range.maxColumnIndex - range.minColumnIndex - 1) {
-            for firstColumnIndex in firstColumnIndexes {
-                let columnIndex = firstColumnIndex + i
-                if columnIndex < cellCount {
-                    indexes.append(columnIndex)
+        if (range.maxColumnIndex - range.minColumnIndex - 1) >= 0 {
+            for i in 0...(range.maxColumnIndex - range.minColumnIndex - 1) {
+                for firstColumnIndex in firstColumnIndexes {
+                    let columnIndex = firstColumnIndex + i
+                    if columnIndex < cellCount {
+                        indexes.append(columnIndex)
+                    }
                 }
             }
         }

@@ -15,7 +15,7 @@ class MenuViewController: UIViewController {
     let tintValues: [[Int]] = [
         // Rainbow
         [216, 61, 84],
-        [234, 82, 78],
+        [230, 76, 74],
         [242, 101, 51],
         [242, 128, 15],
         [247, 155, 22],

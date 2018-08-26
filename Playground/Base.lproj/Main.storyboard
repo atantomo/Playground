@@ -899,9 +899,9 @@
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rcW-nu-Swl">
                                 <rect key="frame" x="130.5" y="28" width="114" height="30"/>
-                                <state key="normal" title="Flow"/>
+                                <state key="normal" title="List"/>
                                 <connections>
-                                    <action selector="flowButtonTapped:" destination="rHW-0V-VjF" eventType="touchUpInside" id="TBC-dO-DAv"/>
+                                    <action selector="listButtonTapped:" destination="rHW-0V-VjF" eventType="touchUpInside" id="Jly-Vt-Sk5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G0V-vZ-DtG">
@@ -913,9 +913,9 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B7N-7q-ZPe">
                                 <rect key="frame" x="8" y="28" width="114.5" height="30"/>
-                                <state key="normal" title="Custom"/>
+                                <state key="normal" title="Grid"/>
                                 <connections>
-                                    <action selector="customButtonTapped:" destination="rHW-0V-VjF" eventType="touchUpInside" id="cub-n0-Scr"/>
+                                    <action selector="gridButtonTapped:" destination="rHW-0V-VjF" eventType="touchUpInside" id="39y-59-FpI"/>
                                 </connections>
                             </button>
                         </subviews>

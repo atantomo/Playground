@@ -23,6 +23,7 @@ class AdorableCollectionViewCell: UICollectionViewCell, HeightCalculable {
 
     @IBOutlet var imageAspectConstraint: NSLayoutConstraint!
     @IBOutlet var imageWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var imageBottomConstraint: NSLayoutConstraint!
 
     @IBOutlet var heightCalculationConstraints: [NSLayoutConstraint]!
     @IBOutlet var labelSideConstraints: [NSLayoutConstraint]!
@@ -30,6 +31,10 @@ class AdorableCollectionViewCell: UICollectionViewCell, HeightCalculable {
 
     lazy var imageWidth: CGFloat = {
         return self.imageWidthConstraint.constant
+    }()
+
+    lazy var imageBottomPadding: CGFloat = {
+        return self.imageBottomConstraint.constant
     }()
 
     lazy var cellPaddingHeight: CGFloat = {
@@ -57,7 +62,9 @@ class AdorableCollectionViewCell: UICollectionViewCell, HeightCalculable {
     }
 
     func heightForWidth(width: CGFloat, model: DynamicCollectionCellModel) -> CGFloat {
-//        let imageHeight = width * imageAspectConstraint.multiplier
+        let imageHeight = imageWidth * imageAspectConstraint.multiplier + imageBottomPadding
+
+        let leftSum = imageHeight
 
         let labelWidth = width - labelSidePadding - imageWidth
         let labelHeight = TextHeightCalculator.getMaxHeight(for: [
@@ -70,8 +77,8 @@ class AdorableCollectionViewCell: UICollectionViewCell, HeightCalculable {
             model.thirdText.makeCalculableText(with: theLabel3.font, width: label2Width)
             ])
 
-        let sum = labelHeight + bottomLabelHeight + cellPaddingHeight
-        return sum
+        let rightSum = labelHeight + bottomLabelHeight + cellPaddingHeight
+        return max(leftSum, rightSum)
     }
 
     @IBAction func deleteButtonTapped(_ sender: Any) {

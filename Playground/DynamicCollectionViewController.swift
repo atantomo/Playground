@@ -153,7 +153,7 @@ class DynamicCollectionViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NotificationName.DeleteCell, object: nil)
     }
 
-    @IBAction func customButtonTapped(_ sender: UIButton) {
+    @IBAction func gridButtonTapped(_ sender: UIButton) {
         identifier = "cute"
         collectionView.reloadData()
         collectionView.setCollectionViewLayout(collectionViewGridLayout, animated: true)
@@ -163,7 +163,7 @@ class DynamicCollectionViewController: UIViewController {
 //        collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.top, animated: true)
     }
 
-    @IBAction func flowButtonTapped(_ sender: UIButton) {
+    @IBAction func listButtonTapped(_ sender: UIButton) {
         identifier = "adorable"
         collectionView.reloadData()
         collectionView.setCollectionViewLayout(collectionViewListLayout, animated: true)

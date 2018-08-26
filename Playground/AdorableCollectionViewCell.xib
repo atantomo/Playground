@@ -139,6 +139,7 @@
                             <constraint firstAttribute="trailing" secondItem="tlB-xq-Jx2" secondAttribute="trailing" id="0wR-N5-SvQ"/>
                             <constraint firstItem="tlB-xq-Jx2" firstAttribute="width" secondItem="ea0-JP-ymg" secondAttribute="width" id="1xb-Uh-iNO"/>
                             <constraint firstItem="ea0-JP-ymg" firstAttribute="leading" secondItem="w4T-Xd-wbi" secondAttribute="trailing" id="6sQ-AV-IUH"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="w4T-Xd-wbi" secondAttribute="bottom" constant="16" id="8LT-AS-IeO"/>
                             <constraint firstItem="w4T-Xd-wbi" firstAttribute="leading" secondItem="q0q-KC-dVn" secondAttribute="leading" id="9Vq-oQ-uZM"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ea0-JP-ymg" secondAttribute="bottom" id="GNq-JE-dEe"/>
                             <constraint firstAttribute="trailing" secondItem="ea0-JP-ymg" secondAttribute="trailing" id="LF4-EB-w7Z"/>
@@ -163,6 +164,7 @@
             <connections>
                 <outlet property="container" destination="q0q-KC-dVn" id="DKt-zy-glC"/>
                 <outlet property="imageAspectConstraint" destination="b2w-Qi-h8k" id="lMd-jp-y99"/>
+                <outlet property="imageBottomConstraint" destination="8LT-AS-IeO" id="VgL-KM-cAn"/>
                 <outlet property="imageWidthConstraint" destination="4ox-Ml-foj" id="H85-5n-OA6"/>
                 <outlet property="theButton" destination="05Q-Xl-ic5" id="ejp-Ft-JWb"/>
                 <outlet property="theImageView" destination="w4T-Xd-wbi" id="Bj6-7V-P3a"/>

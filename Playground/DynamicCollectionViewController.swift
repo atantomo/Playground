@@ -133,6 +133,17 @@ class DynamicCollectionViewController: UIViewController {
 
 
     override func viewDidLoad() {
+        let now = Date()
+
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "JP")
+        formatter.timeZone = TimeZone(identifier: "Japan/Tokyo")
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        let sevenDaysAgo = now.addingTimeInterval(-7*24*60*60)
+
+        let str = formatter.string(from: sevenDaysAgo)
+        print(str)
+
         collectionView.setCollectionViewLayout(collectionViewGridLayout, animated: false)
 
         collectionView.layer.masksToBounds = false
@@ -155,7 +166,9 @@ class DynamicCollectionViewController: UIViewController {
 
     @IBAction func gridButtonTapped(_ sender: UIButton) {
         identifier = "cute"
-        collectionView.reloadData()
+        UIView.performWithoutAnimation {
+            self.collectionView.reloadSections(IndexSet(integer: 0))
+        }
         collectionView.setCollectionViewLayout(collectionViewGridLayout, animated: true)
 //        collectionView.reloadData()
 
@@ -165,7 +178,9 @@ class DynamicCollectionViewController: UIViewController {
 
     @IBAction func listButtonTapped(_ sender: UIButton) {
         identifier = "adorable"
-        collectionView.reloadData()
+        UIView.performWithoutAnimation {
+            self.collectionView.reloadSections(IndexSet(integer: 0))
+        }
         collectionView.setCollectionViewLayout(collectionViewListLayout, animated: true)
     }
 

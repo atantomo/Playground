@@ -133,16 +133,16 @@ class DynamicCollectionViewController: UIViewController {
 
 
     override func viewDidLoad() {
-        let now = Date()
-
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "JP")
-        formatter.timeZone = TimeZone(identifier: "Japan/Tokyo")
-        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-        let sevenDaysAgo = now.addingTimeInterval(-7*24*60*60)
-
-        let str = formatter.string(from: sevenDaysAgo)
-        print(str)
+//        let now = Date()
+//
+//        let formatter = DateFormatter()
+//        formatter.locale = Locale(identifier: "JP")
+//        formatter.timeZone = TimeZone(identifier: "Japan/Tokyo")
+//        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+//        let sevenDaysAgo = now.addingTimeInterval(-7*24*60*60)
+//
+//        let str = formatter.string(from: sevenDaysAgo)
+//        print(str)
 
         collectionView.setCollectionViewLayout(collectionViewGridLayout, animated: false)
 
@@ -188,8 +188,8 @@ class DynamicCollectionViewController: UIViewController {
         let startAddIndex = collectionData.count
 
         collectionData.append(contentsOf: DynamicCollectionViewControllerData.data)
-        collectionViewGridLayout.models = collectionData
-        collectionViewListLayout.models = collectionData
+        collectionViewGridLayout.appendNew(newModels: DynamicCollectionViewControllerData.data)
+//        collectionViewListLayout.appendNew(newModels: DynamicCollectionViewControllerData.data)
 
         let endAddIndex = collectionData.count - 1
 
@@ -202,7 +202,7 @@ class DynamicCollectionViewController: UIViewController {
         }
         collectionView.insertItems(at: indexPaths)
         collectionViewGridLayout.invalidateLayout()
-        collectionViewListLayout.invalidateLayout()
+//        collectionViewListLayout.invalidateLayout()
     }
 
     func getTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {

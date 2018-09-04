@@ -53,7 +53,8 @@ class MenuViewController: UIViewController {
         "collectionEdit",
         "centerScroll",
         "customSearchBar",
-        "skeleton"
+        "skeleton",
+        "buttonLayout"
     ]
 
     override func viewDidLoad() {

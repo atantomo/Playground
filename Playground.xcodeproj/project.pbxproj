@@ -16,6 +16,7 @@
 		2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */; };
 		2E8AAADB212F692E00D7BD99 /* AdorableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E8AAADA212F692E00D7BD99 /* AdorableCollectionViewCell.xib */; };
 		2E8AAADD212F693900D7BD99 /* AdorableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AAADC212F693900D7BD99 /* AdorableCollectionViewCell.swift */; };
+		2EB88C63213DF50000B523BE /* ButtonLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB88C62213DF50000B523BE /* ButtonLayoutViewController.swift */; };
 		2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */; };
 		2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */; };
 		490224B22122EEF8009E9AC4 /* PillarCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 490224B12122EEF8009E9AC4 /* PillarCollectionReusableView.xib */; };
@@ -60,6 +61,7 @@
 		2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		2E8AAADA212F692E00D7BD99 /* AdorableCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdorableCollectionViewCell.xib; sourceTree = "<group>"; };
 		2E8AAADC212F693900D7BD99 /* AdorableCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdorableCollectionViewCell.swift; sourceTree = "<group>"; };
+		2EB88C62213DF50000B523BE /* ButtonLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonLayoutViewController.swift; sourceTree = "<group>"; };
 		2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayoutCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoLayoutCollectionViewCell.xib; sourceTree = "<group>"; };
 		490224B12122EEF8009E9AC4 /* PillarCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PillarCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				491572511DCEA0AD0046AD0D /* CustomView.swift */,
 				494873F61C53555800B689D3 /* Main.storyboard */,
 				4974E140212C26B3004AE3D0 /* MenuViewController.swift */,
+				2EB88C62213DF50000B523BE /* ButtonLayoutViewController.swift */,
 				2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */,
 				2E7FB43A21225791000A852D /* DynamicCollectionViewLayout.swift */,
 				2E8AAADA212F692E00D7BD99 /* AdorableCollectionViewCell.xib */,
@@ -274,6 +277,7 @@
 				49172CB01C54ABE70008B61B /* MemeTextField.swift in Sources */,
 				2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */,
 				498BA3F42082E29B00BAF4FB /* ColorSelectViewController.swift in Sources */,
+				2EB88C63213DF50000B523BE /* ButtonLayoutViewController.swift in Sources */,
 				2E7FB43921225518000A852D /* DynamicCollectionViewController.swift in Sources */,
 				49A9803B2072504F00A492D5 /* FirstNavViewController.swift in Sources */,
 				49FDA14120D0758100750592 /* AutoLayoutTableViewCell.swift in Sources */,

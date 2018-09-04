@@ -97,7 +97,7 @@ enum CardDrawingTransitionType {
 }
 
 class CardDrawingTransition: NSObject {
-    let transitionDuration: TimeInterval = 8
+    let transitionDuration: TimeInterval = 1
     let expandGap: CGFloat = 32.0
     var presenting: Bool = true
     var type: CardDrawingTransitionType = CardDrawingTransitionType.expand
@@ -313,8 +313,8 @@ extension CardDrawingTransition: UIViewControllerAnimatedTransitioning {
 
                     UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
 
-//                        let scale = CGAffineTransform(scaleX: destinationTopCardInitialScale, y: destinationTopCardInitialScale)
-                        //presentedVC.rootView.bounds = scale
+                        let scale = CGAffineTransform(scaleX: destinationTopCardInitialScale, y: destinationTopCardInitialScale)
+                        presentedVC.rootView.transform = scale
                     }
 
                     start += duration
@@ -363,272 +363,272 @@ class OpacityTransition: NSObject {
     }
 }
 
-extension OpacityTransition: UIViewControllerAnimatedTransitioning {
-
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return transitionDuration
-    }
-
-    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        // 4
-        guard let fromView = transitionContext.view(forKey: .from) else { return }
-        guard let toView = transitionContext.view(forKey: .to) else { return }
-
-        // 5
-        let container = transitionContext.containerView
-        if presenting {
-            container.addSubview(toView)
-            toView.alpha = 0.0
-        } else {
-            container.insertSubview(toView, belowSubview: fromView)
-        }
-
-//        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
-//            // 6
-//            if self.presenting {
-//                toView.alpha = 1.0
-//            } else {
-//                fromView.alpha = 0.0
-//            }
-//        }) { _ in
-//            // 7
-//            let success = !transitionContext.transitionWasCancelled
-//            if !success {
-//                toView.removeFromSuperview()
-//            }
-//            transitionContext.completeTransition(success)
+//extension OpacityTransition: UIViewControllerAnimatedTransitioning {
+//
+//    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+//        return transitionDuration
+//    }
+//
+//    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+//        // 4
+//        guard let fromView = transitionContext.view(forKey: .from) else { return }
+//        guard let toView = transitionContext.view(forKey: .to) else { return }
+//
+//        // 5
+//        let container = transitionContext.containerView
+//        if presenting {
+//            container.addSubview(toView)
+//            toView.alpha = 0.0
+//        } else {
+//            container.insertSubview(toView, belowSubview: fromView)
 //        }
-
-        guard presenting else {
-//            UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
-//                // 6
-//                if self.presenting {
-//                    toView.alpha = 1.0
-//                } else {
-//                    fromView.alpha = 0.0
-//                }
-//            }) { _ in
-//                // 7
-//                let success = !transitionContext.transitionWasCancelled
-//                if !success {
-//                    toView.removeFromSuperview()
-//                }
-//                transitionContext.completeTransition(success)
-//            }
-
-
-
-
-            let fromVC = transitionContext.viewController(forKey:.from) as! SecondCustomTransitionViewController
-            let toVC = transitionContext.viewController(forKey:.to) as! FirstCustomTransitionViewController
-
-            let destinationBounds = fromVC.productImageView.bounds
-            let originalBounds = toVC.productThumbnailView.bounds
-            let widthDiffScale = (destinationBounds.width - expandGap * 2) / originalBounds.width
-
-            let widthDiffScalea = (destinationBounds.width - expandGap * 2) / destinationBounds.width
-
-//            fromVC.productDescriptionTopConstraint.constant = -fromVC.productDescriptionView.bounds.height
-//            fromVC.productDescriptionBottomConstraint.constant = fromVC.productDescriptionView.bounds.height
-
-//            fromVC.expandableViewTopConstraint.constant = expandGap
-//            fromVC.expandableViewLeadingConstraint.constant = expandGap
-//            fromVC.expandableViewTrailingConstraint.constant = expandGap
-//            fromVC.expandableViewBottomConstraint.constant = /*fromVC.productDescriptionView.bounds.height +*/ expandGap
-
-            toVC.view.setNeedsLayout()
-            toVC.view.layoutIfNeeded()
-
-            let productImageViewCenter = fromVC.productImageView.superview!.convert(fromVC.productImageView.center, to: toVC.view)
-            let centerToMove = toVC.view.convert(productImageViewCenter, to: toVC.productThumbnailView.superview)
-
-            let originalCenter = toVC.productThumbnailView.center
-            toVC.productThumbnailView.center = centerToMove
-
-            toVC.productThumbnailView.transform = CGAffineTransform(scaleX: widthDiffScale, y: widthDiffScale)
-
-            fromVC.view.backgroundColor = UIColor.clear
-//            let anim1 = { (anim: (() -> Void)?) -> Void in
 //
-//                fromVC.view.backgroundColor = UIColor.clear
+////        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
+////            // 6
+////            if self.presenting {
+////                toView.alpha = 1.0
+////            } else {
+////                fromView.alpha = 0.0
+////            }
+////        }) { _ in
+////            // 7
+////            let success = !transitionContext.transitionWasCancelled
+////            if !success {
+////                toView.removeFromSuperview()
+////            }
+////            transitionContext.completeTransition(success)
+////        }
 //
-//                UIView.animate(withDuration: self.transitionDuration * 3 / 5, delay: 0
-//                    , options: .curveEaseIn, animations:  {
+//        guard presenting else {
+////            UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
+////                // 6
+////                if self.presenting {
+////                    toView.alpha = 1.0
+////                } else {
+////                    fromView.alpha = 0.0
+////                }
+////            }) { _ in
+////                // 7
+////                let success = !transitionContext.transitionWasCancelled
+////                if !success {
+////                    toView.removeFromSuperview()
+////                }
+////                transitionContext.completeTransition(success)
+////            }
 //
-//                        fromVC.view.setNeedsLayout()
-//                        fromVC.view.layoutIfNeeded()
 //
-//                }, completion: { _ in
-//                    anim?()
-//                })
-//            }
 //
-//            let anim2 = { () -> Void in
 //
-//                fromVC.view.alpha = 0
-//                UIView.animate(withDuration: self.transitionDuration * 2 / 5, delay: 0
-//                    , options: .curveEaseIn, animations:  {
+//            let fromVC = transitionContext.viewController(forKey:.from) as! SecondCustomTransitionViewController
+//            let toVC = transitionContext.viewController(forKey:.to) as! FirstCustomTransitionViewController
+//
+//            let destinationBounds = fromVC.productImageView.bounds
+//            let originalBounds = toVC.productThumbnailView.bounds
+//            let widthDiffScale = (destinationBounds.width - expandGap * 2) / originalBounds.width
+//
+//            let widthDiffScalea = (destinationBounds.width - expandGap * 2) / destinationBounds.width
+//
+////            fromVC.productDescriptionTopConstraint.constant = -fromVC.productDescriptionView.bounds.height
+////            fromVC.productDescriptionBottomConstraint.constant = fromVC.productDescriptionView.bounds.height
+//
+////            fromVC.expandableViewTopConstraint.constant = expandGap
+////            fromVC.expandableViewLeadingConstraint.constant = expandGap
+////            fromVC.expandableViewTrailingConstraint.constant = expandGap
+////            fromVC.expandableViewBottomConstraint.constant = /*fromVC.productDescriptionView.bounds.height +*/ expandGap
+//
+//            toVC.view.setNeedsLayout()
+//            toVC.view.layoutIfNeeded()
+//
+//            let productImageViewCenter = fromVC.productImageView.superview!.convert(fromVC.productImageView.center, to: toVC.view)
+//            let centerToMove = toVC.view.convert(productImageViewCenter, to: toVC.productThumbnailView.superview)
+//
+//            let originalCenter = toVC.productThumbnailView.center
+//            toVC.productThumbnailView.center = centerToMove
+//
+//            toVC.productThumbnailView.transform = CGAffineTransform(scaleX: widthDiffScale, y: widthDiffScale)
+//
+//            fromVC.view.backgroundColor = UIColor.clear
+////            let anim1 = { (anim: (() -> Void)?) -> Void in
+////
+////                fromVC.view.backgroundColor = UIColor.clear
+////
+////                UIView.animate(withDuration: self.transitionDuration * 3 / 5, delay: 0
+////                    , options: .curveEaseIn, animations:  {
+////
+////                        fromVC.view.setNeedsLayout()
+////                        fromVC.view.layoutIfNeeded()
+////
+////                }, completion: { _ in
+////                    anim?()
+////                })
+////            }
+////
+////            let anim2 = { () -> Void in
+////
+////                fromVC.view.alpha = 0
+////                UIView.animate(withDuration: self.transitionDuration * 2 / 5, delay: 0
+////                    , options: .curveEaseIn, animations:  {
+////                        toVC.productThumbnailView.transform = .identity
+////                        print(toVC.productThumbnailView.center)
+////                        toVC.productThumbnailView.center = originalCenter
+////                        print(toVC.productThumbnailView.center)
+////                        //toVC.view.alpha = 1
+//////                        toVC.view.setNeedsLayout()
+//////                        toVC.view.layoutIfNeeded()
+////
+////                }, completion: { _ in
+//////                    toVC.view.backgroundColor = UIColor.white
+//////                    fromVC.productThumbnailView.transform = .identity
+////
+////                    let success = !transitionContext.transitionWasCancelled
+////                    if !success {
+////                        fromVC.view.alpha = 1
+////                        toView.removeFromSuperview()
+////                    }
+////                    transitionContext.completeTransition(success)
+////                    //transitionContext.completeTransition(true)
+////                })
+////            }
+////
+////            anim1(anim2)
+//
+//            UIView.animateKeyframes(
+//                withDuration: transitionDuration,
+//                delay: 0,
+//                options: .calculationModeLinear,
+//                animations: {
+//
+//                    var start: Double = 0
+//                    var duration: Double = 4 / 12
+//
+//                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+////                        fromVC.view.setNeedsLayout()
+////                        fromVC.view.layoutIfNeeded()
+//
+//                        let point = CGPoint(x: fromVC.view.center.x, y: fromVC.view.center.y - 16)
+//
+//                        fromVC.view.center = point
+//
+//                        fromVC.view.transform = CGAffineTransform(scaleX: widthDiffScalea, y: widthDiffScalea)
+//                    }
+//
+//                    start += duration
+//                    duration = 4 / 12
+//
+//
+//                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+//                        let point = CGPoint(x: fromVC.productDescriptionView.center.x, y: fromVC.productDescriptionView.center.y - fromVC.productDescriptionView.bounds.height)
+//
+//                        fromVC.productDescriptionView.center = point
+//                    }
+//
+//                    start += duration
+//                    duration = 1 / 12
+//
+//                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
+////                        fromVC.expandableViewBottomConstraint.constant = fromVC.productDescriptionView.bounds.height + self.expandGap
+//                        fromVC.view.alpha = 0
+//                    }
+//
+//                    start += duration
+//                    duration = 3 / 12
+//
+//                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
 //                        toVC.productThumbnailView.transform = .identity
-//                        print(toVC.productThumbnailView.center)
 //                        toVC.productThumbnailView.center = originalCenter
-//                        print(toVC.productThumbnailView.center)
-//                        //toVC.view.alpha = 1
-////                        toVC.view.setNeedsLayout()
-////                        toVC.view.layoutIfNeeded()
-//
-//                }, completion: { _ in
-////                    toVC.view.backgroundColor = UIColor.white
-////                    fromVC.productThumbnailView.transform = .identity
-//
+//                    }
+//            },
+//                // 5
+//                completion: { _ in
+////                    toVC.view.isHidden = false
+////                    snapshot.removeFromSuperview()
+////                    fromVC.view.layer.transform = CATransform3DIdentity
+////                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
 //                    let success = !transitionContext.transitionWasCancelled
 //                    if !success {
 //                        fromVC.view.alpha = 1
 //                        toView.removeFromSuperview()
+//                        fromVC.view.backgroundColor = UIColor.white
 //                    }
 //                    transitionContext.completeTransition(success)
-//                    //transitionContext.completeTransition(true)
-//                })
-//            }
+//            })
 //
-//            anim1(anim2)
-
-            UIView.animateKeyframes(
-                withDuration: transitionDuration,
-                delay: 0,
-                options: .calculationModeLinear,
-                animations: {
-
-                    var start: Double = 0
-                    var duration: Double = 4 / 12
-
-                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
-//                        fromVC.view.setNeedsLayout()
-//                        fromVC.view.layoutIfNeeded()
-
-                        let point = CGPoint(x: fromVC.view.center.x, y: fromVC.view.center.y - 16)
-
-                        fromVC.view.center = point
-
-                        fromVC.view.transform = CGAffineTransform(scaleX: widthDiffScalea, y: widthDiffScalea)
-                    }
-
-                    start += duration
-                    duration = 4 / 12
-
-
-                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
-                        let point = CGPoint(x: fromVC.productDescriptionView.center.x, y: fromVC.productDescriptionView.center.y - fromVC.productDescriptionView.bounds.height)
-
-                        fromVC.productDescriptionView.center = point
-                    }
-
-                    start += duration
-                    duration = 1 / 12
-
-                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
-//                        fromVC.expandableViewBottomConstraint.constant = fromVC.productDescriptionView.bounds.height + self.expandGap
-                        fromVC.view.alpha = 0
-                    }
-
-                    start += duration
-                    duration = 3 / 12
-
-                    UIView.addKeyframe(withRelativeStartTime: start, relativeDuration: duration) {
-                        toVC.productThumbnailView.transform = .identity
-                        toVC.productThumbnailView.center = originalCenter
-                    }
-            },
-                // 5
-                completion: { _ in
-//                    toVC.view.isHidden = false
-//                    snapshot.removeFromSuperview()
-//                    fromVC.view.layer.transform = CATransform3DIdentity
-//                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-                    let success = !transitionContext.transitionWasCancelled
-                    if !success {
-                        fromVC.view.alpha = 1
-                        toView.removeFromSuperview()
-                        fromVC.view.backgroundColor = UIColor.white
-                    }
-                    transitionContext.completeTransition(success)
-            })
-
-
-
-            return
-        }
-
-        let fromVC = transitionContext.viewController(forKey:.from) as! FirstCustomTransitionViewController
-        let toVC = transitionContext.viewController(forKey:.to) as! SecondCustomTransitionViewController
-
-        fromVC.productThumbnailView.transform = .identity
-        let destinationBounds = toVC.productImageView.bounds
-        let originalBounds = fromVC.productThumbnailView.bounds
-        let widthDiffScale = (destinationBounds.width - expandGap * 2) / originalBounds.width
-
-        let widthDiffScalea = ((destinationBounds.width) / originalBounds.width) / widthDiffScale
-
-        toVC.productDescriptionTopConstraint.constant = -toVC.productDescriptionView.bounds.height
-        toVC.productDescriptionBottomConstraint.constant = toVC.productDescriptionView.bounds.height
-
-        toVC.expandableViewTopConstraint.constant = expandGap
-        toVC.expandableViewLeadingConstraint.constant = expandGap
-        toVC.expandableViewTrailingConstraint.constant = expandGap
-        toVC.expandableViewBottomConstraint.constant = toVC.productDescriptionView.bounds.height + expandGap
-
-        toVC.view.setNeedsLayout()
-        toVC.view.layoutIfNeeded()
-
-        let anim1 = { (anim: (() -> Void)?) -> Void in
-            toVC.view.alpha = 0
-            UIView.animate(withDuration: self.transitionDuration * 2 / 5, delay: 0
-                , options: .curveEaseIn, animations:  {
-                    fromVC.productThumbnailView.transform = CGAffineTransform(scaleX: widthDiffScale, y: widthDiffScale)
-
-                    fromVC.productThumbnailImageView.transform = CGAffineTransform(scaleX: widthDiffScalea, y: widthDiffScalea)
-
-                    let productImageViewCenter = toVC.productImageView.superview!.convert(toVC.productImageView.center, to: toVC.view)
-                    let centerToMove = fromVC.view.convert(productImageViewCenter, to: fromVC.productThumbnailView.superview)
-
-                    fromVC.productThumbnailView.center = centerToMove
-
-            }, completion: { _ in
-                anim?()
-            })
-        }
-
-        let anim2 = { () -> Void in
-
-            toVC.productDescriptionTopConstraint.constant = 0
-            toVC.productDescriptionBottomConstraint.constant = 0
-
-            toVC.expandableViewTopConstraint.constant = 0
-            toVC.expandableViewLeadingConstraint.constant = 0
-            toVC.expandableViewTrailingConstraint.constant = 0
-            toVC.expandableViewBottomConstraint.constant = 0
-
-            toVC.view.alpha = 1
-            toVC.view.backgroundColor = UIColor.clear
-
-            UIView.animate(withDuration: self.transitionDuration * 3 / 5, delay: 0
-                , options: .curveEaseIn, animations:  {
-                    //fromVC.sampleImageView.alpha = 0
-                    //toVC.view.alpha = 1
-                    toVC.view.setNeedsLayout()
-                    toVC.view.layoutIfNeeded()
-
-            }, completion: { _ in
-                toVC.view.backgroundColor = UIColor.white
-                fromVC.productThumbnailView.transform = .identity
-                fromVC.productThumbnailImageView.transform = .identity
-                transitionContext.completeTransition(true)
-            })
-        }
-
-        anim1(anim2)
-
-    }
-}
+//
+//
+//            return
+//        }
+//
+//        let fromVC = transitionContext.viewController(forKey:.from) as! FirstCustomTransitionViewController
+//        let toVC = transitionContext.viewController(forKey:.to) as! SecondCustomTransitionViewController
+//
+//        fromVC.productThumbnailView.transform = .identity
+//        let destinationBounds = toVC.productImageView.bounds
+//        let originalBounds = fromVC.productThumbnailView.bounds
+//        let widthDiffScale = (destinationBounds.width - expandGap * 2) / originalBounds.width
+//
+//        let widthDiffScalea = ((destinationBounds.width) / originalBounds.width) / widthDiffScale
+//
+//        toVC.productDescriptionTopConstraint.constant = -toVC.productDescriptionView.bounds.height
+//        toVC.productDescriptionBottomConstraint.constant = toVC.productDescriptionView.bounds.height
+//
+//        toVC.expandableViewTopConstraint.constant = expandGap
+//        toVC.expandableViewLeadingConstraint.constant = expandGap
+//        toVC.expandableViewTrailingConstraint.constant = expandGap
+//        toVC.expandableViewBottomConstraint.constant = toVC.productDescriptionView.bounds.height + expandGap
+//
+//        toVC.view.setNeedsLayout()
+//        toVC.view.layoutIfNeeded()
+//
+//        let anim1 = { (anim: (() -> Void)?) -> Void in
+//            toVC.view.alpha = 0
+//            UIView.animate(withDuration: self.transitionDuration * 2 / 5, delay: 0
+//                , options: .curveEaseIn, animations:  {
+//                    fromVC.productThumbnailView.transform = CGAffineTransform(scaleX: widthDiffScale, y: widthDiffScale)
+//
+//                    fromVC.productThumbnailImageView.transform = CGAffineTransform(scaleX: widthDiffScalea, y: widthDiffScalea)
+//
+//                    let productImageViewCenter = toVC.productImageView.superview!.convert(toVC.productImageView.center, to: toVC.view)
+//                    let centerToMove = fromVC.view.convert(productImageViewCenter, to: fromVC.productThumbnailView.superview)
+//
+//                    fromVC.productThumbnailView.center = centerToMove
+//
+//            }, completion: { _ in
+//                anim?()
+//            })
+//        }
+//
+//        let anim2 = { () -> Void in
+//
+//            toVC.productDescriptionTopConstraint.constant = 0
+//            toVC.productDescriptionBottomConstraint.constant = 0
+//
+//            toVC.expandableViewTopConstraint.constant = 0
+//            toVC.expandableViewLeadingConstraint.constant = 0
+//            toVC.expandableViewTrailingConstraint.constant = 0
+//            toVC.expandableViewBottomConstraint.constant = 0
+//
+//            toVC.view.alpha = 1
+//            toVC.view.backgroundColor = UIColor.clear
+//
+//            UIView.animate(withDuration: self.transitionDuration * 3 / 5, delay: 0
+//                , options: .curveEaseIn, animations:  {
+//                    //fromVC.sampleImageView.alpha = 0
+//                    //toVC.view.alpha = 1
+//                    toVC.view.setNeedsLayout()
+//                    toVC.view.layoutIfNeeded()
+//
+//            }, completion: { _ in
+//                toVC.view.backgroundColor = UIColor.white
+//                fromVC.productThumbnailView.transform = .identity
+//                fromVC.productThumbnailImageView.transform = .identity
+//                transitionContext.completeTransition(true)
+//            })
+//        }
+//
+//        anim1(anim2)
+//
+//    }
+//}
 
 class CustomNavigationController: UINavigationController {
 

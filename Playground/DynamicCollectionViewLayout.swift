@@ -37,7 +37,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     var cellWidth: CGFloat = 0
     var rowHeights: [CGFloat] = [CGFloat]()
 
-    var models: [DynamicCollectionCellModel] = [DynamicCollectionCellModel]()
+    private var models: [DynamicCollectionCellModel] = [DynamicCollectionCellModel]()
 
     var cellCount: Int {
         return models.count
@@ -84,64 +84,71 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         columnCount = calculateColumnCount()
         cellWidth = calculateCellWidth()
 //        updateRowHeights(models: models)
-        if rowHeights.isEmpty {
-            rowHeights = calculateRowHeights(models: models)
+//        if rowHeights.isEmpty {
+//            rowHeights = calculateRowHeights(models: models)
+//        }
+
+        if needsInitialization {
+            needsInitialization = false
+            appendModels(newModels: models)
         }
     }
 
-    func appendNew(newModels: [DynamicCollectionCellModel])  {
+    var needsInitialization: Bool = false
+
+    func setupInitialModels(newModels: [DynamicCollectionCellModel])  {
+        models.append(contentsOf: newModels)
+        needsInitialization = true
+    }
+
+    func appendModels(newModels: [DynamicCollectionCellModel])  {
+
+//        prepare()
 
         let cellHeights = newModels.map { model -> CGFloat in
             let height = measurementCell?.heightForWidth(width: cellWidth, model: model) ?? 0
             return height
         }
 
-        var paddingRowHeight: CGFloat = 0.0
-        let lastRowRemainderCellsCount = cellCount % columnCount
-        print(cellCount)
-        print(columnCount)
-        if lastRowRemainderCellsCount != 0 {
-            paddingRowHeight = self.rowHeights.popLast()!
+        var currentLastRowHeight: CGFloat = 0.0
+        let currentLastRowRemainderCellsCount = cellCount % columnCount
+
+        if currentLastRowRemainderCellsCount != 0 {
+            currentLastRowHeight = self.rowHeights.popLast() ?? 0.0
         }
 
-        let leftmostCellIndexFirst = 0
-        var rightmostCellIndexFirst = columnCount - lastRowRemainderCellsCount - 1
+        let newFirstRowLeftmostModelIndex = 0
+        let newFirstRowRightmostModelIndex = (columnCount - 1) - currentLastRowRemainderCellsCount
 
-        let lastCellIndexNew = newModels.count - 1
-        let cellExistsAtRightmostIndexFirst = rightmostCellIndexFirst <= lastCellIndexNew
-        if !cellExistsAtRightmostIndexFirst {
-            rightmostCellIndexFirst = lastCellIndexNew
-        }
-        let maxCellHeight = ([paddingRowHeight] + cellHeights[leftmostCellIndexFirst...rightmostCellIndexFirst]).max() ?? 0
-        self.rowHeights.append(maxCellHeight)
+        let height = getMaxHeight(leftmostCellIndex: newFirstRowLeftmostModelIndex, tentativeRightmostCellIndex: newFirstRowRightmostModelIndex, cellHeights: cellHeights, extraComparisonHeight: currentLastRowHeight)
+        self.rowHeights.append(height)
 
-
-
-
-
-
-//        let lastCellIndex = cellCount - 1
         var rowHeights = [CGFloat]()
-        for i in stride(from: (rightmostCellIndexFirst + 1), to: newModels.count, by: columnCount) {
-
-            print(String(columnCount) + " " + String(cellCount))
-
+        let newSecondRowLeftmostModelIndex = newFirstRowRightmostModelIndex + 1
+        for i in stride(from: newSecondRowLeftmostModelIndex, to: newModels.count, by: columnCount) {
 
             let leftmostCellIndex = i
-            var rightmostCellIndex = i + columnCount - 1
+            let rightmostCellIndex = (columnCount - 1) + i
 
-//            let cellExistsAtRightmostIndex = rightmostCellIndex <= lastCellIndex
-            let cellExistsAtRightmostIndex = rightmostCellIndex <= lastCellIndexNew
-            if !cellExistsAtRightmostIndex {
-//                rightmostCellIndex = lastCellIndex
-                rightmostCellIndex = lastCellIndexNew
-            }
-            let maxCellHeight = cellHeights[leftmostCellIndex...rightmostCellIndex].max() ?? 0
-            rowHeights.append(maxCellHeight)
+            let height = getMaxHeight(leftmostCellIndex: leftmostCellIndex, tentativeRightmostCellIndex: rightmostCellIndex, cellHeights: cellHeights)
+            rowHeights.append(height)
         }
         self.rowHeights.append(contentsOf: rowHeights)
 
         models.append(contentsOf: newModels)
+    }
+
+    func getMaxHeight(leftmostCellIndex: Int, tentativeRightmostCellIndex: Int, cellHeights: [CGFloat], extraComparisonHeight: CGFloat = 0.0) -> CGFloat {
+
+        var rightmostCellIndex = tentativeRightmostCellIndex
+        let modelLastIndex = cellHeights.count - 1
+
+        let cellExistsAtRightmostIndex = rightmostCellIndex <= modelLastIndex
+        if !cellExistsAtRightmostIndex {
+            rightmostCellIndex = modelLastIndex
+        }
+        let maxCellHeight = ([extraComparisonHeight] + cellHeights[leftmostCellIndex...rightmostCellIndex]).max() ?? 0
+        return maxCellHeight
     }
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {

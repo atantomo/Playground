@@ -99,7 +99,7 @@ class DynamicCollectionViewController: UIViewController {
     lazy var collectionViewGridLayout: DynamicCollectionViewLayout = {
         let layout = DynamicCollectionViewLayout()
         layout.portraitColumnCount = 2
-        layout.models = collectionData
+        layout.setupInitialModels(newModels: collectionData)
         layout.measurementCell = cuteMeasurementCell
         return layout
     }()
@@ -107,7 +107,7 @@ class DynamicCollectionViewController: UIViewController {
     lazy var collectionViewListLayout: DynamicCollectionViewLayout = {
         let layout = DynamicCollectionViewLayout()
         layout.portraitColumnCount = 1
-        layout.models = collectionData
+        layout.setupInitialModels(newModels: collectionData)
         layout.measurementCell = adorableMeasurementCell
         return layout
     }()
@@ -187,9 +187,10 @@ class DynamicCollectionViewController: UIViewController {
     @IBAction func addButtonTapped(_ sender: UIButton) {
         let startAddIndex = collectionData.count
 
-        collectionData.append(contentsOf: DynamicCollectionViewControllerData.data)
-        collectionViewGridLayout.appendNew(newModels: DynamicCollectionViewControllerData.data)
-//        collectionViewListLayout.appendNew(newModels: DynamicCollectionViewControllerData.data)
+        let newData = DynamicCollectionViewControllerData.data
+        collectionData.append(contentsOf: newData)
+        collectionViewGridLayout.appendModels(newModels: newData)
+        collectionViewListLayout.appendModels(newModels: newData)
 
         let endAddIndex = collectionData.count - 1
 
@@ -202,7 +203,7 @@ class DynamicCollectionViewController: UIViewController {
         }
         collectionView.insertItems(at: indexPaths)
         collectionViewGridLayout.invalidateLayout()
-//        collectionViewListLayout.invalidateLayout()
+        collectionViewListLayout.invalidateLayout()
     }
 
     func getTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
@@ -220,8 +221,8 @@ class DynamicCollectionViewController: UIViewController {
         if let indexPath = collectionView.indexPathForItem(at: position) {
 
             collectionData.remove(at: indexPath.row)
-            collectionViewGridLayout.models = collectionData
-            collectionViewListLayout.models = collectionData
+//            collectionViewGridLayout.models = collectionData
+//            collectionViewListLayout.models = collectionData
             
             collectionView.deleteItems(at: [indexPath])
             collectionViewGridLayout.invalidateLayout()

@@ -99,7 +99,8 @@ class DynamicCollectionViewController: UIViewController {
     lazy var collectionViewGridLayout: DynamicCollectionViewLayout = {
         let layout = DynamicCollectionViewLayout()
         layout.portraitColumnCount = 2
-        layout.setupInitialModels(newModels: collectionData)
+        layout.associatedCollectionView = collectionView
+        layout.appendModels(newModels: collectionData)
         layout.measurementCell = cuteMeasurementCell
         return layout
     }()
@@ -107,7 +108,8 @@ class DynamicCollectionViewController: UIViewController {
     lazy var collectionViewListLayout: DynamicCollectionViewLayout = {
         let layout = DynamicCollectionViewLayout()
         layout.portraitColumnCount = 1
-        layout.setupInitialModels(newModels: collectionData)
+        layout.associatedCollectionView = collectionView
+        layout.appendModels(newModels: collectionData)
         layout.measurementCell = adorableMeasurementCell
         return layout
     }()

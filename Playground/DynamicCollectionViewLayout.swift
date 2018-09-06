@@ -72,7 +72,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     override var collectionViewContentSize: CGSize {
-        let contentWidth = collectionView?.bounds.size.width ?? 0
+        let contentWidth = associatedCollectionView?.bounds.size.width ?? 0
         let contentHeight = rowHeights.reduce(0) { lhs, rhs in
             return lhs + rhs
         }
@@ -87,28 +87,31 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 //        if rowHeights.isEmpty {
 //            rowHeights = calculateRowHeights(models: models)
 //        }
-
-        if needsInitialization {
-            needsInitialization = false
-            appendModels(newModels: models)
-        }
+//
+//        if needsInitialization {
+//            needsInitialization = false
+//            appendModels(newModels: models)
+//        }
     }
 
-    var needsInitialization: Bool = false
-
-    func setupInitialModels(newModels: [DynamicCollectionCellModel])  {
-        models.append(contentsOf: newModels)
-        needsInitialization = true
-    }
+//    var needsInitialization: Bool = false
+//
+//    func setupInitialModels(newModels: [DynamicCollectionCellModel])  {
+//        models = newModels
+//        needsInitialization = true
+//    }
 
     func appendModels(newModels: [DynamicCollectionCellModel])  {
 
-//        prepare()
+        prepare()
 
         let cellHeights = newModels.map { model -> CGFloat in
             let height = measurementCell?.heightForWidth(width: cellWidth, model: model) ?? 0
             return height
         }
+
+        print(cellCount)
+        print(columnCount)
 
         var currentLastRowHeight: CGFloat = 0.0
         let currentLastRowRemainderCellsCount = cellCount % columnCount
@@ -117,6 +120,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
             currentLastRowHeight = self.rowHeights.popLast() ?? 0.0
         }
 
+        print(currentLastRowRemainderCellsCount)
         let newFirstRowLeftmostModelIndex = 0
         let newFirstRowRightmostModelIndex = (columnCount - 1) - currentLastRowRemainderCellsCount
 
@@ -190,9 +194,11 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return areBoundsChanged
     }
 
+    var associatedCollectionView: UICollectionView?
+
     private func calculateColumnCount() -> Int {
-        let width = collectionView?.bounds.size.width ?? 0
-        let height = collectionView?.bounds.size.height ?? 0
+        let width = associatedCollectionView?.bounds.size.width ?? 0
+        let height = associatedCollectionView?.bounds.size.height ?? 0
         if width < height {
             return portraitColumnCount
         } else {

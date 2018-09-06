@@ -105,6 +105,8 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
         prepare()
 
+        print(cellWidth)
+
         let cellHeights = newModels.map { model -> CGFloat in
             let height = measurementCell?.heightForWidth(width: cellWidth, model: model) ?? 0
             return height
@@ -189,7 +191,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        let oldBounds = collectionView?.bounds
+        let oldBounds = associatedCollectionView?.bounds
         let areBoundsChanged = newBounds.width != oldBounds?.width
         return areBoundsChanged
     }
@@ -207,7 +209,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     private func calculateCellWidth() -> CGFloat {
-        let totalWidth = collectionView?.bounds.size.width ?? 0.0
+        let totalWidth = associatedCollectionView?.bounds.size.width ?? 0.0
         let separatorCount = columnCount - 1
 
         let contentWidth = totalWidth - Constants.separatorWidth * CGFloat(separatorCount)

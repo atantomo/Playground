@@ -100,8 +100,8 @@ class DynamicCollectionViewController: UIViewController {
         let layout = DynamicCollectionViewLayout()
         layout.portraitColumnCount = 2
         layout.associatedCollectionView = collectionView
-        layout.appendModels(newModels: collectionData)
         layout.measurementCell = cuteMeasurementCell
+        layout.appendModels(newModels: collectionData)
         return layout
     }()
 
@@ -109,8 +109,8 @@ class DynamicCollectionViewController: UIViewController {
         let layout = DynamicCollectionViewLayout()
         layout.portraitColumnCount = 1
         layout.associatedCollectionView = collectionView
-        layout.appendModels(newModels: collectionData)
         layout.measurementCell = adorableMeasurementCell
+        layout.appendModels(newModels: collectionData)
         return layout
     }()
 
@@ -145,6 +145,9 @@ class DynamicCollectionViewController: UIViewController {
 //
 //        let str = formatter.string(from: sevenDaysAgo)
 //        print(str)
+
+        let _ = collectionViewGridLayout
+        let _ = collectionViewListLayout
 
         collectionView.setCollectionViewLayout(collectionViewGridLayout, animated: false)
 

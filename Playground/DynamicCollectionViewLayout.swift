@@ -24,7 +24,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
         static let verticalSeparatorWidth: CGFloat = 1
         static let horizontalSeparatorHeight: CGFloat = 1
-        static let separatorZIndex: Int = 10
+        static let separatorZIndex: Int = -10
     }
 
     private struct CellIndexRange {

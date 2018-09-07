@@ -22,7 +22,8 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 //        static let portraitColumnCount: Int = 1
         static let landscapeColumnCount: Int = 4
 
-        static let separatorWidth: CGFloat = 1
+        static let verticalSeparatorWidth: CGFloat = 1
+        static let horizontalSeparatorHeight: CGFloat = 1
         static let separatorZIndex: Int = 10
     }
 
@@ -45,7 +46,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return cellHeights.count
     }
 
-    var separatorCount: Int {
+    var verticalSeparatorCount: Int {
         let fullRowSeparatorCount = cellCount / columnCount * (columnCount - 1)
 
         let lastRowRemainderCellsCount = cellCount % columnCount
@@ -57,32 +58,44 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         }
     }
 
-    var cellAndSeparatorWidth: CGFloat {
-        return cellWidth + Constants.separatorWidth
+    var horizontalSeparatorCount: Int {
+        let excludingMultiLineLastRowCount = cellCount - columnCount
+        if excludingMultiLineLastRowCount < 0 {
+            return 0
+        } else {
+            return excludingMultiLineLastRowCount
+        }
     }
-    
+
+    var cellAndVerticalSeparatorWidth: CGFloat {
+        return cellWidth + Constants.verticalSeparatorWidth
+    }
+
+    var associatedCollectionView: UICollectionView?
     var measurementCell: HeightCalculable?
 
     override init() {
         super.init()
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "decoration")
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "verticalDecoration")
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "horizontalDecoration")
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "decoration")
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "verticalDecoration")
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "horizontalDecoration")
     }
 
     override var collectionViewContentSize: CGSize {
         let contentWidth = associatedCollectionView?.bounds.size.width ?? 0
-        let contentHeight = rowHeights.reduce(0) { lhs, rhs in
+        let contentHeight = Constants.horizontalSeparatorHeight * CGFloat(rowHeights.count - 1) + rowHeights.reduce(0) { lhs, rhs in
             return lhs + rhs
         }
         let contentSize = CGSize(width: contentWidth, height: contentHeight);
-        return contentSize;
+        return contentSize
     }
 
-    override func prepare() {
+    func prepareNecessary() {
         columnCount = calculateColumnCount()
         cellWidth = calculateCellWidth()
 //        updateRowHeights(models: models)
@@ -105,8 +118,6 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     func appendHeights(with newModels: [DynamicCollectionCellModel])  {
 
-        prepare()
-
 //        print(cellWidth)
 
         let cellHeights = newModels.map { model -> CGFloat in
@@ -124,7 +135,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
             currentLastRowHeight = self.rowHeights.popLast() ?? 0.0
         }
 
-        print(currentLastRowRemainderCellsCount)
+//        print(currentLastRowRemainderCellsCount)
         let newFirstRowLeftmostModelIndex = 0
         let newFirstRowRightmostModelIndex = (columnCount - 1) - currentLastRowRemainderCellsCount
 
@@ -189,12 +200,20 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
             }
         }
 
-        let separatorIndexPaths = indexPathsOfSeparator(in: range)
-        for separatorIndexPath in separatorIndexPaths {
-            if let attributes = layoutAttributesForDecorationView(ofKind: "decoration", at: separatorIndexPath) {
+        let verticalSeparatorIndexPaths = indexPathsOfVerticalSeparator(in: range)
+        for verticalSeparatorIndexPath in verticalSeparatorIndexPaths {
+            if let attributes = layoutAttributesForDecorationView(ofKind: "verticalDecoration", at: verticalSeparatorIndexPath) {
                 layoutAttributes.append(attributes)
             }
         }
+
+        let horizontalSeparatorIndexPaths = indexPathsOfHorizontalSeparator(in: range)
+        for horizontalSeparatorIndexPath in horizontalSeparatorIndexPaths {
+            if let attributes = layoutAttributesForDecorationView(ofKind: "horizontalDecoration", at: horizontalSeparatorIndexPath) {
+                layoutAttributes.append(attributes)
+            }
+        }
+
         return layoutAttributes
     }
 
@@ -205,9 +224,22 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
-        attributes.frame = frameForSeparator(at: indexPath)
-        attributes.zIndex = Constants.separatorZIndex
+        if elementKind == "verticalDecoration" {
+            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
+            attributes.frame = frameForVerticalSeparator(at: indexPath)
+            attributes.zIndex = Constants.separatorZIndex
+            return attributes
+        } else {
+            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
+            attributes.frame = frameForHorizontalSeparator(at: indexPath)
+            attributes.zIndex = Constants.separatorZIndex
+            return attributes
+        }
+    }
+
+    override func finalLayoutAttributesForDisappearingDecorationElement(ofKind elementKind: String, at decorationIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: decorationIndexPath)
+        attributes.alpha = 0
         return attributes
     }
 
@@ -216,8 +248,6 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let areBoundsChanged = newBounds.width != oldBounds?.width
         return areBoundsChanged
     }
-
-    var associatedCollectionView: UICollectionView?
 
     private func calculateColumnCount() -> Int {
         let width = associatedCollectionView?.bounds.size.width ?? 0
@@ -233,7 +263,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let totalWidth = associatedCollectionView?.bounds.size.width ?? 0.0
         let separatorCount = columnCount - 1
 
-        let contentWidth = totalWidth - Constants.separatorWidth * CGFloat(separatorCount)
+        let contentWidth = totalWidth - Constants.verticalSeparatorWidth * CGFloat(separatorCount)
         let width = contentWidth / CGFloat(columnCount)
         return width
     }
@@ -295,12 +325,12 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return indexPaths
     }
 
-    private func indexPathsOfSeparator(in range: CellIndexRange) -> [IndexPath] {
+    private func indexPathsOfVerticalSeparator(in range: CellIndexRange) -> [IndexPath] {
 
         var firstColumnIndexes = [Int]()
         for i in range.minRowIndex...range.maxRowIndex {
             let firstColumnIndex = range.minColumnIndex + i * (columnCount - 1)
-            if firstColumnIndex < separatorCount {
+            if firstColumnIndex < verticalSeparatorCount {
                 firstColumnIndexes.append(firstColumnIndex)
             }
         }
@@ -322,10 +352,33 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return indexPaths
     }
 
+    private func indexPathsOfHorizontalSeparator(in range: CellIndexRange) -> [IndexPath] {
+
+        var firstColumnIndexes = [Int]()
+        for i in range.minRowIndex...range.maxRowIndex {
+            let firstColumnIndex = range.minColumnIndex + i * columnCount
+            firstColumnIndexes.append(firstColumnIndex)
+        }
+
+        var indexes = [Int]()
+        for i in 0...(range.maxColumnIndex - range.minColumnIndex) {
+            for firstColumnIndex in firstColumnIndexes {
+                let columnIndex = firstColumnIndex + i
+                if columnIndex < cellCount - columnCount {
+                    indexes.append(columnIndex)
+                }
+            }
+        }
+        let indexPaths = indexes.map { index in
+            return IndexPath(row: index, section: 0)
+        }
+        return indexPaths
+    }
+
     private func columnIndexFromXCoordinate(xPosition: CGFloat) -> Int {
         let xPositionWithOffset = xPosition - 1
 
-        let columnIndex = Int(xPositionWithOffset / cellAndSeparatorWidth)
+        let columnIndex = Int(xPositionWithOffset / cellAndVerticalSeparatorWidth)
         return columnIndex
     }
 
@@ -335,7 +388,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         }
         var yPositionMutable = yPosition
         for (rowIndex, rowHeight) in rowHeights.enumerated() {
-            yPositionMutable -= rowHeight
+            yPositionMutable -= (rowHeight + Constants.horizontalSeparatorHeight)
             if yPositionMutable <= 0 {
                 return rowIndex
             }
@@ -348,10 +401,10 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let index = indexPath.row
 
         let columnIndexCGFloat = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount))
-        let x = columnIndexCGFloat * cellAndSeparatorWidth
+        let x = columnIndexCGFloat * cellAndVerticalSeparatorWidth
 
         let rowIndex = index / columnCount
-        let y = rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
+        let y = Constants.horizontalSeparatorHeight * CGFloat(rowIndex) + rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
             return lhs + rhs
         }
         let cellHeight = rowHeights[rowIndex]
@@ -361,26 +414,41 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return frame
     }
 
-    private func frameForSeparator(at indexPath: IndexPath) -> CGRect {
+    private func frameForVerticalSeparator(at indexPath: IndexPath) -> CGRect {
         let index = indexPath.row
 
         let columnIndexCGFloat = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount - 1))
         let interimMultiplier = columnIndexCGFloat + 1
-        let x = interimMultiplier * cellAndSeparatorWidth - Constants.separatorWidth
+        let x = interimMultiplier * cellAndVerticalSeparatorWidth - Constants.verticalSeparatorWidth
 
         let rowIndex = index / (columnCount - 1)
         if rowIndex >= rowHeights.count {
             return CGRect.zero
         }
-        let y = rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
+        let y = Constants.horizontalSeparatorHeight * CGFloat(rowIndex) + rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
             return lhs + rhs
         }
         var separatorHeight: CGFloat = 0
-        if index < separatorCount {
+        if index < verticalSeparatorCount {
             separatorHeight = rowHeights[rowIndex]
         }
 
-        let frame = CGRect(x: x, y: y, width: Constants.separatorWidth, height: separatorHeight)
+        let frame = CGRect(x: x, y: y, width: Constants.verticalSeparatorWidth, height: separatorHeight)
+        return frame
+    }
+
+    private func frameForHorizontalSeparator(at indexPath: IndexPath) -> CGRect {
+        let index = indexPath.row
+
+        let columnIndexCGFloat = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount))
+        let x = columnIndexCGFloat * cellAndVerticalSeparatorWidth
+
+        let rowIndex = index / columnCount
+        let y = Constants.horizontalSeparatorHeight * CGFloat(rowIndex) + rowHeights[0...rowIndex].reduce(0) { lhs, rhs in
+            return lhs + rhs
+        }
+
+        let frame = CGRect(x: x, y: y, width: cellWidth, height: Constants.horizontalSeparatorHeight)
         return frame
     }
     

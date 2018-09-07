@@ -98,7 +98,7 @@ class DynamicCollectionViewController: UIViewController {
 
     lazy var collectionViewGridLayout: DynamicCollectionViewLayout = {
         let layout = DynamicCollectionViewLayout()
-        layout.portraitColumnCount = 3
+        layout.portraitColumnCount = 2
         layout.associatedCollectionView = collectionView
         layout.measurementCell = cuteMeasurementCell
 
@@ -189,7 +189,7 @@ class DynamicCollectionViewController: UIViewController {
         identifier = "adorable"
         UIView.performWithoutAnimation {
             self.collectionView.reloadSections(IndexSet(integer: 0))
-        }
+        }    
         collectionView.setCollectionViewLayout(collectionViewListLayout, animated: true)
     }
 

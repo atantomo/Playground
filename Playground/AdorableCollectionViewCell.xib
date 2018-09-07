@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -24,7 +24,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="339" height="306"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-heart" translatesAutoresizingMaskIntoConstraints="NO" id="w4T-Xd-wbi">
-                                <rect key="frame" x="0.0" y="0.0" width="150" height="149.5"/>
+                                <rect key="frame" x="16" y="16" width="150" height="149.5"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.82352941180000006" green="0.25098039220000001" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -33,13 +33,13 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlB-xq-Jx2">
-                                <rect key="frame" x="150" y="0.0" width="189" height="85"/>
+                                <rect key="frame" x="166" y="0.0" width="173" height="85"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hfp-Q9-ee4">
-                                        <rect key="frame" x="16" y="16" width="157" height="61"/>
+                                        <rect key="frame" x="16" y="16" width="141" height="61"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Love Love Love Love Love Love Love Love Love" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcH-Z4-ZRg">
-                                                <rect key="frame" x="0.0" y="0.0" width="157" height="61"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="141" height="61"/>
                                                 <color key="backgroundColor" red="0.9075858161" green="0.70953241469999995" blue="0.78551106690000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -64,13 +64,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ea0-JP-ymg">
-                                <rect key="frame" x="150" y="85" width="189" height="207"/>
+                                <rect key="frame" x="166" y="85" width="173" height="207"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xuj-JJ-RJv">
-                                        <rect key="frame" x="16" y="8" width="70.5" height="183"/>
+                                        <rect key="frame" x="16" y="8" width="62.5" height="183"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Faith Faith Faith Faith Faith Faith Faith Faith Faith" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEr-zE-sJk">
-                                                <rect key="frame" x="0.0" y="0.0" width="70.5" height="183"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62.5" height="183"/>
                                                 <color key="backgroundColor" red="0.78909911144544465" green="0.9075858161" blue="0.72682024070810658" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -86,10 +86,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DM3-GS-hi7">
-                                        <rect key="frame" x="102.5" y="8" width="70.5" height="183"/>
+                                        <rect key="frame" x="94.5" y="8" width="62.5" height="183"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Hope Hope Hope Hope Hope Hope Hope Hope Hope" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zf-mo-Ix5">
-                                                <rect key="frame" x="0.0" y="0.0" width="70.5" height="183"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="62.5" height="183"/>
                                                 <color key="backgroundColor" red="0.77214751729999997" green="0.8235692644" blue="0.9075858161" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -140,12 +140,12 @@
                             <constraint firstItem="tlB-xq-Jx2" firstAttribute="width" secondItem="ea0-JP-ymg" secondAttribute="width" id="1xb-Uh-iNO"/>
                             <constraint firstItem="ea0-JP-ymg" firstAttribute="leading" secondItem="w4T-Xd-wbi" secondAttribute="trailing" id="6sQ-AV-IUH"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="w4T-Xd-wbi" secondAttribute="bottom" constant="16" id="8LT-AS-IeO"/>
-                            <constraint firstItem="w4T-Xd-wbi" firstAttribute="leading" secondItem="q0q-KC-dVn" secondAttribute="leading" id="9Vq-oQ-uZM"/>
+                            <constraint firstItem="w4T-Xd-wbi" firstAttribute="leading" secondItem="q0q-KC-dVn" secondAttribute="leading" constant="16" id="9Vq-oQ-uZM"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ea0-JP-ymg" secondAttribute="bottom" id="GNq-JE-dEe"/>
                             <constraint firstAttribute="trailing" secondItem="ea0-JP-ymg" secondAttribute="trailing" id="LF4-EB-w7Z"/>
                             <constraint firstItem="tlB-xq-Jx2" firstAttribute="top" secondItem="q0q-KC-dVn" secondAttribute="top" id="M3l-wJ-AgC"/>
                             <constraint firstItem="05Q-Xl-ic5" firstAttribute="top" secondItem="q0q-KC-dVn" secondAttribute="top" id="MSu-NO-vyO"/>
-                            <constraint firstItem="w4T-Xd-wbi" firstAttribute="top" secondItem="q0q-KC-dVn" secondAttribute="top" id="VT7-IK-uyC"/>
+                            <constraint firstItem="w4T-Xd-wbi" firstAttribute="top" secondItem="q0q-KC-dVn" secondAttribute="top" constant="16" id="VT7-IK-uyC"/>
                             <constraint firstItem="tlB-xq-Jx2" firstAttribute="leading" secondItem="w4T-Xd-wbi" secondAttribute="trailing" id="agE-HF-tmf"/>
                             <constraint firstItem="ea0-JP-ymg" firstAttribute="top" secondItem="tlB-xq-Jx2" secondAttribute="bottom" id="urB-eU-U24"/>
                             <constraint firstAttribute="trailing" secondItem="05Q-Xl-ic5" secondAttribute="trailing" id="vbE-kQ-pHE"/>
@@ -164,7 +164,6 @@
             <connections>
                 <outlet property="container" destination="q0q-KC-dVn" id="DKt-zy-glC"/>
                 <outlet property="imageAspectConstraint" destination="b2w-Qi-h8k" id="lMd-jp-y99"/>
-                <outlet property="imageBottomConstraint" destination="8LT-AS-IeO" id="VgL-KM-cAn"/>
                 <outlet property="imageWidthConstraint" destination="4ox-Ml-foj" id="H85-5n-OA6"/>
                 <outlet property="theButton" destination="05Q-Xl-ic5" id="ejp-Ft-JWb"/>
                 <outlet property="theImageView" destination="w4T-Xd-wbi" id="Bj6-7V-P3a"/>
@@ -180,6 +179,9 @@
                 <outletCollection property="label2SideConstraints" destination="P2j-5O-s34" collectionClass="NSMutableArray" id="rQF-ni-m3r"/>
                 <outletCollection property="label2SideConstraints" destination="O5d-Ks-SiL" collectionClass="NSMutableArray" id="Trk-FB-ywo"/>
                 <outletCollection property="label2SideConstraints" destination="Ake-dN-PiL" collectionClass="NSMutableArray" id="Vpy-0d-1Uq"/>
+                <outletCollection property="imageVerticalConstraints" destination="VT7-IK-uyC" collectionClass="NSMutableArray" id="i1g-0m-kbz"/>
+                <outletCollection property="imageVerticalConstraints" destination="8LT-AS-IeO" collectionClass="NSMutableArray" id="fCM-dk-LJP"/>
+                <outletCollection property="imageSideConstraints" destination="9Vq-oQ-uZM" collectionClass="NSMutableArray" id="vHk-ro-CiK"/>
             </connections>
             <point key="canvasLocation" x="-40.5" y="58"/>
         </collectionViewCell>

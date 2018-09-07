@@ -237,10 +237,34 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         }
     }
 
+    override func initialLayoutAttributesForAppearingDecorationElement(ofKind elementKind: String, at decorationIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+
+        if elementKind == "verticalDecoration" {
+            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: decorationIndexPath)
+            attributes.frame = frameForVerticalSeparator(at: decorationIndexPath)
+            attributes.zIndex = -10
+            return attributes
+        } else {
+            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: decorationIndexPath)
+            attributes.frame = frameForHorizontalSeparator(at: decorationIndexPath)
+            attributes.zIndex = -10
+            return attributes
+        }
+    }
+
     override func finalLayoutAttributesForDisappearingDecorationElement(ofKind elementKind: String, at decorationIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: decorationIndexPath)
-        attributes.alpha = 0
-        return attributes
+        
+        if elementKind == "verticalDecoration" {
+            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: decorationIndexPath)
+            attributes.frame = frameForVerticalSeparator(at: decorationIndexPath)
+            attributes.zIndex = -10
+            return attributes
+        } else {
+            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: decorationIndexPath)
+            attributes.frame = frameForHorizontalSeparator(at: decorationIndexPath)
+            attributes.zIndex = -10
+            return attributes
+        }
     }
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {

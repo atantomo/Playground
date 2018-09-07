@@ -23,9 +23,10 @@ class AdorableCollectionViewCell: UICollectionViewCell, HeightCalculable {
 
     @IBOutlet var imageAspectConstraint: NSLayoutConstraint!
     @IBOutlet var imageWidthConstraint: NSLayoutConstraint!
-    @IBOutlet var imageBottomConstraint: NSLayoutConstraint!
 
+    @IBOutlet var imageVerticalConstraints: [NSLayoutConstraint]!
     @IBOutlet var heightCalculationConstraints: [NSLayoutConstraint]!
+    @IBOutlet var imageSideConstraints: [NSLayoutConstraint]!
     @IBOutlet var labelSideConstraints: [NSLayoutConstraint]!
     @IBOutlet var label2SideConstraints: [NSLayoutConstraint]!
 
@@ -33,8 +34,12 @@ class AdorableCollectionViewCell: UICollectionViewCell, HeightCalculable {
         return self.imageWidthConstraint.constant
     }()
 
-    lazy var imageBottomPadding: CGFloat = {
-        return self.imageBottomConstraint.constant
+    lazy var imageSidePadding: CGFloat = {
+        return self.imageSideConstraints.getConstantsSum()
+    }()
+
+    lazy var imageVerticalPadding: CGFloat = {
+        return self.imageVerticalConstraints.getConstantsSum()
     }()
 
     lazy var cellPaddingHeight: CGFloat = {
@@ -62,16 +67,16 @@ class AdorableCollectionViewCell: UICollectionViewCell, HeightCalculable {
     }
 
     func heightForWidth(width: CGFloat, model: DynamicCollectionCellModel) -> CGFloat {
-        let imageHeight = imageWidth * imageAspectConstraint.multiplier + imageBottomPadding
+        let imageHeight = imageWidth * imageAspectConstraint.multiplier + imageVerticalPadding
 
         let leftSum = imageHeight
 
-        let labelWidth = width - labelSidePadding - imageWidth
+        let labelWidth = width - labelSidePadding - imageWidth - imageSidePadding
         let labelHeight = TextHeightCalculator.getMaxHeight(for: [
             model.firstText.makeCalculableText(with: theLabel.font, width: labelWidth)
             ])
 
-        let label2Width = (width - label2SidePadding - imageWidth) / 2
+        let label2Width = (width - label2SidePadding - imageWidth - imageSidePadding) / 2
         let bottomLabelHeight = TextHeightCalculator.getMaxHeight(for: [
             model.secondText.makeCalculableText(with: theLabel2.font, width: label2Width),
             model.thirdText.makeCalculableText(with: theLabel3.font, width: label2Width)

@@ -35,12 +35,14 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     var columnCount: Int = 0
     var cellWidth: CGFloat = 0
+
+    var cellHeights: [CGFloat] = [CGFloat]()
     var rowHeights: [CGFloat] = [CGFloat]()
 
-    private var models: [DynamicCollectionCellModel] = [DynamicCollectionCellModel]()
+//    private var models: [DynamicCollectionCellModel] = [DynamicCollectionCellModel]()
 
     var cellCount: Int {
-        return models.count
+        return cellHeights.count
     }
 
     var separatorCount: Int {
@@ -101,19 +103,19 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 //        needsInitialization = true
 //    }
 
-    func appendModels(newModels: [DynamicCollectionCellModel])  {
+    func appendHeights(with newModels: [DynamicCollectionCellModel])  {
 
         prepare()
 
-        print(cellWidth)
+//        print(cellWidth)
 
         let cellHeights = newModels.map { model -> CGFloat in
             let height = measurementCell?.heightForWidth(width: cellWidth, model: model) ?? 0
             return height
         }
 
-        print(cellCount)
-        print(columnCount)
+//        print(cellCount)
+//        print(columnCount)
 
         var currentLastRowHeight: CGFloat = 0.0
         let currentLastRowRemainderCellsCount = cellCount % columnCount
@@ -141,7 +143,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         }
         self.rowHeights.append(contentsOf: rowHeights)
 
-        models.append(contentsOf: newModels)
+        self.cellHeights.append(contentsOf: cellHeights)
     }
 
     func getMaxHeight(leftmostCellIndex: Int, tentativeRightmostCellIndex: Int, cellHeights: [CGFloat], extraComparisonHeight: CGFloat = 0.0) -> CGFloat {
@@ -155,6 +157,25 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         }
         let maxCellHeight = ([extraComparisonHeight] + cellHeights[leftmostCellIndex...rightmostCellIndex]).max() ?? 0
         return maxCellHeight
+    }
+
+    func removeHeight(at index: Int) {
+        self.cellHeights.remove(at: index)
+
+        let rowIndex = index / columnCount
+
+        var rowHeights = [CGFloat]()
+        let leftmostModelIndex = rowIndex * columnCount
+        for i in stride(from: leftmostModelIndex, to: cellHeights.count, by: columnCount) {
+
+            let leftmostCellIndex = i
+            let rightmostCellIndex = (columnCount - 1) + i
+
+            let height = getMaxHeight(leftmostCellIndex: leftmostCellIndex, tentativeRightmostCellIndex: rightmostCellIndex, cellHeights: cellHeights)
+            rowHeights.append(height)
+        }
+        let heights = Array(self.rowHeights[0..<rowIndex]) + rowHeights
+        self.rowHeights = heights
     }
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {

@@ -98,10 +98,10 @@ class DynamicCollectionViewController: UIViewController {
 
     lazy var collectionViewGridLayout: DynamicCollectionViewLayout = {
         let layout = DynamicCollectionViewLayout()
-        layout.portraitColumnCount = 2
+        layout.portraitColumnCount = 4
         layout.associatedCollectionView = collectionView
         layout.measurementCell = cuteMeasurementCell
-        layout.appendModels(newModels: collectionData)
+        layout.appendHeights(with: collectionData)
         return layout
     }()
 
@@ -110,7 +110,7 @@ class DynamicCollectionViewController: UIViewController {
         layout.portraitColumnCount = 1
         layout.associatedCollectionView = collectionView
         layout.measurementCell = adorableMeasurementCell
-        layout.appendModels(newModels: collectionData)
+        layout.appendHeights(with: collectionData)
         return layout
     }()
 
@@ -194,8 +194,8 @@ class DynamicCollectionViewController: UIViewController {
 
         let newData = DynamicCollectionViewControllerData.data
         collectionData.append(contentsOf: newData)
-        collectionViewGridLayout.appendModels(newModels: newData)
-        collectionViewListLayout.appendModels(newModels: newData)
+        collectionViewGridLayout.appendHeights(with: newData)
+        collectionViewListLayout.appendHeights(with: newData)
 
         let endAddIndex = collectionData.count - 1
 
@@ -226,6 +226,9 @@ class DynamicCollectionViewController: UIViewController {
         if let indexPath = collectionView.indexPathForItem(at: position) {
 
             collectionData.remove(at: indexPath.row)
+            collectionViewGridLayout.removeHeight(at: indexPath.row)
+            collectionViewListLayout.removeHeight(at: indexPath.row)
+
 //            collectionViewGridLayout.models = collectionData
 //            collectionViewListLayout.models = collectionData
             

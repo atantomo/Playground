@@ -231,9 +231,10 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
 
         var currentLastRowHeight: CGFloat = 0.0
-        let currentLastRowRemainderCellsCount = (cellHeightsa.count + 1) % columnCount
+        let currentLastRowRemainderCellsCount = minIndex % columnCount
 //        print(cellHeightsa.count)
 //        print(minIndex)
+//        print(columnCount)
 
         if rowIndex < self.rowHeights.count {
             currentLastRowHeight = self.rowHeights[rowIndex]

@@ -143,7 +143,7 @@ open class HighlightableButton: UIButton {
         commonInit()
     }
 
-    public func configureCornerRadius(radius: CGFloat = 0) {
+    public func configureCornerRadius(radius: CGFloat = 4) {
         layer.cornerRadius = radius
     }
 

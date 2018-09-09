@@ -46,6 +46,18 @@ class CuteCollectionViewCell: UICollectionViewCell, HeightCalculable {
         }
     }
 
+    override var isSelected: Bool {
+
+        didSet {
+            if (isSelected) {
+                container.backgroundColor = UIColor.lightGray
+            }
+            else {
+                container.backgroundColor = UIColor.white
+            }
+        }
+    }
+
     func heightForWidth(width: CGFloat, model: DynamicCollectionCellModel) -> CGFloat {
         let imageHeight = width * imageAspectConstraint.multiplier
 

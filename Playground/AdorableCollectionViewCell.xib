@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,7 +23,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q0q-KC-dVn">
                         <rect key="frame" x="0.0" y="0.0" width="339" height="306"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-heart" translatesAutoresizingMaskIntoConstraints="NO" id="w4T-Xd-wbi">
+                            <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-heart" translatesAutoresizingMaskIntoConstraints="NO" id="w4T-Xd-wbi">
                                 <rect key="frame" x="16" y="16" width="150" height="149.5"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.82352941180000006" green="0.25098039220000001" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -36,10 +36,10 @@
                                 <rect key="frame" x="166" y="0.0" width="173" height="85"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hfp-Q9-ee4">
-                                        <rect key="frame" x="16" y="16" width="141" height="61"/>
+                                        <rect key="frame" x="16" y="16" width="117" height="61"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Love Love Love Love Love Love Love Love Love" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcH-Z4-ZRg">
-                                                <rect key="frame" x="0.0" y="0.0" width="141" height="61"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="117" height="61"/>
                                                 <color key="backgroundColor" red="0.9075858161" green="0.70953241469999995" blue="0.78551106690000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -59,7 +59,7 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Hfp-Q9-ee4" secondAttribute="bottom" constant="8" id="6RK-I5-t5h"/>
                                     <constraint firstItem="Hfp-Q9-ee4" firstAttribute="top" secondItem="tlB-xq-Jx2" secondAttribute="top" constant="16" id="YHn-gx-zRT"/>
-                                    <constraint firstAttribute="trailing" secondItem="Hfp-Q9-ee4" secondAttribute="trailing" constant="16" id="ZFn-Mo-5cD"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hfp-Q9-ee4" secondAttribute="trailing" constant="40" id="ZFn-Mo-5cD"/>
                                     <constraint firstItem="Hfp-Q9-ee4" firstAttribute="leading" secondItem="tlB-xq-Jx2" secondAttribute="leading" constant="16" id="gni-l1-YFg"/>
                                 </constraints>
                             </view>
@@ -67,10 +67,10 @@
                                 <rect key="frame" x="166" y="85" width="173" height="207"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xuj-JJ-RJv">
-                                        <rect key="frame" x="16" y="8" width="62.5" height="183"/>
+                                        <rect key="frame" x="16" y="8" width="50.5" height="183"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Faith Faith Faith Faith Faith Faith Faith Faith Faith" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEr-zE-sJk">
-                                                <rect key="frame" x="0.0" y="0.0" width="62.5" height="183"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50.5" height="183"/>
                                                 <color key="backgroundColor" red="0.78909911144544465" green="0.9075858161" blue="0.72682024070810658" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -86,10 +86,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DM3-GS-hi7">
-                                        <rect key="frame" x="94.5" y="8" width="62.5" height="183"/>
+                                        <rect key="frame" x="82.5" y="8" width="50.5" height="183"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Hope Hope Hope Hope Hope Hope Hope Hope Hope" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zf-mo-Ix5">
-                                                <rect key="frame" x="0.0" y="0.0" width="62.5" height="183"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50.5" height="183"/>
                                                 <color key="backgroundColor" red="0.77214751729999997" green="0.8235692644" blue="0.9075858161" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -107,7 +107,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="DM3-GS-hi7" secondAttribute="trailing" constant="16" id="Ake-dN-PiL"/>
+                                    <constraint firstAttribute="trailing" secondItem="DM3-GS-hi7" secondAttribute="trailing" constant="40" id="Ake-dN-PiL"/>
                                     <constraint firstAttribute="bottom" secondItem="DM3-GS-hi7" secondAttribute="bottom" priority="749" constant="16" id="KHa-WN-yta"/>
                                     <constraint firstItem="DM3-GS-hi7" firstAttribute="leading" secondItem="xuj-JJ-RJv" secondAttribute="trailing" constant="16" id="O5d-Ks-SiL"/>
                                     <constraint firstItem="xuj-JJ-RJv" firstAttribute="leading" secondItem="ea0-JP-ymg" secondAttribute="leading" constant="16" id="P2j-5O-s34"/>

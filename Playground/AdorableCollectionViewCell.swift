@@ -58,7 +58,19 @@ class AdorableCollectionViewCell: UICollectionViewCell, HeightCalculable {
 
         didSet {
             if (isHighlighted) {
-                container.backgroundColor = UIColor.lightGray
+                container.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+            }
+            else {
+                container.backgroundColor = UIColor.white
+            }
+        }
+    }
+
+    override var isSelected: Bool {
+
+        didSet {
+            if (isSelected) {
+                container.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
             }
             else {
                 container.backgroundColor = UIColor.white

@@ -29,17 +29,17 @@ struct ChangeTrackableArray<T> {
         case delete([Int])
     }
 
-    var latestChange: Change? = nil
-    private (set) var array: [T] = [T]()
+    var latestChange: Change = Change.set
+    private var array: [T] = [T]()
 
     init(_ array: [T] = []) {
         self.array = array
     }
 
-    mutating func set(_ array: [T]) {
-        latestChange = Change.set
-        self.array = array
-    }
+//    mutating func set(_ array: [T]) {
+//        latestChange = Change.set
+//        self.array = array
+//    }
 
     mutating func append(contentsOf array: [T]) {
         let startAddIndex = self.array.count
@@ -55,6 +55,29 @@ struct ChangeTrackableArray<T> {
         for index in sortedReversedIndexes {
             self.array.remove(at: index)
         }
+    }
+
+}
+
+extension ChangeTrackableArray: Collection {
+
+    typealias Index = Int
+    typealias Element = T
+
+    var startIndex: Index {
+        return array.startIndex
+    }
+
+    var endIndex: Index {
+        return array.endIndex
+    }
+
+    subscript(index: Index) -> T {
+        return array[index]
+    }
+
+    func index(after i: Index) -> Index {
+        return array.index(after: i)
     }
 
 }
@@ -161,12 +184,9 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     func update() {
-        guard let change = models.latestChange else {
-            return
-        }
-        switch change {
+        switch models.latestChange {
         case .set:
-            calculateRowHeights(models: models.array)
+            calculateRowHeights(models: models)
         case .insert(let indexes):
             appendHeights(indexes: indexes)
         case .delete(let indexes):
@@ -200,7 +220,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 //        }
 
         for index in indexes {
-            let height = measurementCell?.heightForWidth(width: cellWidth, model: models.array[index]) ?? 0
+            let height = measurementCell?.heightForWidth(width: cellWidth, model: models[index]) ?? 0
             cellHeightsa.insert(height, at: index)
         }
 //        let newCellHeights = Array(cellHeightsa[minIndex...maxIndex])
@@ -443,7 +463,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return width
     }
 
-    private func calculateRowHeights(models: [DynamicCollectionCellModel]) {
+    private func calculateRowHeights(models: ChangeTrackableArray<DynamicCollectionCellModel>) {
         let cellHeights = models.map { model -> CGFloat in
             let height = measurementCell?.heightForWidth(width: cellWidth, model: model) ?? 0
             return height

@@ -121,7 +121,7 @@ class DynamicCollectionViewController: UIViewController {
     }()
 
     var identifier: String = "cute"
-    var collectionData: ChangeTrackableArray<DynamicCollectionCellModel> = ChangeTrackableArray<DynamicCollectionCellModel>() {
+    var collectionData: ChangeTrackableArray<DynamicCollectionCellModel> = ChangeTrackableArray() {
         didSet {
             collectionViewGridLayout.models = collectionData
             collectionViewListLayout.models = collectionData
@@ -146,7 +146,7 @@ class DynamicCollectionViewController: UIViewController {
 
 
     override func viewDidLoad() {
-        collectionData.set(DynamicCollectionViewControllerData.data)
+        collectionData = ChangeTrackableArray(DynamicCollectionViewControllerData.data)
         collectionView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
         collectionView.allowsMultipleSelection = true
 //        let now = Date()
@@ -215,7 +215,7 @@ class DynamicCollectionViewController: UIViewController {
         let newData = DynamicCollectionViewControllerData.data
         collectionData.append(contentsOf: newData)
 
-        guard case let .insert(indexes)? = collectionData.latestChange else {
+        guard case let .insert(indexes) = collectionData.latestChange else {
             return
         }
 
@@ -288,22 +288,22 @@ class DynamicCollectionViewController: UIViewController {
 extension DynamicCollectionViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionData.array.count
+        return collectionData.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         if let cell = dequeuedCell as? CuteCollectionViewCell {
-            cell.theLabel.text = collectionData.array[indexPath.row].firstText
-            cell.theLabel2.text = collectionData.array[indexPath.row].secondText
-            cell.theLabel3.text = collectionData.array[indexPath.row].thirdText
+            cell.theLabel.text = collectionData[indexPath.row].firstText
+            cell.theLabel2.text = collectionData[indexPath.row].secondText
+            cell.theLabel3.text = collectionData[indexPath.row].thirdText
 
             return cell
         }
         if let cell = dequeuedCell as? AdorableCollectionViewCell {
-            cell.theLabel.text = collectionData.array[indexPath.row].firstText
-            cell.theLabel2.text = collectionData.array[indexPath.row].secondText
-            cell.theLabel3.text = collectionData.array[indexPath.row].thirdText
+            cell.theLabel.text = collectionData[indexPath.row].firstText
+            cell.theLabel2.text = collectionData[indexPath.row].secondText
+            cell.theLabel3.text = collectionData[indexPath.row].thirdText
 
             return cell
         }

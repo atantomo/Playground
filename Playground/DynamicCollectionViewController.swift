@@ -100,10 +100,11 @@ class DynamicCollectionViewController: UIViewController {
     lazy var collectionViewGridLayout: DynamicCollectionViewLayout = {
         let layout = DynamicCollectionViewLayout()
         layout.portraitColumnCount = 2
+        layout.landscapeColumnCount = 4
         layout.associatedCollectionView = collectionView
         layout.measurementCell = cuteMeasurementCell
 
-        layout.prepareNecessary()
+//        layout.prepareNecessary()
 
 //        layout.appendHeights(with: collectionData.array)
         return layout
@@ -112,16 +113,17 @@ class DynamicCollectionViewController: UIViewController {
     lazy var collectionViewListLayout: DynamicCollectionViewLayout = {
         let layout = DynamicCollectionViewLayout()
         layout.portraitColumnCount = 1
+        layout.landscapeColumnCount = 2
         layout.associatedCollectionView = collectionView
         layout.measurementCell = adorableMeasurementCell
 
-        layout.prepareNecessary()
+//        layout.prepareNecessary()
 //        layout.appendHeights(with: collectionData.array)
         return layout
     }()
 
     var identifier: String = "cute"
-    var collectionData: ChangeTrackableArray<DynamicCollectionCellModel> = ChangeTrackableArray() {
+    var collectionData: ChangeTraceableArray<DynamicCollectionCellModel> = ChangeTraceableArray() {
         didSet {
             collectionViewGridLayout.models = collectionData
             collectionViewListLayout.models = collectionData
@@ -146,7 +148,7 @@ class DynamicCollectionViewController: UIViewController {
 
 
     override func viewDidLoad() {
-        collectionData = ChangeTrackableArray(DynamicCollectionViewControllerData.data)
+        collectionData = ChangeTraceableArray(DynamicCollectionViewControllerData.data)
         collectionView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
         collectionView.allowsMultipleSelection = true
 //        let now = Date()

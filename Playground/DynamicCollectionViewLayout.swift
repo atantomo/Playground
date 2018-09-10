@@ -14,14 +14,7 @@ import UIKit
 //    }
 //}
 
-enum DataChange {
-    case insert([IndexPath])
-    case delete([IndexPath])
-    case reload
-    case move(IndexPath, IndexPath)
-}
-
-struct ChangeTrackableArray<T> {
+struct ChangeTraceableArray<T> {
 
     enum Change {
         case set
@@ -29,17 +22,12 @@ struct ChangeTrackableArray<T> {
         case delete([Int])
     }
 
-    var latestChange: Change = Change.set
+    private (set) var latestChange: Change = Change.set
     private var array: [T] = [T]()
 
     init(_ array: [T] = []) {
         self.array = array
     }
-
-//    mutating func set(_ array: [T]) {
-//        latestChange = Change.set
-//        self.array = array
-//    }
 
     mutating func append(contentsOf array: [T]) {
         let startAddIndex = self.array.count
@@ -59,7 +47,7 @@ struct ChangeTrackableArray<T> {
 
 }
 
-extension ChangeTrackableArray: Collection {
+extension ChangeTraceableArray: Collection {
 
     typealias Index = Int
     typealias Element = T
@@ -85,13 +73,14 @@ extension ChangeTrackableArray: Collection {
 class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     var portraitColumnCount: Int = 2
+    var landscapeColumnCount: Int = 4
+
+    var verticalSeparatorWidth: CGFloat = 1
+    var horizontalSeparatorHeight: CGFloat = 1
 
     private struct Constants {
-//        static let portraitColumnCount: Int = 1
-        static let landscapeColumnCount: Int = 4
-
-        static let verticalSeparatorWidth: CGFloat = 1
-        static let horizontalSeparatorHeight: CGFloat = 1
+        static let verticalSeparatorIdentifier: String = "verticalSeparator"
+        static let horizontalSeparatorIdentifier: String = "horizontalSeparator"
         static let separatorZIndex: Int = -10
     }
 
@@ -102,20 +91,25 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let maxRowIndex: Int
     }
 
-    var models: ChangeTrackableArray<DynamicCollectionCellModel> = ChangeTrackableArray<DynamicCollectionCellModel>() {
+    var models: ChangeTraceableArray<DynamicCollectionCellModel> = ChangeTraceableArray<DynamicCollectionCellModel>() {
         didSet {
-            update()
+            updateHeights()
         }
     }
 
     var columnCount: Int = 0
     var cellWidth: CGFloat = 0
 
-    var cellHeightsa: [CGFloat] = [CGFloat]()
+    var cellHeights: [CGFloat] = [CGFloat]()
     var rowHeights: [CGFloat] = [CGFloat]()
 
+    var associatedCollectionView: UICollectionView?
+    var measurementCell: HeightCalculable?
+
+    var needsCompleteCalculation: Bool = true
+
     var cellCount: Int {
-        return cellHeightsa.count
+        return cellHeights.count
     }
 
     var verticalSeparatorCount: Int {
@@ -140,226 +134,40 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     var cellAndVerticalSeparatorWidth: CGFloat {
-        return cellWidth + Constants.verticalSeparatorWidth
+        return cellWidth + verticalSeparatorWidth
     }
-
-    var associatedCollectionView: UICollectionView?
-    var measurementCell: HeightCalculable?
 
     override init() {
         super.init()
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "verticalDecoration")
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "horizontalDecoration")
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: Constants.verticalSeparatorIdentifier)
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: Constants.horizontalSeparatorIdentifier)
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "verticalDecoration")
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: "horizontalDecoration")
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: Constants.verticalSeparatorIdentifier)
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: Constants.horizontalSeparatorIdentifier)
     }
 
     override var collectionViewContentSize: CGSize {
         let contentWidth = associatedCollectionView?.bounds.size.width ?? 0
-        let contentHeight = Constants.horizontalSeparatorHeight * CGFloat(rowHeights.count - 1) + rowHeights.reduce(0) { lhs, rhs in
+        let contentHeight = horizontalSeparatorHeight * CGFloat(rowHeights.count - 1) + rowHeights.reduce(0) { lhs, rhs in
             return lhs + rhs
         }
         let contentSize = CGSize(width: contentWidth, height: contentHeight);
         return contentSize
     }
 
-    var needsInitialization: Bool = true
+    override func prepare() {
+        if needsCompleteCalculation {
+            needsCompleteCalculation = false
 
-    func prepareNecessary() {
-        columnCount = calculateColumnCount()
-        cellWidth = calculateCellWidth()
-//        updateRowHeights(models: models)
-//        if rowHeights.isEmpty {
-//            rowHeights = calculateRowHeights(models: models)
-//        }
-//
-//        if needsInitialization {
-//            needsInitialization = false
-//            calculateRowHeights(models: models.array)
-//        }
-    }
-
-    func update() {
-        switch models.latestChange {
-        case .set:
-            calculateRowHeights(models: models)
-        case .insert(let indexes):
-            appendHeights(indexes: indexes)
-        case .delete(let indexes):
-            removeHeights(indexes: indexes)
+            columnCount = calculateColumnCount()
+            cellWidth = calculateCellWidth()
+            cellHeights = calculateCellHeights()
+            rowHeights = calculateRowHeights()
         }
     }
-
-//    var needsInitialization: Bool = false
-//
-//    func setupInitialModels(newModels: [DynamicCollectionCellModel])  {
-//        models = newModels
-//        needsInitialization = true
-//    }
-
-//    func updateLayout(dataChange: DataChange) {
-//        switch dataChange {
-//            case .insert(<#T##[IndexPath]#>)
-//        }
-//    }
-
-    func appendHeights(indexes: [Int])  {
-
-        let minIndex = indexes.min() ?? 0
-        let maxIndex = indexes.max() ?? 0
-//        let currentModels = Array(models[0..<startIndexPath.item])
-//        let newModels = Array(models[minIndex...maxIndex])
-//
-//        let newCellHeights = newModels.map { model -> CGFloat in
-//            let height = measurementCell?.heightForWidth(width: cellWidth, model: model) ?? 0
-//            return height
-//        }
-
-        for index in indexes {
-            let height = measurementCell?.heightForWidth(width: cellWidth, model: models[index]) ?? 0
-            cellHeightsa.insert(height, at: index)
-        }
-//        let newCellHeights = Array(cellHeightsa[minIndex...maxIndex])
-
-        let rowIndex = minIndex / columnCount
-
-
-
-
-        var currentLastRowHeight: CGFloat = 0.0
-        let currentLastRowRemainderCellsCount = minIndex % columnCount
-//        print(cellHeightsa.count)
-//        print(minIndex)
-//        print(columnCount)
-
-        if rowIndex < self.rowHeights.count {
-            currentLastRowHeight = self.rowHeights[rowIndex]
-        }
-
-        //        print(currentLastRowRemainderCellsCount)
-        let newFirstRowLeftmostModelIndex = minIndex
-        let newFirstRowRightmostModelIndex = minIndex + (columnCount - 1) - currentLastRowRemainderCellsCount
-
-        let height = getMaxHeight(leftmostCellIndex: newFirstRowLeftmostModelIndex, tentativeRightmostCellIndex: newFirstRowRightmostModelIndex, cellHeights: cellHeightsa, extraComparisonHeight: currentLastRowHeight)
-//        self.rowHeights.append(height)
-
-        var rowHeights = [CGFloat]()
-        let newSecondRowLeftmostModelIndex = newFirstRowRightmostModelIndex + 1
-        for i in stride(from: newSecondRowLeftmostModelIndex, to: maxIndex + 1, by: columnCount) {
-
-            let leftmostCellIndex = i
-            let rightmostCellIndex = (columnCount - 1) + i
-
-            let height = getMaxHeight(leftmostCellIndex: leftmostCellIndex, tentativeRightmostCellIndex: rightmostCellIndex, cellHeights: cellHeightsa)
-            rowHeights.append(height)
-        }
-//        self.rowHeights.append(contentsOf: rowHeights)
-
-        let heights = Array(self.rowHeights[0..<rowIndex]) + [height] + rowHeights
-        self.rowHeights = heights
-
-//        self.cellHeightsa.append(contentsOf: newCellHeights)
-    }
-
-//    func appendHeights(with newModels: [DynamicCollectionCellModel])  {
-//
-////        print(cellWidth)
-//
-//        let cellHeights = newModels.map { model -> CGFloat in
-//            let height = measurementCell?.heightForWidth(width: cellWidth, model: model) ?? 0
-//            return height
-//        }
-//
-////        print(cellCount)
-////        print(columnCount)
-//
-//        var currentLastRowHeight: CGFloat = 0.0
-//        let currentLastRowRemainderCellsCount = cellCount % columnCount
-//
-//        if currentLastRowRemainderCellsCount != 0 {
-//            currentLastRowHeight = self.rowHeights.popLast() ?? 0.0
-//        }
-//
-////        print(currentLastRowRemainderCellsCount)
-//        let newFirstRowLeftmostModelIndex = 0
-//        let newFirstRowRightmostModelIndex = (columnCount - 1) - currentLastRowRemainderCellsCount
-//
-//        let height = getMaxHeight(leftmostCellIndex: newFirstRowLeftmostModelIndex, tentativeRightmostCellIndex: newFirstRowRightmostModelIndex, cellHeights: cellHeights, extraComparisonHeight: currentLastRowHeight)
-//        self.rowHeights.append(height)
-//
-//        var rowHeights = [CGFloat]()
-//        let newSecondRowLeftmostModelIndex = newFirstRowRightmostModelIndex + 1
-//        for i in stride(from: newSecondRowLeftmostModelIndex, to: newModels.count, by: columnCount) {
-//
-//            let leftmostCellIndex = i
-//            let rightmostCellIndex = (columnCount - 1) + i
-//
-//            let height = getMaxHeight(leftmostCellIndex: leftmostCellIndex, tentativeRightmostCellIndex: rightmostCellIndex, cellHeights: cellHeights)
-//            rowHeights.append(height)
-//        }
-//        self.rowHeights.append(contentsOf: rowHeights)
-//
-//        self.cellHeightsa.append(contentsOf: cellHeights)
-//    }
-
-    func getMaxHeight(leftmostCellIndex: Int, tentativeRightmostCellIndex: Int, cellHeights: [CGFloat], extraComparisonHeight: CGFloat = 0.0) -> CGFloat {
-
-        var rightmostCellIndex = tentativeRightmostCellIndex
-        let modelLastIndex = cellHeights.count - 1
-
-        let cellExistsAtRightmostIndex = rightmostCellIndex <= modelLastIndex
-        if !cellExistsAtRightmostIndex {
-            rightmostCellIndex = modelLastIndex
-        }
-        let maxCellHeight = ([extraComparisonHeight] + cellHeights[leftmostCellIndex...rightmostCellIndex]).max() ?? 0
-        return maxCellHeight
-    }
-
-    func removeHeights(indexes: [Int]) {
-        for index in indexes {
-            self.cellHeightsa.remove(at: index)
-        }
-
-        let minIndex = indexes.min() ?? 0
-
-        let rowIndex = minIndex / columnCount
-
-        var rowHeights = [CGFloat]()
-        let leftmostModelIndex = rowIndex * columnCount
-        for i in stride(from: leftmostModelIndex, to: cellHeightsa.count, by: columnCount) {
-
-            let leftmostCellIndex = i
-            let rightmostCellIndex = (columnCount - 1) + i
-
-            let height = getMaxHeight(leftmostCellIndex: leftmostCellIndex, tentativeRightmostCellIndex: rightmostCellIndex, cellHeights: cellHeightsa)
-            rowHeights.append(height)
-        }
-        let heights = Array(self.rowHeights[0..<rowIndex]) + rowHeights
-        self.rowHeights = heights
-    }
-
-//    func removeHeight(at index: Int) {
-//        self.cellHeightsa.remove(at: index)
-//
-//        let rowIndex = index / columnCount
-//
-//        var rowHeights = [CGFloat]()
-//        let leftmostModelIndex = rowIndex * columnCount
-//        for i in stride(from: leftmostModelIndex, to: cellHeightsa.count, by: columnCount) {
-//
-//            let leftmostCellIndex = i
-//            let rightmostCellIndex = (columnCount - 1) + i
-//
-//            let height = getMaxHeight(leftmostCellIndex: leftmostCellIndex, tentativeRightmostCellIndex: rightmostCellIndex, cellHeights: cellHeightsa)
-//            rowHeights.append(height)
-//        }
-//        let heights = Array(self.rowHeights[0..<rowIndex]) + rowHeights
-//        self.rowHeights = heights
-//    }
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
@@ -374,18 +182,17 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
         let verticalSeparatorIndexPaths = indexPathsOfVerticalSeparator(in: range)
         for verticalSeparatorIndexPath in verticalSeparatorIndexPaths {
-            if let attributes = layoutAttributesForDecorationView(ofKind: "verticalDecoration", at: verticalSeparatorIndexPath) {
+            if let attributes = layoutAttributesForDecorationView(ofKind: Constants.verticalSeparatorIdentifier, at: verticalSeparatorIndexPath) {
                 layoutAttributes.append(attributes)
             }
         }
 
         let horizontalSeparatorIndexPaths = indexPathsOfHorizontalSeparator(in: range)
         for horizontalSeparatorIndexPath in horizontalSeparatorIndexPaths {
-            if let attributes = layoutAttributesForDecorationView(ofKind: "horizontalDecoration", at: horizontalSeparatorIndexPath) {
+            if let attributes = layoutAttributesForDecorationView(ofKind: Constants.horizontalSeparatorIdentifier, at: horizontalSeparatorIndexPath) {
                 layoutAttributes.append(attributes)
             }
         }
-
         return layoutAttributes
     }
 
@@ -396,53 +203,32 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        if elementKind == "verticalDecoration" {
-            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
+        let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
+        attributes.zIndex = Constants.separatorZIndex
+
+        switch elementKind {
+        case Constants.verticalSeparatorIdentifier:
             attributes.frame = frameForVerticalSeparator(at: indexPath)
-            attributes.zIndex = Constants.separatorZIndex
             return attributes
-        } else {
-            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
+        case Constants.horizontalSeparatorIdentifier:
             attributes.frame = frameForHorizontalSeparator(at: indexPath)
-            attributes.zIndex = Constants.separatorZIndex
             return attributes
-        }
-    }
-
-    override func initialLayoutAttributesForAppearingDecorationElement(ofKind elementKind: String, at decorationIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-
-        if elementKind == "verticalDecoration" {
-            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: decorationIndexPath)
-            attributes.frame = frameForVerticalSeparator(at: decorationIndexPath)
-            attributes.zIndex = -10
-            return attributes
-        } else {
-            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: decorationIndexPath)
-            attributes.frame = frameForHorizontalSeparator(at: decorationIndexPath)
-            attributes.zIndex = -10
-            return attributes
-        }
-    }
-
-    override func finalLayoutAttributesForDisappearingDecorationElement(ofKind elementKind: String, at decorationIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        
-        if elementKind == "verticalDecoration" {
-            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: decorationIndexPath)
-            attributes.frame = frameForVerticalSeparator(at: decorationIndexPath)
-            attributes.zIndex = -10
-            return attributes
-        } else {
-            let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: decorationIndexPath)
-            attributes.frame = frameForHorizontalSeparator(at: decorationIndexPath)
-            attributes.zIndex = -10
-            return attributes
+        default:
+            return nil
         }
     }
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         let oldBounds = associatedCollectionView?.bounds
         let areBoundsChanged = newBounds.width != oldBounds?.width
+        if areBoundsChanged {
+            needsCompleteCalculation = true
+        }
         return areBoundsChanged
+    }
+
+    override func prepareForTransition(from oldLayout: UICollectionViewLayout) {
+        needsCompleteCalculation = true
     }
 
     private func calculateColumnCount() -> Int {
@@ -451,7 +237,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         if width < height {
             return portraitColumnCount
         } else {
-            return Constants.landscapeColumnCount
+            return landscapeColumnCount
         }
     }
 
@@ -459,33 +245,30 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let totalWidth = associatedCollectionView?.bounds.size.width ?? 0.0
         let separatorCount = columnCount - 1
 
-        let contentWidth = totalWidth - Constants.verticalSeparatorWidth * CGFloat(separatorCount)
+        let contentWidth = totalWidth - verticalSeparatorWidth * CGFloat(separatorCount)
         let width = contentWidth / CGFloat(columnCount)
         return width
     }
 
-    private func calculateRowHeights(models: ChangeTrackableArray<DynamicCollectionCellModel>) {
+    private func calculateCellHeights() -> [CGFloat] {
         let cellHeights = models.map { model -> CGFloat in
             let height = measurementCell?.heightForWidth(width: cellWidth, model: model) ?? 0
             return height
         }
-        self.cellHeightsa.append(contentsOf: cellHeights)
+        return cellHeights
+    }
 
-        let lastCellIndex = cellCount - 1
+    private func calculateRowHeights() -> [CGFloat] {
         var rowHeights = [CGFloat]()
         for i in stride(from: 0, to: cellCount, by: columnCount) {
 
             let leftmostCellIndex = i
-            var rightmostCellIndex = i + columnCount - 1
+            let rightmostCellIndex = i + columnCount - 1
 
-            let cellExistsAtRightmostIndex = rightmostCellIndex <= lastCellIndex
-            if !cellExistsAtRightmostIndex {
-                rightmostCellIndex = lastCellIndex
-            }
-            let maxCellHeight = cellHeights[leftmostCellIndex...rightmostCellIndex].max() ?? 0
-            rowHeights.append(maxCellHeight)
+            let height = getMaxHeight(leftmostCellIndex: leftmostCellIndex, tentativeRightmostCellIndex: rightmostCellIndex, cellHeights: cellHeights)
+            rowHeights.append(height)
         }
-        self.rowHeights.append(contentsOf: rowHeights)
+        return rowHeights
     }
 
     private func calculateCellIndexRange(in rect: CGRect) -> CellIndexRange {
@@ -499,8 +282,93 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return range
     }
 
-    private func indexPathsOfCells(in range: CellIndexRange) -> [IndexPath] {
+    private func updateHeights() {
+        guard !needsCompleteCalculation else {
+            return
+        }
+        switch models.latestChange {
+        case .insert(let indexes):
+            appendHeights(indexes: indexes)
+        case .delete(let indexes):
+            removeHeights(indexes: indexes)
+        case .set:
+            break
+        }
+    }
 
+    private func appendHeights(indexes: [Int])  {
+        let newMinCellIndex = indexes.min() ?? 0
+        let newMaxCellIndex = indexes.max() ?? 0
+
+        for index in indexes {
+            let height = measurementCell?.heightForWidth(width: cellWidth, model: models[index]) ?? 0
+            cellHeights.insert(height, at: index)
+        }
+
+        let currentLastRowIndex = newMinCellIndex / columnCount
+        let currentLastRowRemainderCellsCount = newMinCellIndex % columnCount
+
+        var currentLastRowHeight: CGFloat = 0.0
+        if currentLastRowIndex < self.rowHeights.count {
+            currentLastRowHeight = self.rowHeights[currentLastRowIndex]
+        }
+
+        let newFirstRowLeftmostCellIndex = newMinCellIndex
+        let newFirstRowRightmostCelIndex = newMinCellIndex + (columnCount - 1) - currentLastRowRemainderCellsCount
+
+        let newFirstRowHeight = getMaxHeight(leftmostCellIndex: newFirstRowLeftmostCellIndex, tentativeRightmostCellIndex: newFirstRowRightmostCelIndex, cellHeights: cellHeights, extraComparisonHeight: currentLastRowHeight)
+
+        var newSecondRowOnwardHeights = [CGFloat]()
+        let newSecondRowLeftmostCellIndex = newFirstRowRightmostCelIndex + 1
+        for i in stride(from: newSecondRowLeftmostCellIndex, to: newMaxCellIndex + 1, by: columnCount) {
+
+            let leftmostCellIndex = i
+            let rightmostCellIndex = (columnCount - 1) + i
+
+            let height = getMaxHeight(leftmostCellIndex: leftmostCellIndex, tentativeRightmostCellIndex: rightmostCellIndex, cellHeights: cellHeights)
+            newSecondRowOnwardHeights.append(height)
+        }
+
+        let heights = Array(self.rowHeights[0..<currentLastRowIndex]) + [newFirstRowHeight] + newSecondRowOnwardHeights
+        self.rowHeights = heights
+    }
+
+    private func removeHeights(indexes: [Int]) {
+        for index in indexes {
+            self.cellHeights.remove(at: index)
+        }
+
+        let newMinCellIndex = indexes.min() ?? 0
+        let deletionTopmostRowIndex = newMinCellIndex / columnCount
+
+        var recalculatedRowHeights = [CGFloat]()
+        let deletionTopmostLeftmostCellIndex = deletionTopmostRowIndex * columnCount
+        for i in stride(from: deletionTopmostLeftmostCellIndex, to: cellHeights.count, by: columnCount) {
+
+            let leftmostCellIndex = i
+            let rightmostCellIndex = (columnCount - 1) + i
+
+            let height = getMaxHeight(leftmostCellIndex: leftmostCellIndex, tentativeRightmostCellIndex: rightmostCellIndex, cellHeights: cellHeights)
+            recalculatedRowHeights.append(height)
+        }
+        let heights = Array(self.rowHeights[0..<deletionTopmostRowIndex]) + recalculatedRowHeights
+        self.rowHeights = heights
+    }
+
+    private func getMaxHeight(leftmostCellIndex: Int, tentativeRightmostCellIndex: Int, cellHeights: [CGFloat], extraComparisonHeight: CGFloat = 0.0) -> CGFloat {
+
+        var rightmostCellIndex = tentativeRightmostCellIndex
+        let modelLastIndex = cellHeights.count - 1
+
+        let cellExistsAtRightmostIndex = rightmostCellIndex <= modelLastIndex
+        if !cellExistsAtRightmostIndex {
+            rightmostCellIndex = modelLastIndex
+        }
+        let maxCellHeight = ([extraComparisonHeight] + cellHeights[leftmostCellIndex...rightmostCellIndex]).max() ?? 0
+        return maxCellHeight
+    }
+
+    private func indexPathsOfCells(in range: CellIndexRange) -> [IndexPath] {
         var firstColumnIndexes = [Int]()
         for i in range.minRowIndex...range.maxRowIndex {
             let firstColumnIndex = range.minColumnIndex + i * columnCount
@@ -523,7 +391,6 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     private func indexPathsOfVerticalSeparator(in range: CellIndexRange) -> [IndexPath] {
-
         var firstColumnIndexes = [Int]()
         for i in range.minRowIndex...range.maxRowIndex {
             let firstColumnIndex = range.minColumnIndex + i * (columnCount - 1)
@@ -550,7 +417,6 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     private func indexPathsOfHorizontalSeparator(in range: CellIndexRange) -> [IndexPath] {
-
         var firstColumnIndexes = [Int]()
         for i in range.minRowIndex...range.maxRowIndex {
             let firstColumnIndex = range.minColumnIndex + i * columnCount
@@ -585,7 +451,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         }
         var yPositionMutable = yPosition
         for (rowIndex, rowHeight) in rowHeights.enumerated() {
-            yPositionMutable -= (rowHeight + Constants.horizontalSeparatorHeight)
+            yPositionMutable -= (rowHeight + horizontalSeparatorHeight)
             if yPositionMutable <= 0 {
                 return rowIndex
             }
@@ -601,13 +467,12 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let x = columnIndexCGFloat * cellAndVerticalSeparatorWidth
 
         let rowIndex = index / columnCount
-        let y = Constants.horizontalSeparatorHeight * CGFloat(rowIndex) + rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
+        let y = horizontalSeparatorHeight * CGFloat(rowIndex) + rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
             return lhs + rhs
         }
         let cellHeight = rowHeights[rowIndex]
 
         let frame = CGRect(x: x, y: y, width: cellWidth, height: cellHeight)
-//        print(frame)
         return frame
     }
 
@@ -615,14 +480,14 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let index = indexPath.row
 
         let columnIndexCGFloat = CGFloat(index).truncatingRemainder(dividingBy: CGFloat(columnCount - 1))
-        let interimMultiplier = columnIndexCGFloat + 1
-        let x = interimMultiplier * cellAndVerticalSeparatorWidth - Constants.verticalSeparatorWidth
+        let interimCountOffset = columnIndexCGFloat + 1
+        let x = interimCountOffset * cellAndVerticalSeparatorWidth - verticalSeparatorWidth
 
         let rowIndex = index / (columnCount - 1)
         if rowIndex >= rowHeights.count {
             return CGRect.zero
         }
-        let y = Constants.horizontalSeparatorHeight * CGFloat(rowIndex) + rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
+        let y = horizontalSeparatorHeight * CGFloat(rowIndex) + rowHeights[0..<rowIndex].reduce(0) { lhs, rhs in
             return lhs + rhs
         }
         var separatorHeight: CGFloat = 0
@@ -630,7 +495,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
             separatorHeight = rowHeights[rowIndex]
         }
 
-        let frame = CGRect(x: x, y: y, width: Constants.verticalSeparatorWidth, height: separatorHeight)
+        let frame = CGRect(x: x, y: y, width: verticalSeparatorWidth, height: separatorHeight)
         return frame
     }
 
@@ -644,11 +509,11 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         if rowIndex >= rowHeights.count {
             return CGRect.zero
         }
-        let y = Constants.horizontalSeparatorHeight * CGFloat(rowIndex) + rowHeights[0...rowIndex].reduce(0) { lhs, rhs in
+        let y = horizontalSeparatorHeight * CGFloat(rowIndex) + rowHeights[0...rowIndex].reduce(0) { lhs, rhs in
             return lhs + rhs
         }
 
-        let frame = CGRect(x: x, y: y, width: cellWidth, height: Constants.horizontalSeparatorHeight)
+        let frame = CGRect(x: x, y: y, width: cellWidth, height: horizontalSeparatorHeight)
         return frame
     }
     

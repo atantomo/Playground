@@ -100,6 +100,7 @@ class DynamicCollectionViewController: UIViewController {
         let layout = DynamicCollectionViewLayout()
         layout.portraitColumnCount = 2
         layout.landscapeColumnCount = 4
+        layout.horizontalSeparatorHeight = 0
         layout.associatedCollectionView = collectionView
         layout.measurementCell = cuteMeasurementCell
 
@@ -207,14 +208,10 @@ class DynamicCollectionViewController: UIViewController {
         guard case let .insert(indexes) = collectionData.latestChange else {
             return
         }
-
         let indexPaths = indexes.map { index in
             return IndexPath(item: index, section: 0)
         }
         collectionView.insertItems(at: indexPaths)
-
-        collectionViewGridLayout.invalidateLayout()
-        collectionViewListLayout.invalidateLayout()
     }
 
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
@@ -224,27 +221,18 @@ class DynamicCollectionViewController: UIViewController {
         let indexes = indexPaths.map { indexPath in
             return indexPath.item
         }
-
         collectionData.removeMulti(at: indexes)
         collectionView.deleteItems(at: indexPaths)
-
-        collectionViewGridLayout.invalidateLayout()
-        collectionViewListLayout.invalidateLayout()
-
     }
 
     @objc func deleteCell(sender: Notification) {
-
         let button = sender.object as! UIButton
         let position = button.superview!.convert(button.center, to: collectionView)
-        if let indexPath = collectionView.indexPathForItem(at: position) {
-
-            collectionData.removeMulti(at: [indexPath.item])
-            collectionView.deleteItems(at: [indexPath])
-
-            collectionViewGridLayout.invalidateLayout()
-            collectionViewListLayout.invalidateLayout()
+        guard let indexPath = collectionView.indexPathForItem(at: position) else {
+            return
         }
+        collectionData.removeMulti(at: [indexPath.item])
+        collectionView.deleteItems(at: [indexPath])
     }
 }
 

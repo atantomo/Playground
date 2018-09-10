@@ -169,6 +169,10 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         }
     }
 
+    override func finalizeCollectionViewUpdates() {
+        invalidateLayout()
+    }
+
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         let range = calculateCellIndexRange(in: rect)

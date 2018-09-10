@@ -2,73 +2,11 @@
 //  DynamicCollectionViewLayout.swift
 //  Playground
 //
-//  Created by TANTOMO Andrew-Getty[FRJP:Digital Business Transformation Services](Tantomo Andrew) on 2018/08/14.
+//  Created by Andrew Tantomo on 2018/08/14.
 //  Copyright © 2018 Andrew Tantomo. All rights reserved.
 //
 
 import UIKit
-
-//public extension Array {
-//    subscript(safe idx: Int) -> Element? {
-//        return idx < endIndex ? self[idx] : nil
-//    }
-//}
-
-struct ChangeTraceableArray<T> {
-
-    enum Change {
-        case set
-        case insert([Int])
-        case delete([Int])
-    }
-
-    private (set) var latestChange: Change = Change.set
-    private var array: [T] = [T]()
-
-    init(_ array: [T] = []) {
-        self.array = array
-    }
-
-    mutating func append(contentsOf array: [T]) {
-        let startAddIndex = self.array.count
-        let endAddIndex = startAddIndex + array.count - 1
-
-        latestChange = Change.insert(Array(startAddIndex...endAddIndex))
-        self.array.append(contentsOf: array)
-    }
-
-    mutating func removeMulti(at indexes: [Int]) {
-        let sortedReversedIndexes = Array(indexes.sorted().reversed())
-        latestChange = Change.delete(sortedReversedIndexes)
-        for index in sortedReversedIndexes {
-            self.array.remove(at: index)
-        }
-    }
-
-}
-
-extension ChangeTraceableArray: Collection {
-
-    typealias Index = Int
-    typealias Element = T
-
-    var startIndex: Index {
-        return array.startIndex
-    }
-
-    var endIndex: Index {
-        return array.endIndex
-    }
-
-    subscript(index: Index) -> T {
-        return array[index]
-    }
-
-    func index(after i: Index) -> Index {
-        return array.index(after: i)
-    }
-
-}
 
 class DynamicCollectionViewLayout: UICollectionViewLayout {
 
@@ -91,7 +29,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let maxRowIndex: Int
     }
 
-    var models: ChangeTraceableArray<DynamicCollectionCellModel> = ChangeTraceableArray<DynamicCollectionCellModel>() {
+    var models: ChangeTracerArray<DynamicCollectionCellModel> = ChangeTracerArray<DynamicCollectionCellModel>() {
         didSet {
             updateHeights()
         }
@@ -314,15 +252,15 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         }
         switch models.latestChange {
         case .insert(let indexes):
-            appendHeights(indexes: indexes)
+            appendHeights(at: indexes)
         case .delete(let indexes):
-            removeHeights(indexes: indexes)
+            removeHeights(at: indexes)
         case .set:
             break
         }
     }
 
-    private func appendHeights(indexes: [Int])  {
+    private func appendHeights(at indexes: [Int])  {
         let newMinCellIndex = indexes.min() ?? 0
         let newMaxCellIndex = indexes.max() ?? 0
 
@@ -359,7 +297,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         self.rowHeights = heights
     }
 
-    private func removeHeights(indexes: [Int]) {
+    private func removeHeights(at indexes: [Int]) {
         for index in indexes {
             self.cellHeights.remove(at: index)
         }

@@ -119,7 +119,7 @@ class DynamicCollectionViewController: UIViewController {
 
     var identifier: String = "cute"
 
-    var collectionData: ChangeTraceableArray<DynamicCollectionCellModel> = ChangeTraceableArray() {
+    var collectionData: ChangeTracerArray<DynamicCollectionCellModel> = ChangeTracerArray() {
         didSet {
             collectionViewGridLayout.models = collectionData
             collectionViewListLayout.models = collectionData
@@ -144,7 +144,7 @@ class DynamicCollectionViewController: UIViewController {
 
 
     override func viewDidLoad() {
-        collectionData = ChangeTraceableArray(DynamicCollectionViewControllerData.data)
+        collectionData = ChangeTracerArray(DynamicCollectionViewControllerData.data)
         collectionView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
         collectionView.allowsMultipleSelection = true
 

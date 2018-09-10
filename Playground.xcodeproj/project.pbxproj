@@ -34,6 +34,7 @@
 		494874051C5371C600B689D3 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494874041C5371C600B689D3 /* Meme.swift */; };
 		49702DF6208F5A1000064C84 /* TableMovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49702DF5208F5A1000064C84 /* TableMovementViewController.swift */; };
 		4974E141212C26B3004AE3D0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4974E140212C26B3004AE3D0 /* MenuViewController.swift */; };
+		4975419D21470C56006CC7C0 /* ChangeTracerArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975419C21470C56006CC7C0 /* ChangeTracerArray.swift */; };
 		4979EC5F2063DDE40024BC6F /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4979EC5E2063DDE40024BC6F /* SkeletonView.swift */; };
 		4979EC622063E2FB0024BC6F /* SkeletonTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4979EC612063E2FA0024BC6F /* SkeletonTestViewController.swift */; };
 		498BA3F2208207AC00BAF4FB /* ColorPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498BA3F1208207AC00BAF4FB /* ColorPageViewController.swift */; };
@@ -81,6 +82,7 @@
 		494874041C5371C600B689D3 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 		49702DF5208F5A1000064C84 /* TableMovementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableMovementViewController.swift; sourceTree = "<group>"; };
 		4974E140212C26B3004AE3D0 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		4975419C21470C56006CC7C0 /* ChangeTracerArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeTracerArray.swift; sourceTree = "<group>"; };
 		4979EC5E2063DDE40024BC6F /* SkeletonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
 		4979EC612063E2FA0024BC6F /* SkeletonTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonTestViewController.swift; sourceTree = "<group>"; };
 		498BA3F1208207AC00BAF4FB /* ColorPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPageViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				2EB88C62213DF50000B523BE /* ButtonLayoutViewController.swift */,
 				2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */,
 				2E7FB43A21225791000A852D /* DynamicCollectionViewLayout.swift */,
+				4975419C21470C56006CC7C0 /* ChangeTracerArray.swift */,
 				2E8AAADA212F692E00D7BD99 /* AdorableCollectionViewCell.xib */,
 				2E8AAADC212F693900D7BD99 /* AdorableCollectionViewCell.swift */,
 				2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */,
@@ -282,6 +285,7 @@
 				49A9803B2072504F00A492D5 /* FirstNavViewController.swift in Sources */,
 				49FDA14120D0758100750592 /* AutoLayoutTableViewCell.swift in Sources */,
 				4979EC5F2063DDE40024BC6F /* SkeletonView.swift in Sources */,
+				4975419D21470C56006CC7C0 /* ChangeTracerArray.swift in Sources */,
 				4979EC622063E2FB0024BC6F /* SkeletonTestViewController.swift in Sources */,
 				499992C8205CA934001871CF /* LabelViewController.swift in Sources */,
 				498BA3F2208207AC00BAF4FB /* ColorPageViewController.swift in Sources */,

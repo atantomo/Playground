@@ -282,6 +282,28 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         return range
     }
 
+    private func columnIndexFromXCoordinate(xPosition: CGFloat) -> Int {
+        let xPositionWithOffset = xPosition - 1
+
+        let columnIndex = Int(xPositionWithOffset / cellAndVerticalSeparatorWidth)
+        return columnIndex
+    }
+
+    private func rowIndexFromYCoordinate(yPosition: CGFloat) -> Int {
+        guard !rowHeights.isEmpty else {
+            return 0
+        }
+        var yPositionMutable = yPosition
+        for (rowIndex, rowHeight) in rowHeights.enumerated() {
+            yPositionMutable -= (rowHeight + horizontalSeparatorHeight)
+            if yPositionMutable <= 0 {
+                return rowIndex
+            }
+        }
+        let lastRowIndex = rowHeights.count - 1
+        return lastRowIndex
+    }
+
     private func updateHeights() {
         guard !needsCompleteCalculation else {
             return
@@ -436,28 +458,6 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
             return IndexPath(row: index, section: 0)
         }
         return indexPaths
-    }
-
-    private func columnIndexFromXCoordinate(xPosition: CGFloat) -> Int {
-        let xPositionWithOffset = xPosition - 1
-
-        let columnIndex = Int(xPositionWithOffset / cellAndVerticalSeparatorWidth)
-        return columnIndex
-    }
-
-    private func rowIndexFromYCoordinate(yPosition: CGFloat) -> Int {
-        guard !rowHeights.isEmpty else {
-            return 0
-        }
-        var yPositionMutable = yPosition
-        for (rowIndex, rowHeight) in rowHeights.enumerated() {
-            yPositionMutable -= (rowHeight + horizontalSeparatorHeight)
-            if yPositionMutable <= 0 {
-                return rowIndex
-            }
-        }
-        let lastRowIndex = rowHeights.count - 1
-        return lastRowIndex
     }
 
     private func frameForCell(at indexPath: IndexPath) -> CGRect {

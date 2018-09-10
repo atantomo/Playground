@@ -95,7 +95,6 @@ class DynamicCollectionViewController: UIViewController {
 
     @IBOutlet weak var buttonGroupContainer: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
-//    @IBOutlet var collectionViewCustomLayout: DynamicCollectionViewLayout!
 
     lazy var collectionViewGridLayout: DynamicCollectionViewLayout = {
         let layout = DynamicCollectionViewLayout()
@@ -104,9 +103,6 @@ class DynamicCollectionViewController: UIViewController {
         layout.associatedCollectionView = collectionView
         layout.measurementCell = cuteMeasurementCell
 
-//        layout.prepareNecessary()
-
-//        layout.appendHeights(with: collectionData.array)
         return layout
     }()
 
@@ -117,12 +113,11 @@ class DynamicCollectionViewController: UIViewController {
         layout.associatedCollectionView = collectionView
         layout.measurementCell = adorableMeasurementCell
 
-//        layout.prepareNecessary()
-//        layout.appendHeights(with: collectionData.array)
         return layout
     }()
 
     var identifier: String = "cute"
+
     var collectionData: ChangeTraceableArray<DynamicCollectionCellModel> = ChangeTraceableArray() {
         didSet {
             collectionViewGridLayout.models = collectionData
@@ -151,19 +146,6 @@ class DynamicCollectionViewController: UIViewController {
         collectionData = ChangeTraceableArray(DynamicCollectionViewControllerData.data)
         collectionView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
         collectionView.allowsMultipleSelection = true
-//        let now = Date()
-//
-//        let formatter = DateFormatter()
-//        formatter.locale = Locale(identifier: "JP")
-//        formatter.timeZone = TimeZone(identifier: "Japan/Tokyo")
-//        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-//        let sevenDaysAgo = now.addingTimeInterval(-7*24*60*60)
-//
-//        let str = formatter.string(from: sevenDaysAgo)
-//        print(str)
-
-        let _ = collectionViewGridLayout
-        let _ = collectionViewListLayout
 
         collectionView.setCollectionViewLayout(collectionViewGridLayout, animated: false)
 
@@ -185,6 +167,17 @@ class DynamicCollectionViewController: UIViewController {
         buttonGroupContainer.layer.shadowOpacity = 0.3
 
         NotificationCenter.default.addObserver(self, selector: #selector(deleteCell(sender:)), name: NotificationName.DeleteCell, object: nil)
+
+        //        let now = Date()
+        //
+        //        let formatter = DateFormatter()
+        //        formatter.locale = Locale(identifier: "JP")
+        //        formatter.timeZone = TimeZone(identifier: "Japan/Tokyo")
+        //        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        //        let sevenDaysAgo = now.addingTimeInterval(-7*24*60*60)
+        //
+        //        let str = formatter.string(from: sevenDaysAgo)
+        //        print(str)
     }
 
     deinit {
@@ -197,10 +190,6 @@ class DynamicCollectionViewController: UIViewController {
             self.collectionView.reloadSections(IndexSet(integer: 0))
         }
         collectionView.setCollectionViewLayout(collectionViewGridLayout, animated: true)
-//        collectionView.reloadData()
-
-//        let indexPath = IndexPath(item: 0, section: 0)
-//        collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.top, animated: true)
     }
 
     @IBAction func listButtonTapped(_ sender: UIButton) {
@@ -212,8 +201,6 @@ class DynamicCollectionViewController: UIViewController {
     }
 
     @IBAction func addButtonTapped(_ sender: UIButton) {
-//        let startAddIndex = collectionData.count
-
         let newData = DynamicCollectionViewControllerData.data
         collectionData.append(contentsOf: newData)
 
@@ -224,20 +211,6 @@ class DynamicCollectionViewController: UIViewController {
         let indexPaths = indexes.map { index in
             return IndexPath(item: index, section: 0)
         }
-
-//        collectionViewListLayout.appendHeights(with: newData)
-
-//        let endAddIndex = collectionData.count - 1
-
-//        var indexes = [Int]()
-//        for i in startAddIndex...endAddIndex {
-//            indexes.append(i)
-//        }
-//        let indexPaths = indexes.map{ index in
-//            return IndexPath(item: index, section: 0)
-//        }
-
-//        collectionViewGridLayout.appendHeights(indexPaths: indexPaths)
         collectionView.insertItems(at: indexPaths)
 
         collectionViewGridLayout.invalidateLayout()
@@ -254,17 +227,10 @@ class DynamicCollectionViewController: UIViewController {
 
         collectionData.removeMulti(at: indexes)
         collectionView.deleteItems(at: indexPaths)
+
         collectionViewGridLayout.invalidateLayout()
         collectionViewListLayout.invalidateLayout()
 
-    }
-
-    func getTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
-        let size = text.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
-                                     options: [.usesLineFragmentOrigin],
-                                     attributes: [NSAttributedStringKey.font: font],
-                                     context: nil).size
-        return size.height
     }
 
     @objc func deleteCell(sender: Notification) {
@@ -274,13 +240,8 @@ class DynamicCollectionViewController: UIViewController {
         if let indexPath = collectionView.indexPathForItem(at: position) {
 
             collectionData.removeMulti(at: [indexPath.item])
-//            collectionViewGridLayout.removeHeights(indexes: [indexPath])
-//            collectionViewListLayout.removeHeight(at: indexPath.row)
-
-//            collectionViewGridLayout.models = collectionData
-//            collectionViewListLayout.models = collectionData
-            
             collectionView.deleteItems(at: [indexPath])
+
             collectionViewGridLayout.invalidateLayout()
             collectionViewListLayout.invalidateLayout()
         }
@@ -312,8 +273,4 @@ extension DynamicCollectionViewController: UICollectionViewDataSource {
         return dequeuedCell
     }
 
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        let dequeuedView = collectionView.dequeueReusableSupplementaryView(ofKind: "decoration", withReuseIdentifier: "pillar", for: indexPath)
-//        return dequeuedView
-//    }
 }

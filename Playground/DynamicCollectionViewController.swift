@@ -226,10 +226,10 @@ class DynamicCollectionViewController: UIViewController {
     }
 
     @objc func deleteCell(sender: Notification) {
-        let button = sender.object as! UIButton
-        let position = button.superview!.convert(button.center, to: collectionView)
-        guard let indexPath = collectionView.indexPathForItem(at: position) else {
-            return
+        guard let button = sender.object as? UIButton,
+            let position = button.superview?.convert(button.center, to: collectionView),
+            let indexPath = collectionView.indexPathForItem(at: position) else {
+                return
         }
         collectionData.removeMulti(at: [indexPath.item])
         collectionView.deleteItems(at: [indexPath])

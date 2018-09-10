@@ -97,6 +97,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     override func prepare() {
+        super.prepare()
         if needsCompleteCalculation {
             needsCompleteCalculation = false
 
@@ -108,6 +109,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     }
 
     override func finalizeCollectionViewUpdates() {
+        super.finalizeCollectionViewUpdates()
         invalidateLayout()
     }
 

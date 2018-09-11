@@ -9,10 +9,11 @@
 import UIKit
 
 protocol HeightCalculable {
-    func heightForWidth(width: CGFloat, model: DynamicCollectionCellModel) -> CGFloat
+    associatedtype T
+    func heightForWidth(width: CGFloat, model: T) -> CGFloat
 }
 
-class AdorableCollectionViewCell: UICollectionViewCell, HeightCalculable {
+class AdorableCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var theImageView: UIImageView!
@@ -78,6 +79,12 @@ class AdorableCollectionViewCell: UICollectionViewCell, HeightCalculable {
         }
     }
 
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        NotificationCenter.default.post(name: NotificationName.DeleteCell, object: theButton)
+    }
+}
+
+extension AdorableCollectionViewCell: HeightCalculable {
     func heightForWidth(width: CGFloat, model: DynamicCollectionCellModel) -> CGFloat {
         let imageHeight = imageWidth * imageAspectConstraint.multiplier + imageVerticalPadding
 
@@ -96,9 +103,5 @@ class AdorableCollectionViewCell: UICollectionViewCell, HeightCalculable {
 
         let rightSum = labelHeight + bottomLabelHeight + cellPaddingHeight
         return max(leftSum, rightSum)
-    }
-
-    @IBAction func deleteButtonTapped(_ sender: Any) {
-        NotificationCenter.default.post(name: NotificationName.DeleteCell, object: theButton)
     }
 }

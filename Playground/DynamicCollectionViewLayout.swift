@@ -8,19 +8,25 @@
 
 import UIKit
 
-class DynamicCollectionViewLayout: UICollectionViewLayout {
+class DynamicCollectionViewLayout<U: HeightCalculable>: UICollectionViewLayout {
 
+    typealias T = U.T
+    
     var portraitColumnCount: Int = 2
     var landscapeColumnCount: Int = 4
 
     var verticalSeparatorWidth: CGFloat = 1
     var horizontalSeparatorHeight: CGFloat = 1
 
-    private struct Constants {
-        static let verticalSeparatorIdentifier: String = "verticalSeparator"
-        static let horizontalSeparatorIdentifier: String = "horizontalSeparator"
-        static let separatorZIndex: Int = -10
-    }
+    let verticalSeparatorIdentifier: String = "verticalSeparator"
+    let horizontalSeparatorIdentifier: String = "horizontalSeparator"
+    let separatorZIndex: Int = -10
+
+//    private struct {
+//        static let verticalSeparatorIdentifier: String = "verticalSeparator"
+//        static let horizontalSeparatorIdentifier: String = "horizontalSeparator"
+//        static let separatorZIndex: Int = -10
+//    }
 
     private struct CellIndexRange {
         let minColumnIndex: Int
@@ -29,7 +35,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
         let maxRowIndex: Int
     }
 
-    var models: ChangeTracerArray<DynamicCollectionCellModel> = ChangeTracerArray<DynamicCollectionCellModel>() {
+    var models: ChangeTracerArray<T> = ChangeTracerArray<T>() {
         didSet {
             updateHeights()
         }
@@ -42,7 +48,7 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
     var rowHeights: [CGFloat] = [CGFloat]()
 
     var associatedCollectionView: UICollectionView?
-    var measurementCell: HeightCalculable?
+    var measurementCell: U?
 
     var needsCompleteCalculation: Bool = true
 
@@ -77,14 +83,14 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     override init() {
         super.init()
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: Constants.verticalSeparatorIdentifier)
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: Constants.horizontalSeparatorIdentifier)
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: verticalSeparatorIdentifier)
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: horizontalSeparatorIdentifier)
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: Constants.verticalSeparatorIdentifier)
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: Constants.horizontalSeparatorIdentifier)
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: verticalSeparatorIdentifier)
+        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: horizontalSeparatorIdentifier)
     }
 
     override var collectionViewContentSize: CGSize {
@@ -126,14 +132,14 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
         let verticalSeparatorIndexPaths = indexPathsOfVerticalSeparator(in: range)
         for verticalSeparatorIndexPath in verticalSeparatorIndexPaths {
-            if let attributes = layoutAttributesForDecorationView(ofKind: Constants.verticalSeparatorIdentifier, at: verticalSeparatorIndexPath) {
+            if let attributes = layoutAttributesForDecorationView(ofKind: verticalSeparatorIdentifier, at: verticalSeparatorIndexPath) {
                 layoutAttributes.append(attributes)
             }
         }
 
         let horizontalSeparatorIndexPaths = indexPathsOfHorizontalSeparator(in: range)
         for horizontalSeparatorIndexPath in horizontalSeparatorIndexPaths {
-            if let attributes = layoutAttributesForDecorationView(ofKind: Constants.horizontalSeparatorIdentifier, at: horizontalSeparatorIndexPath) {
+            if let attributes = layoutAttributesForDecorationView(ofKind: horizontalSeparatorIdentifier, at: horizontalSeparatorIndexPath) {
                 layoutAttributes.append(attributes)
             }
         }
@@ -148,13 +154,13 @@ class DynamicCollectionViewLayout: UICollectionViewLayout {
 
     override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
-        attributes.zIndex = Constants.separatorZIndex
+        attributes.zIndex = separatorZIndex
 
         switch elementKind {
-        case Constants.verticalSeparatorIdentifier:
+        case verticalSeparatorIdentifier:
             attributes.frame = frameForVerticalSeparator(at: indexPath)
             return attributes
-        case Constants.horizontalSeparatorIdentifier:
+        case horizontalSeparatorIdentifier:
             attributes.frame = frameForHorizontalSeparator(at: indexPath)
             return attributes
         default:

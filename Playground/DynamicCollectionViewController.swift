@@ -96,8 +96,8 @@ class DynamicCollectionViewController: UIViewController {
     @IBOutlet weak var buttonGroupContainer: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
 
-    lazy var collectionViewGridLayout: DynamicCollectionViewLayout = {
-        let layout = DynamicCollectionViewLayout()
+    lazy var collectionViewGridLayout: DynamicCollectionViewLayout<CuteCollectionViewCell> = {
+        let layout = DynamicCollectionViewLayout<CuteCollectionViewCell>()
         layout.portraitColumnCount = 2
         layout.landscapeColumnCount = 4
         layout.horizontalSeparatorHeight = 0
@@ -107,8 +107,8 @@ class DynamicCollectionViewController: UIViewController {
         return layout
     }()
 
-    lazy var collectionViewListLayout: DynamicCollectionViewLayout = {
-        let layout = DynamicCollectionViewLayout()
+    lazy var collectionViewListLayout: DynamicCollectionViewLayout<AdorableCollectionViewCell> = {
+        let layout = DynamicCollectionViewLayout<AdorableCollectionViewCell>()
         layout.portraitColumnCount = 1
         layout.landscapeColumnCount = 2
         layout.associatedCollectionView = collectionView

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E0E9DF421487D5500D5D98F /* HeightCalculable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E9DF321487D5500D5D98F /* HeightCalculable.swift */; };
+		2E0E9DF621487D9500D5D98F /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E9DF521487D9500D5D98F /* Array+Extension.swift */; };
+		2E0E9DF821487DFA00D5D98F /* TextHeightCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E9DF721487DFA00D5D98F /* TextHeightCalculator.swift */; };
 		2E318B45210547C500E6EF83 /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E318B44210547C500E6EF83 /* SearchBarViewController.swift */; };
 		2E7FB43521225123000A852D /* CuteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */; };
 		2E7FB43721225208000A852D /* CuteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */; };
@@ -53,6 +56,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E0E9DF321487D5500D5D98F /* HeightCalculable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightCalculable.swift; sourceTree = "<group>"; };
+		2E0E9DF521487D9500D5D98F /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		2E0E9DF721487DFA00D5D98F /* TextHeightCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHeightCalculator.swift; sourceTree = "<group>"; };
 		2E318B44210547C500E6EF83 /* SearchBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
 		2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CuteCollectionViewCell.xib; sourceTree = "<group>"; };
 		2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuteCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -147,6 +153,9 @@
 				2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */,
 				2E7FB43A21225791000A852D /* DynamicCollectionViewLayout.swift */,
 				4975419C21470C56006CC7C0 /* ChangeTracerArray.swift */,
+				2E0E9DF321487D5500D5D98F /* HeightCalculable.swift */,
+				2E0E9DF721487DFA00D5D98F /* TextHeightCalculator.swift */,
+				2E0E9DF521487D9500D5D98F /* Array+Extension.swift */,
 				2E8AAADA212F692E00D7BD99 /* AdorableCollectionViewCell.xib */,
 				2E8AAADC212F693900D7BD99 /* AdorableCollectionViewCell.swift */,
 				2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */,
@@ -268,9 +277,11 @@
 				49A9803D2072506500A492D5 /* SecondNavViewController.swift in Sources */,
 				491572521DCEA0AD0046AD0D /* CustomView.swift in Sources */,
 				2E318B45210547C500E6EF83 /* SearchBarViewController.swift in Sources */,
+				2E0E9DF621487D9500D5D98F /* Array+Extension.swift in Sources */,
 				49A98041207253D700A492D5 /* StaticNavController.swift in Sources */,
 				49A9803F2072508100A492D5 /* ThirdNavViewController.swift in Sources */,
 				494874051C5371C600B689D3 /* Meme.swift in Sources */,
+				2E0E9DF821487DFA00D5D98F /* TextHeightCalculator.swift in Sources */,
 				2E7FB43B21225791000A852D /* DynamicCollectionViewLayout.swift in Sources */,
 				4974E141212C26B3004AE3D0 /* MenuViewController.swift in Sources */,
 				2E7FB43721225208000A852D /* CuteCollectionViewCell.swift in Sources */,
@@ -290,6 +301,7 @@
 				499992C8205CA934001871CF /* LabelViewController.swift in Sources */,
 				498BA3F2208207AC00BAF4FB /* ColorPageViewController.swift in Sources */,
 				490224B42122EF7E009E9AC4 /* PillarCollectionReusableView.swift in Sources */,
+				2E0E9DF421487D5500D5D98F /* HeightCalculable.swift in Sources */,
 				49D169FE210B15A600518365 /* NavigationBarAppearViewController.swift in Sources */,
 				2E8AAADD212F693900D7BD99 /* AdorableCollectionViewCell.swift in Sources */,
 				2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */,

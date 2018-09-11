@@ -22,12 +22,6 @@ class DynamicCollectionViewLayout<U: HeightCalculable>: UICollectionViewLayout {
     let horizontalSeparatorIdentifier: String = "horizontalSeparator"
     let separatorZIndex: Int = -10
 
-//    private struct {
-//        static let verticalSeparatorIdentifier: String = "verticalSeparator"
-//        static let horizontalSeparatorIdentifier: String = "horizontalSeparator"
-//        static let separatorZIndex: Int = -10
-//    }
-
     private struct CellIndexRange {
         let minColumnIndex: Int
         let maxColumnIndex: Int

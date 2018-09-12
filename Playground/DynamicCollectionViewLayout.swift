@@ -154,16 +154,15 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         let oldBounds = collectionView?.bounds
-        let areBoundsChanged = newBounds.width != oldBounds?.width
-        if areBoundsChanged {
-            needsCompleteCalculation = true
-        }
-        return areBoundsChanged
+        let areBoundsWidthChanged = (newBounds.width != oldBounds?.width)
+        needsCompleteCalculation = areBoundsWidthChanged
+        return areBoundsWidthChanged
     }
 
     override func prepareForTransition(from oldLayout: UICollectionViewLayout) {
+        let oldCellWidth = cellWidth
         let newCellWidth = calculateCellWidth()
-        let isCellWidthChanged = (newCellWidth != cellWidth)
+        let isCellWidthChanged = (newCellWidth != oldCellWidth)
         needsCompleteCalculation = isCellWidthChanged
     }
 

@@ -98,21 +98,21 @@ class DynamicCollectionViewController: UIViewController {
 
     lazy var collectionViewGridLayout: DynamicCollectionViewLayout<CuteCollectionViewCell> = {
         let layout = DynamicCollectionViewLayout<CuteCollectionViewCell>()
+        layout.measurementCell = cuteMeasurementCell
         layout.portraitColumnCount = 2
         layout.landscapeColumnCount = 4
         layout.horizontalSeparatorHeight = 0
         layout.associatedCollectionView = collectionView
-        layout.measurementCell = cuteMeasurementCell
 
         return layout
     }()
 
     lazy var collectionViewListLayout: DynamicCollectionViewLayout<AdorableCollectionViewCell> = {
         let layout = DynamicCollectionViewLayout<AdorableCollectionViewCell>()
+        layout.measurementCell = adorableMeasurementCell
         layout.portraitColumnCount = 1
         layout.landscapeColumnCount = 2
         layout.associatedCollectionView = collectionView
-        layout.measurementCell = adorableMeasurementCell
 
         return layout
     }()

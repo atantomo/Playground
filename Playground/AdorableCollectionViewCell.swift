@@ -26,29 +26,12 @@ class AdorableCollectionViewCell: UICollectionViewCell {
     @IBOutlet var labelSideConstraints: [NSLayoutConstraint]!
     @IBOutlet var label2SideConstraints: [NSLayoutConstraint]!
 
-    lazy var imageWidth: CGFloat = {
-        return self.imageWidthConstraint.constant
-    }()
-
-    lazy var imageSidePadding: CGFloat = {
-        return self.imageSideConstraints.getConstantsSum()
-    }()
-
-    lazy var imageVerticalPadding: CGFloat = {
-        return self.imageVerticalConstraints.getConstantsSum()
-    }()
-
-    lazy var cellPaddingHeight: CGFloat = {
-        return self.heightCalculationConstraints.getConstantsSum()
-    }()
-
-    lazy var labelSidePadding: CGFloat = {
-        return self.labelSideConstraints.getConstantsSum()
-    }()
-
-    lazy var label2SidePadding: CGFloat = {
-        return self.label2SideConstraints.getConstantsSum()
-    }()
+    lazy var imageWidth: CGFloat = { return self.imageWidthConstraint.constant }()
+    lazy var imageSidePadding: CGFloat = { return self.imageSideConstraints.getConstantsSum() }()
+    lazy var imageVerticalPadding: CGFloat = { return self.imageVerticalConstraints.getConstantsSum() }()
+    lazy var cellPaddingHeight: CGFloat = { return self.heightCalculationConstraints.getConstantsSum() }()
+    lazy var labelSidePadding: CGFloat = { return self.labelSideConstraints.getConstantsSum() }()
+    lazy var label2SidePadding: CGFloat = { return self.label2SideConstraints.getConstantsSum() }()
 
     override var isHighlighted: Bool {
         didSet {
@@ -83,12 +66,14 @@ extension AdorableCollectionViewCell: HeightCalculable {
         let leftSum = imageHeight
 
         let labelWidth = width - labelSidePadding - imageWidth - imageSidePadding
-        let labelHeight = TextHeightCalculator.getHeight(for: VariableHeightText(text: model.firstText, font: theLabel.font, width: labelWidth))
+        let labelHeight = TextHeightCalculator.getHeight(for:
+            (text: model.firstText, font: theLabel.font, width: labelWidth)
+        )
 
         let label2Width = (width - label2SidePadding - imageWidth - imageSidePadding) / 2
         let bottomLabelHeight = TextHeightCalculator.getMaxHeight(for: [
-            VariableHeightText(text: model.secondText, font: theLabel2.font, width: label2Width),
-            VariableHeightText(text: model.thirdText, font: theLabel3.font, width: label2Width)
+            (text: model.secondText, font: theLabel2.font, width: label2Width),
+            (text: model.thirdText, font: theLabel3.font, width: label2Width)
             ])
 
         let rightSum = labelHeight + bottomLabelHeight + cellPaddingHeight

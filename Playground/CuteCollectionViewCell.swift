@@ -22,17 +22,9 @@ class CuteCollectionViewCell: UICollectionViewCell {
     @IBOutlet var labelSideConstraints: [NSLayoutConstraint]!
     @IBOutlet var label2SideConstraints: [NSLayoutConstraint]!
 
-    lazy var cellPaddingHeight: CGFloat = {
-        return self.heightCalculationConstraints.getConstantsSum()
-    }()
-
-    lazy var labelSidePadding: CGFloat = {
-        return self.labelSideConstraints.getConstantsSum()
-    }()
-
-    lazy var label2SidePadding: CGFloat = {
-        return self.label2SideConstraints.getConstantsSum()
-    }()
+    lazy var cellPaddingHeight: CGFloat = { return self.heightCalculationConstraints.getConstantsSum() }()
+    lazy var labelSidePadding: CGFloat = { return self.labelSideConstraints.getConstantsSum() }()
+    lazy var label2SidePadding: CGFloat = { return self.label2SideConstraints.getConstantsSum() }()
 
     override var isHighlighted: Bool {
         didSet {
@@ -65,12 +57,14 @@ extension CuteCollectionViewCell: HeightCalculable {
         let imageHeight = width * imageAspectConstraint.multiplier
 
         let labelWidth = width - labelSidePadding
-        let labelHeight = TextHeightCalculator.getHeight(for: VariableHeightText(text: model.firstText, font: theLabel.font, width: labelWidth))
+        let labelHeight = TextHeightCalculator.getHeight(for:
+            (text: model.firstText, font: theLabel.font, width: labelWidth)
+        )
 
         let label2Width = (width - label2SidePadding) / 2
         let bottomLabelHeight = TextHeightCalculator.getMaxHeight(for: [
-            VariableHeightText(text: model.secondText, font: theLabel2.font, width: label2Width),
-            VariableHeightText(text: model.thirdText, font: theLabel3.font, width: label2Width)
+            (text: model.secondText, font: theLabel2.font, width: label2Width),
+            (text: model.thirdText, font: theLabel3.font, width: label2Width)
             ])
 
         let sum = imageHeight + labelHeight + bottomLabelHeight + cellPaddingHeight

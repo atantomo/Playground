@@ -8,20 +8,19 @@
 
 import UIKit
 
-struct VariableHeightText {
-    let text: String
-    let font: UIFont
-    let width: CGFloat
-}
-
 struct TextHeightCalculator {
+
+    typealias VariableHeightText = (text: String, font: UIFont?, width: CGFloat)
 
     static func getHeight(for heightCalculableText: VariableHeightText) -> CGFloat {
         let text = heightCalculableText.text
         let widthConstrainedSize = CGSize(width: heightCalculableText.width, height: CGFloat.greatestFiniteMagnitude)
-        let font = heightCalculableText.font
+        var attributes: [NSAttributedStringKey: Any]? = nil
+        if let font = heightCalculableText.font {
+            attributes = [NSAttributedStringKey.font: font]
+        }
 
-        let rect = text.boundingRect(with: widthConstrainedSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedStringKey.font: font], context: nil)
+        let rect = text.boundingRect(with: widthConstrainedSize, options: [.usesLineFragmentOrigin], attributes: attributes, context: nil)
         let ceilHeight = ceil(rect.size.height)
         return ceilHeight
     }

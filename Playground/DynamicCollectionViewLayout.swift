@@ -8,9 +8,10 @@
 
 import UIKit
 
-class DynamicCollectionViewLayout<U: HeightCalculable>: UICollectionViewLayout {
+class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
 
-    typealias T = U.T
+    typealias TextCalculationModel = T.T
+    typealias CellIndexRange = (minColumnIndex: Int, maxColumnIndex: Int, minRowIndex: Int, maxRowIndex: Int)
     
     var portraitColumnCount: Int = 2
     var landscapeColumnCount: Int = 4
@@ -22,14 +23,7 @@ class DynamicCollectionViewLayout<U: HeightCalculable>: UICollectionViewLayout {
     let horizontalSeparatorIdentifier: String = "horizontalSeparator"
     let separatorZIndex: Int = -10
 
-    private struct CellIndexRange {
-        let minColumnIndex: Int
-        let maxColumnIndex: Int
-        let minRowIndex: Int
-        let maxRowIndex: Int
-    }
-
-    var models: ChangeTracerArray<T> = ChangeTracerArray<T>() {
+    var models: ChangeTracerArray<TextCalculationModel> = ChangeTracerArray<TextCalculationModel>() {
         didSet {
             updateHeights()
         }
@@ -42,7 +36,7 @@ class DynamicCollectionViewLayout<U: HeightCalculable>: UICollectionViewLayout {
     var rowHeights: [CGFloat] = [CGFloat]()
 
     var associatedCollectionView: UICollectionView?
-    var measurementCell: U?
+    var measurementCell: T?
 
     var needsCompleteCalculation: Bool = true
 
@@ -222,7 +216,7 @@ class DynamicCollectionViewLayout<U: HeightCalculable>: UICollectionViewLayout {
         let minRowIndex = rowIndexFromYCoordinate(yPosition: rect.minY)
         let maxRowIndex = rowIndexFromYCoordinate(yPosition: rect.maxY)
 
-        let range = CellIndexRange(minColumnIndex: minColumnIndex, maxColumnIndex: maxColumnIndex, minRowIndex: minRowIndex, maxRowIndex: maxRowIndex)
+        let range = (minColumnIndex: minColumnIndex, maxColumnIndex: maxColumnIndex, minRowIndex: minRowIndex, maxRowIndex: maxRowIndex)
         return range
     }
 

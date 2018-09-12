@@ -265,8 +265,8 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
         let currentLastRowRemainderCellsCount = newMinCellIndex % columnCount
 
         var currentLastRowHeight: CGFloat = 0.0
-        if currentLastRowIndex < self.rowHeights.count {
-            currentLastRowHeight = self.rowHeights[currentLastRowIndex]
+        if currentLastRowIndex < rowHeights.count {
+            currentLastRowHeight = rowHeights[currentLastRowIndex]
         }
 
         let newFirstRowLeftmostCellIndex = newMinCellIndex
@@ -285,13 +285,13 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
             newSecondRowOnwardHeights.append(height)
         }
 
-        let heights = Array(self.rowHeights[0..<currentLastRowIndex]) + [newFirstRowHeight] + newSecondRowOnwardHeights
-        self.rowHeights = heights
+        let heights = Array(rowHeights[0..<currentLastRowIndex]) + [newFirstRowHeight] + newSecondRowOnwardHeights
+        rowHeights = heights
     }
 
     private func removeHeights(at indexes: [Int]) {
         for index in indexes {
-            self.cellHeights.remove(at: index)
+            cellHeights.remove(at: index)
         }
 
         let newMinCellIndex = indexes.min() ?? 0
@@ -307,8 +307,8 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
             let height = getMaxHeight(leftmostCellIndex: leftmostCellIndex, tentativeRightmostCellIndex: rightmostCellIndex, cellHeights: cellHeights)
             recalculatedRowHeights.append(height)
         }
-        let heights = Array(self.rowHeights[0..<deletionTopmostRowIndex]) + recalculatedRowHeights
-        self.rowHeights = heights
+        let heights = Array(rowHeights[0..<deletionTopmostRowIndex]) + recalculatedRowHeights
+        rowHeights = heights
     }
 
     private func getMaxHeight(leftmostCellIndex: Int, tentativeRightmostCellIndex: Int, cellHeights: [CGFloat], extraComparisonHeight: CGFloat = 0.0) -> CGFloat {

@@ -18,67 +18,67 @@ struct DynamicCollectionViewControllerData {
     static var seed: [String] = [
         "Love",
         "Love Love Love",
-        "Love Love Love Love Love",
-        "Love Love Love Love Love Love Love",
-        "Love Love Love Love Love Love Love Love Love",
-        "Love",
-        "Love Love Love",
-        "Love Love Love Love Love",
-        "Love Love Love Love Love Love Love",
-        "Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love",
-        "Love",
-        "Love Love Love",
-        "Love Love Love Love Love",
-        "Love Love Love Love Love Love Love",
-        "Love Love Love Love Love Love Love Love Love",
-        "Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love",
-        "Love Love Love",
-        "Love Love Love Love Love",
-        "Love Love Love Love Love Love Love"
+//        "Love Love Love Love Love",
+//        "Love Love Love Love Love Love Love",
+//        "Love Love Love Love Love Love Love Love Love",
+//        "Love",
+//        "Love Love Love",
+//        "Love Love Love Love Love",
+//        "Love Love Love Love Love Love Love",
+//        "Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love",
+//        "Love",
+//        "Love Love Love",
+//        "Love Love Love Love Love",
+//        "Love Love Love Love Love Love Love",
+//        "Love Love Love Love Love Love Love Love Love",
+//        "Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love Love",
+//        "Love Love Love",
+//        "Love Love Love Love Love",
+//        "Love Love Love Love Love Love Love"
         ]
 
     static var seed2: [String] = [
         "Faith",
         "Faith Faith Faith",
-        "Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith",
-        "Faith Faith Faith Faith Faith",
-        "Faith Faith Faith Faith Faith Faith Faith",
-        "Faith Faith Faith Faith Faith Faith Faith",
-        "Faith Faith Faith Faith Faith Faith Faith Faith Faith",
-        "Faith",
-        "Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith",
-        "Faith Faith Faith",
-        "Faith Faith Faith",
-        "Faith Faith Faith Faith Faith",
-        "Faith",
-        "Faith Faith Faith Faith Faith",
-        "Faith Faith Faith Faith Faith Faith Faith",
-        "Faith Faith Faith Faith Faith Faith Faith Faith Faith",
-        "Faith Faith Faith",
-        "Faith Faith Faith Faith Faith",
-        "Faith Faith Faith Faith Faith Faith Faith"
+//        "Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith",
+//        "Faith Faith Faith Faith Faith",
+//        "Faith Faith Faith Faith Faith Faith Faith",
+//        "Faith Faith Faith Faith Faith Faith Faith",
+//        "Faith Faith Faith Faith Faith Faith Faith Faith Faith",
+//        "Faith",
+//        "Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith",
+//        "Faith Faith Faith",
+//        "Faith Faith Faith",
+//        "Faith Faith Faith Faith Faith",
+//        "Faith",
+//        "Faith Faith Faith Faith Faith",
+//        "Faith Faith Faith Faith Faith Faith Faith",
+//        "Faith Faith Faith Faith Faith Faith Faith Faith Faith",
+//        "Faith Faith Faith",
+//        "Faith Faith Faith Faith Faith",
+//        "Faith Faith Faith Faith Faith Faith Faith"
     ]
 
     static var seed3: [String] = [
         "Hope",
         "Hope Hope Hope",
-        "Hope Hope Hope Hope Hope",
-        "Hope Hope Hope Hope Hope Hope Hope",
-        "Hope Hope Hope Hope Hope Hope Hope Hope Hope",
-        "Hope",
-        "Hope Hope Hope",
-        "Hope Hope Hope Hope Hope",
-        "Hope Hope Hope Hope Hope Hope Hope",
-        "Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope",
-        "Hope",
-        "Hope Hope Hope",
-        "Hope Hope Hope Hope Hope",
-        "Hope Hope Hope Hope Hope Hope Hope",
-        "Hope Hope Hope Hope Hope Hope Hope Hope Hope",
-        "Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope",
-        "Hope Hope Hope",
-        "Hope Hope Hope Hope Hope",
-        "Hope Hope Hope Hope Hope Hope Hope"
+//        "Hope Hope Hope Hope Hope",
+//        "Hope Hope Hope Hope Hope Hope Hope",
+//        "Hope Hope Hope Hope Hope Hope Hope Hope Hope",
+//        "Hope",
+//        "Hope Hope Hope",
+//        "Hope Hope Hope Hope Hope",
+//        "Hope Hope Hope Hope Hope Hope Hope",
+//        "Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope",
+//        "Hope",
+//        "Hope Hope Hope",
+//        "Hope Hope Hope Hope Hope",
+//        "Hope Hope Hope Hope Hope Hope Hope",
+//        "Hope Hope Hope Hope Hope Hope Hope Hope Hope",
+//        "Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope Hope",
+//        "Hope Hope Hope",
+//        "Hope Hope Hope Hope Hope",
+//        "Hope Hope Hope Hope Hope Hope Hope"
     ]
 
     static var data: [DynamicCollectionCellModel] = {
@@ -102,8 +102,6 @@ class DynamicCollectionViewController: UIViewController {
         layout.portraitColumnCount = 2
         layout.landscapeColumnCount = 4
         layout.horizontalSeparatorHeight = 0
-        layout.associatedCollectionView = collectionView
-
         return layout
     }()
 
@@ -112,8 +110,6 @@ class DynamicCollectionViewController: UIViewController {
         layout.measurementCell = adorableMeasurementCell
         layout.portraitColumnCount = 1
         layout.landscapeColumnCount = 2
-        layout.associatedCollectionView = collectionView
-
         return layout
     }()
 

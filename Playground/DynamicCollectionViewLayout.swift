@@ -12,16 +12,16 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
 
     typealias TextCalculationModel = T.T
     typealias CellIndexRange = (minColumnIndex: Int, maxColumnIndex: Int, minRowIndex: Int, maxRowIndex: Int)
-    
-    var portraitColumnCount: Int = 2
-    var landscapeColumnCount: Int = 4
-
-    var verticalSeparatorWidth: CGFloat = 1
-    var horizontalSeparatorHeight: CGFloat = 1
 
     let verticalSeparatorIdentifier: String = "verticalSeparator"
     let horizontalSeparatorIdentifier: String = "horizontalSeparator"
     let separatorZIndex: Int = -10
+
+    var measurementCell: T?
+    var portraitColumnCount: Int = 2
+    var landscapeColumnCount: Int = 4
+    var verticalSeparatorWidth: CGFloat = 1
+    var horizontalSeparatorHeight: CGFloat = 1
 
     var models: ChangeTracerArray<TextCalculationModel> = ChangeTracerArray<TextCalculationModel>() {
         didSet {
@@ -29,22 +29,17 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
         }
     }
 
-    var columnCount: Int = 0
-    var cellWidth: CGFloat = 0
+    private var columnCount: Int = 0
+    private var cellWidth: CGFloat = 0
+    private var cellHeights: [CGFloat] = [CGFloat]()
+    private var rowHeights: [CGFloat] = [CGFloat]()
+    private var needsCompleteCalculation: Bool = true
 
-    var cellHeights: [CGFloat] = [CGFloat]()
-    var rowHeights: [CGFloat] = [CGFloat]()
-
-    var associatedCollectionView: UICollectionView?
-    var measurementCell: T?
-
-    var needsCompleteCalculation: Bool = true
-
-    var cellCount: Int {
+    private var cellCount: Int {
         return cellHeights.count
     }
 
-    var verticalSeparatorCount: Int {
+    private var verticalSeparatorCount: Int {
         let fullRowSeparatorCount = cellCount / columnCount * (columnCount - 1)
 
         let lastRowRemainderCellsCount = cellCount % columnCount
@@ -56,7 +51,7 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
         }
     }
 
-    var horizontalSeparatorCount: Int {
+    private var horizontalSeparatorCount: Int {
         let excludingMultiLineLastRowCount = cellCount - columnCount
         if excludingMultiLineLastRowCount < 0 {
             return 0
@@ -65,7 +60,7 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
         }
     }
 
-    var cellAndVerticalSeparatorWidth: CGFloat {
+    private var cellAndVerticalSeparatorWidth: CGFloat {
         return cellWidth + verticalSeparatorWidth
     }
 
@@ -82,7 +77,7 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
     }
 
     override var collectionViewContentSize: CGSize {
-        let contentWidth = associatedCollectionView?.bounds.size.width ?? 0
+        let contentWidth = collectionView?.bounds.size.width ?? 0
         let contentHeight = horizontalSeparatorHeight * CGFloat(rowHeights.count - 1) + rowHeights.reduce(0) { lhs, rhs in
             return lhs + rhs
         }
@@ -157,7 +152,7 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
     }
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        let oldBounds = associatedCollectionView?.bounds
+        let oldBounds = collectionView?.bounds
         let areBoundsChanged = newBounds.width != oldBounds?.width
         if areBoundsChanged {
             needsCompleteCalculation = true
@@ -170,8 +165,8 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
     }
 
     private func calculateColumnCount() -> Int {
-        let width = associatedCollectionView?.bounds.size.width ?? 0
-        let height = associatedCollectionView?.bounds.size.height ?? 0
+        let width = collectionView?.bounds.size.width ?? 0
+        let height = collectionView?.bounds.size.height ?? 0
         if width < height {
             return portraitColumnCount
         } else {
@@ -180,7 +175,7 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
     }
 
     private func calculateCellWidth() -> CGFloat {
-        let totalWidth = associatedCollectionView?.bounds.size.width ?? 0.0
+        let totalWidth = collectionView?.bounds.size.width ?? 0.0
         let separatorCount = columnCount - 1
 
         let contentWidth = totalWidth - verticalSeparatorWidth * CGFloat(separatorCount)
@@ -243,7 +238,8 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
     }
 
     private func updateHeights() {
-        guard !needsCompleteCalculation else {
+        guard collectionView != nil else {
+            needsCompleteCalculation = true
             return
         }
         switch models.latestChange {

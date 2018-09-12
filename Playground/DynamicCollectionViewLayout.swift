@@ -162,7 +162,9 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
     }
 
     override func prepareForTransition(from oldLayout: UICollectionViewLayout) {
-        needsCompleteCalculation = true
+        let newCellWidth = calculateCellWidth()
+        let isCellWidthChanged = (newCellWidth != cellWidth)
+        needsCompleteCalculation = isCellWidthChanged
     }
 
     private func calculateColumnCount() -> Int {

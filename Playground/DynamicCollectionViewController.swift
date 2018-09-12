@@ -18,7 +18,7 @@ struct DynamicCollectionViewControllerData {
     static var seed: [String] = [
         "Love",
         "Love Love Love",
-//        "Love Love Love Love Love",
+        "Love Love Love Love Love",
 //        "Love Love Love Love Love Love Love",
 //        "Love Love Love Love Love Love Love Love Love",
 //        "Love",
@@ -40,7 +40,7 @@ struct DynamicCollectionViewControllerData {
     static var seed2: [String] = [
         "Faith",
         "Faith Faith Faith",
-//        "Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith",
+        "Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith Faith",
 //        "Faith Faith Faith Faith Faith",
 //        "Faith Faith Faith Faith Faith Faith Faith",
 //        "Faith Faith Faith Faith Faith Faith Faith",
@@ -62,7 +62,7 @@ struct DynamicCollectionViewControllerData {
     static var seed3: [String] = [
         "Hope",
         "Hope Hope Hope",
-//        "Hope Hope Hope Hope Hope",
+        "Hope Hope Hope Hope Hope",
 //        "Hope Hope Hope Hope Hope Hope Hope",
 //        "Hope Hope Hope Hope Hope Hope Hope Hope Hope",
 //        "Hope",

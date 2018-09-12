@@ -66,12 +66,12 @@ extension AdorableCollectionViewCell: HeightCalculable {
         let leftSum = imageHeight
 
         let labelWidth = width - labelSidePadding - imageWidth - imageSidePadding
-        let labelHeight = TextHeightCalculator.getHeight(for:
+        let labelHeight = TextHeightCalculator.calculate(for:
             (text: model.firstText, font: theLabel.font, width: labelWidth)
         )
 
         let label2Width = (width - label2SidePadding - imageWidth - imageSidePadding) / 2
-        let bottomLabelHeight = TextHeightCalculator.getMaxHeight(for: [
+        let bottomLabelHeight = TextHeightCalculator.calculateMax(for: [
             (text: model.secondText, font: theLabel2.font, width: label2Width),
             (text: model.thirdText, font: theLabel3.font, width: label2Width)
             ])

@@ -12,7 +12,7 @@ struct TextHeightCalculator {
 
     typealias VariableHeightText = (text: String, font: UIFont?, width: CGFloat)
 
-    static func getHeight(for heightCalculableText: VariableHeightText) -> CGFloat {
+    static func calculate(for heightCalculableText: VariableHeightText) -> CGFloat {
         let text = heightCalculableText.text
         let widthConstrainedSize = CGSize(width: heightCalculableText.width, height: CGFloat.greatestFiniteMagnitude)
         var attributes: [NSAttributedStringKey: Any]? = nil
@@ -25,9 +25,9 @@ struct TextHeightCalculator {
         return ceilHeight
     }
 
-    static func getMaxHeight(for heightCalculableTexts: [VariableHeightText]) -> CGFloat {
+    static func calculateMax(for heightCalculableTexts: [VariableHeightText]) -> CGFloat {
         let heights = heightCalculableTexts.map { heightCalculableText in
-            return getHeight(for: heightCalculableText)
+            return calculate(for: heightCalculableText)
         }
         let maxHeight = heights.max() ?? 0.0
         return maxHeight

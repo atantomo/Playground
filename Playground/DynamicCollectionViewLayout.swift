@@ -10,20 +10,21 @@ import UIKit
 
 class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
 
-    typealias TextCalculationModel = T.T
+    typealias HeightCalculableCell = T
+    typealias CalculationDataSupplier = HeightCalculableCell.T
     typealias CellIndexRange = (minColumnIndex: Int, maxColumnIndex: Int, minRowIndex: Int, maxRowIndex: Int)
 
     let verticalSeparatorIdentifier: String = "verticalSeparator"
     let horizontalSeparatorIdentifier: String = "horizontalSeparator"
     let separatorZIndex: Int = -10
 
-    var measurementCell: T?
+    var measurementCell: HeightCalculableCell?
     var portraitColumnCount: Int = 2
     var landscapeColumnCount: Int = 4
     var verticalSeparatorWidth: CGFloat = 1
     var horizontalSeparatorHeight: CGFloat = 1
 
-    var models: ChangeTracerArray<TextCalculationModel> = ChangeTracerArray<TextCalculationModel>() {
+    var models: ChangeTracerArray<CalculationDataSupplier> = ChangeTracerArray<CalculationDataSupplier>() {
         didSet {
             updateHeights()
         }

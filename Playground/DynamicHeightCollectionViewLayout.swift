@@ -1,5 +1,5 @@
 //
-//  DynamicCollectionViewLayout.swift
+//  DynamicHeightCollectionViewLayout.swift
 //  Playground
 //
 //  Created by Andrew Tantomo on 2018/08/14.
@@ -8,15 +8,11 @@
 
 import UIKit
 
-class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
+class DynamicHeightCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
 
     typealias HeightCalculableCell = T
     typealias CalculationDataSupplier = HeightCalculableCell.T
     typealias CellIndexRange = (minColumnIndex: Int, maxColumnIndex: Int, minRowIndex: Int, maxRowIndex: Int)
-
-    let verticalSeparatorIdentifier: String = "verticalSeparator"
-    let horizontalSeparatorIdentifier: String = "horizontalSeparator"
-    let separatorZIndex: Int = -10
 
     var measurementCell: HeightCalculableCell?
     var portraitColumnCount: Int = 2
@@ -29,6 +25,10 @@ class DynamicCollectionViewLayout<T: HeightCalculable>: UICollectionViewLayout {
             updateHeights()
         }
     }
+
+    private let verticalSeparatorIdentifier: String = "verticalSeparator"
+    private let horizontalSeparatorIdentifier: String = "horizontalSeparator"
+    private let separatorZIndex: Int = -10
 
     private var columnCount: Int = 0
     private var cellWidth: CGFloat = 0

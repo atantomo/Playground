@@ -14,7 +14,7 @@
 		2E7FB43521225123000A852D /* CuteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */; };
 		2E7FB43721225208000A852D /* CuteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */; };
 		2E7FB43921225518000A852D /* DynamicCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */; };
-		2E7FB43B21225791000A852D /* DynamicCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FB43A21225791000A852D /* DynamicCollectionViewLayout.swift */; };
+		2E7FB43B21225791000A852D /* DynamicHeightCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FB43A21225791000A852D /* DynamicHeightCollectionViewLayout.swift */; };
 		2E80ADC120BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */; };
 		2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */; };
 		2E8AAADB212F692E00D7BD99 /* AdorableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E8AAADA212F692E00D7BD99 /* AdorableCollectionViewCell.xib */; };
@@ -63,7 +63,7 @@
 		2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CuteCollectionViewCell.xib; sourceTree = "<group>"; };
 		2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuteCollectionViewCell.swift; sourceTree = "<group>"; };
 		2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCollectionViewController.swift; sourceTree = "<group>"; };
-		2E7FB43A21225791000A852D /* DynamicCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCollectionViewLayout.swift; sourceTree = "<group>"; };
+		2E7FB43A21225791000A852D /* DynamicHeightCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicHeightCollectionViewLayout.swift; sourceTree = "<group>"; };
 		2E80ADC020BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		2E8AAADA212F692E00D7BD99 /* AdorableCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdorableCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 				4974E140212C26B3004AE3D0 /* MenuViewController.swift */,
 				2EB88C62213DF50000B523BE /* ButtonLayoutViewController.swift */,
 				2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */,
-				2E7FB43A21225791000A852D /* DynamicCollectionViewLayout.swift */,
+				2E7FB43A21225791000A852D /* DynamicHeightCollectionViewLayout.swift */,
 				4975419C21470C56006CC7C0 /* ChangeTracerArray.swift */,
 				2E0E9DF321487D5500D5D98F /* HeightCalculable.swift */,
 				2E0E9DF721487DFA00D5D98F /* TextHeightCalculator.swift */,
@@ -282,7 +282,7 @@
 				49A9803F2072508100A492D5 /* ThirdNavViewController.swift in Sources */,
 				494874051C5371C600B689D3 /* Meme.swift in Sources */,
 				2E0E9DF821487DFA00D5D98F /* TextHeightCalculator.swift in Sources */,
-				2E7FB43B21225791000A852D /* DynamicCollectionViewLayout.swift in Sources */,
+				2E7FB43B21225791000A852D /* DynamicHeightCollectionViewLayout.swift in Sources */,
 				4974E141212C26B3004AE3D0 /* MenuViewController.swift in Sources */,
 				2E7FB43721225208000A852D /* CuteCollectionViewCell.swift in Sources */,
 				49116FA420E3C24C00C4C31C /* CollectionMovementViewController.swift in Sources */,

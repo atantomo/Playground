@@ -25,7 +25,6 @@ class PseudoCollectionViewController: UIViewController {
     override func viewDidLoad() {
         collectionView.register(UINib(nibName: "SmallPseudoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "small")
         collectionView.register(UINib(nibName: "LargePseudoCollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "large")
-//        collectionView.register(UINib(nibName: "DividerPseudoCollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "divider")
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -81,10 +80,6 @@ extension PseudoCollectionViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionView.bounds.width, height: 64)
     }
 
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-//        return CGSize(width: collectionView.bounds.width, height: 16)
-//    }
-
 }
 
 
@@ -103,7 +98,6 @@ extension PseudoCollectionViewController: UICollectionViewDataSource {
         let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: "small", for: indexPath)
         if let cell = dequeuedCell as? ShortPseudoCollectionViewCell {
             cell.textLabel.text = collectionData[indexPath.section].1
-            cell.backgroundView = UIView()
             return cell
         }
         return dequeuedCell
@@ -118,10 +112,6 @@ extension PseudoCollectionViewController: UICollectionViewDataSource {
             }
             return dequeuedCell
         }
-//        if kind == UICollectionElementKindSectionFooter {
-//            let dequeuedCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "divider", for: indexPath)
-//            return dequeuedCell
-//        }
         return UICollectionReusableView()
     }
 
@@ -139,6 +129,7 @@ struct SeparatorAdjustableLayout {
 
 class SeparatorAdjustableCollectionViewLayout: UICollectionViewFlowLayout {
 
+    var decorationViewFrameForIndexPath: [IndexPath: CGRect] = [IndexPath: CGRect]()
     private let horizontalSeparatorIdentifier: String = "horizontalSeparator"
 
     override init() {
@@ -151,17 +142,11 @@ class SeparatorAdjustableCollectionViewLayout: UICollectionViewFlowLayout {
         register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: horizontalSeparatorIdentifier)
     }
 
-    var decorationViewFrameForIndexPath: [IndexPath: CGRect] = [IndexPath: CGRect]()
-
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = super.layoutAttributesForElements(in: rect)!
 
-        var cellLayoutAttributes: [UICollectionViewLayoutAttributes] = [UICollectionViewLayoutAttributes]()
-
-        for layoutAttribute in layoutAttributes {
-            if layoutAttribute.representedElementKind == nil {
-                cellLayoutAttributes.append(layoutAttribute)
-            }
+        let cellLayoutAttributes = layoutAttributes.filter { layoutAttribute in
+            return layoutAttribute.representedElementKind == nil
         }
 
         for cellLayoutAttribute in cellLayoutAttributes {
@@ -171,8 +156,8 @@ class SeparatorAdjustableCollectionViewLayout: UICollectionViewFlowLayout {
             decorationViewFrameForIndexPath[cellLayoutAttribute.indexPath] = decorationFrame
         }
 
-        for key in decorationViewFrameForIndexPath.keys {
-            if let attributes = layoutAttributesForDecorationView(ofKind: horizontalSeparatorIdentifier, at: key) {
+        for indexPath in decorationViewFrameForIndexPath.keys {
+            if let attributes = layoutAttributesForDecorationView(ofKind: horizontalSeparatorIdentifier, at: indexPath) {
                 layoutAttributes.append(attributes)
             }
         }
@@ -189,6 +174,18 @@ class SeparatorAdjustableCollectionViewLayout: UICollectionViewFlowLayout {
         }
         attributes.frame = frame
         return attributes
+    }
+
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        let oldBounds = collectionView?.bounds
+        let isBoundsWidthChanged = (newBounds.width != oldBounds?.width)
+
+        let collectionWidth = newBounds.width
+        itemSize = CGSize(width: collectionWidth, height: itemSize.height)
+        if isBoundsWidthChanged {
+            decorationViewFrameForIndexPath.removeAll()
+        }
+        return isBoundsWidthChanged
     }
 
 }
@@ -218,6 +215,17 @@ struct FlexibleTableSectionLayout {
 
 
 class HighlightableCollectionViewCell: UICollectionViewCell {
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundView = UIView()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        backgroundView = UIView()
+    }
+
     override var isHighlighted: Bool {
         didSet {
             if isHighlighted {

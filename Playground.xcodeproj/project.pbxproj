@@ -21,7 +21,6 @@
 		2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */; };
 		2E8AAADB212F692E00D7BD99 /* AdorableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E8AAADA212F692E00D7BD99 /* AdorableCollectionViewCell.xib */; };
 		2E8AAADD212F693900D7BD99 /* AdorableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AAADC212F693900D7BD99 /* AdorableCollectionViewCell.swift */; };
-		2EA9CDFD215E0BFA0013280B /* DividerPseudoCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA9CDFC215E0BFA0013280B /* DividerPseudoCollectionReusableView.xib */; };
 		2EB88C63213DF50000B523BE /* ButtonLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB88C62213DF50000B523BE /* ButtonLayoutViewController.swift */; };
 		2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */; };
 		2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */; };
@@ -76,7 +75,6 @@
 		2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		2E8AAADA212F692E00D7BD99 /* AdorableCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdorableCollectionViewCell.xib; sourceTree = "<group>"; };
 		2E8AAADC212F693900D7BD99 /* AdorableCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdorableCollectionViewCell.swift; sourceTree = "<group>"; };
-		2EA9CDFC215E0BFA0013280B /* DividerPseudoCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DividerPseudoCollectionReusableView.xib; sourceTree = "<group>"; };
 		2EB88C62213DF50000B523BE /* ButtonLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonLayoutViewController.swift; sourceTree = "<group>"; };
 		2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayoutCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoLayoutCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 				4974E140212C26B3004AE3D0 /* MenuViewController.swift */,
 				2ED728F42159B4F40064C3E7 /* PseudoCollectionViewController.swift */,
 				2EF9C0CD2159C13E00539D20 /* LargePseudoCollectionReusableView.xib */,
-				2EA9CDFC215E0BFA0013280B /* DividerPseudoCollectionReusableView.xib */,
 				2EF9C0CF2159C24E00539D20 /* SmallPseudoCollectionViewCell.xib */,
 				2E2F7D11215086FD0080A256 /* HighlightableSearchBar.swift */,
 				2E2F7D10215086FD0080A256 /* HighlightableSearchBar.xib */,
@@ -279,7 +276,6 @@
 				2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */,
 				2E2F7D12215086FD0080A256 /* HighlightableSearchBar.xib in Resources */,
 				494873FA1C53555800B689D3 /* Assets.xcassets in Resources */,
-				2EA9CDFD215E0BFA0013280B /* DividerPseudoCollectionReusableView.xib in Resources */,
 				2EF9C0CE2159C13E00539D20 /* LargePseudoCollectionReusableView.xib in Resources */,
 				2EF9C0D02159C24E00539D20 /* SmallPseudoCollectionViewCell.xib in Resources */,
 				490224B22122EEF8009E9AC4 /* PillarCollectionReusableView.xib in Resources */,

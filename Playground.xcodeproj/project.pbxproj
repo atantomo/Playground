@@ -10,6 +10,8 @@
 		2E0E9DF421487D5500D5D98F /* HeightCalculable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E9DF321487D5500D5D98F /* HeightCalculable.swift */; };
 		2E0E9DF621487D9500D5D98F /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E9DF521487D9500D5D98F /* Array+Extension.swift */; };
 		2E0E9DF821487DFA00D5D98F /* TextHeightCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E9DF721487DFA00D5D98F /* TextHeightCalculator.swift */; };
+		2E2F7D12215086FD0080A256 /* HighlightableSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2F7D10215086FD0080A256 /* HighlightableSearchBar.xib */; };
+		2E2F7D13215086FD0080A256 /* HighlightableSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2F7D11215086FD0080A256 /* HighlightableSearchBar.swift */; };
 		2E318B45210547C500E6EF83 /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E318B44210547C500E6EF83 /* SearchBarViewController.swift */; };
 		2E7FB43521225123000A852D /* CuteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */; };
 		2E7FB43721225208000A852D /* CuteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */; };
@@ -19,9 +21,13 @@
 		2E80ADC320BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */; };
 		2E8AAADB212F692E00D7BD99 /* AdorableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E8AAADA212F692E00D7BD99 /* AdorableCollectionViewCell.xib */; };
 		2E8AAADD212F693900D7BD99 /* AdorableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AAADC212F693900D7BD99 /* AdorableCollectionViewCell.swift */; };
+		2EA9CDFD215E0BFA0013280B /* DividerPseudoCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA9CDFC215E0BFA0013280B /* DividerPseudoCollectionReusableView.xib */; };
 		2EB88C63213DF50000B523BE /* ButtonLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB88C62213DF50000B523BE /* ButtonLayoutViewController.swift */; };
 		2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */; };
 		2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */; };
+		2ED728F52159B4F40064C3E7 /* PseudoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED728F42159B4F40064C3E7 /* PseudoCollectionViewController.swift */; };
+		2EF9C0CE2159C13E00539D20 /* LargePseudoCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF9C0CD2159C13E00539D20 /* LargePseudoCollectionReusableView.xib */; };
+		2EF9C0D02159C24E00539D20 /* SmallPseudoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF9C0CF2159C24E00539D20 /* SmallPseudoCollectionViewCell.xib */; };
 		490224B22122EEF8009E9AC4 /* PillarCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 490224B12122EEF8009E9AC4 /* PillarCollectionReusableView.xib */; };
 		490224B42122EF7E009E9AC4 /* PillarCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490224B32122EF7E009E9AC4 /* PillarCollectionReusableView.swift */; };
 		4909802C20A451540078CA4E /* FirstTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909802B20A451540078CA4E /* FirstTabViewController.swift */; };
@@ -59,6 +65,8 @@
 		2E0E9DF321487D5500D5D98F /* HeightCalculable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightCalculable.swift; sourceTree = "<group>"; };
 		2E0E9DF521487D9500D5D98F /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		2E0E9DF721487DFA00D5D98F /* TextHeightCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHeightCalculator.swift; sourceTree = "<group>"; };
+		2E2F7D10215086FD0080A256 /* HighlightableSearchBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighlightableSearchBar.xib; sourceTree = "<group>"; };
+		2E2F7D11215086FD0080A256 /* HighlightableSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightableSearchBar.swift; sourceTree = "<group>"; };
 		2E318B44210547C500E6EF83 /* SearchBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
 		2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CuteCollectionViewCell.xib; sourceTree = "<group>"; };
 		2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuteCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -68,9 +76,13 @@
 		2E80ADC220BF896D00A6DCD4 /* SecondCustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCustomTransitionViewController.swift; sourceTree = "<group>"; };
 		2E8AAADA212F692E00D7BD99 /* AdorableCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdorableCollectionViewCell.xib; sourceTree = "<group>"; };
 		2E8AAADC212F693900D7BD99 /* AdorableCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdorableCollectionViewCell.swift; sourceTree = "<group>"; };
+		2EA9CDFC215E0BFA0013280B /* DividerPseudoCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DividerPseudoCollectionReusableView.xib; sourceTree = "<group>"; };
 		2EB88C62213DF50000B523BE /* ButtonLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonLayoutViewController.swift; sourceTree = "<group>"; };
 		2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayoutCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoLayoutCollectionViewCell.xib; sourceTree = "<group>"; };
+		2ED728F42159B4F40064C3E7 /* PseudoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PseudoCollectionViewController.swift; sourceTree = "<group>"; };
+		2EF9C0CD2159C13E00539D20 /* LargePseudoCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargePseudoCollectionReusableView.xib; sourceTree = "<group>"; };
+		2EF9C0CF2159C24E00539D20 /* SmallPseudoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SmallPseudoCollectionViewCell.xib; sourceTree = "<group>"; };
 		490224B12122EEF8009E9AC4 /* PillarCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PillarCollectionReusableView.xib; sourceTree = "<group>"; };
 		490224B32122EF7E009E9AC4 /* PillarCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillarCollectionReusableView.swift; sourceTree = "<group>"; };
 		4909802B20A451540078CA4E /* FirstTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +161,12 @@
 				491572511DCEA0AD0046AD0D /* CustomView.swift */,
 				494873F61C53555800B689D3 /* Main.storyboard */,
 				4974E140212C26B3004AE3D0 /* MenuViewController.swift */,
+				2ED728F42159B4F40064C3E7 /* PseudoCollectionViewController.swift */,
+				2EF9C0CD2159C13E00539D20 /* LargePseudoCollectionReusableView.xib */,
+				2EA9CDFC215E0BFA0013280B /* DividerPseudoCollectionReusableView.xib */,
+				2EF9C0CF2159C24E00539D20 /* SmallPseudoCollectionViewCell.xib */,
+				2E2F7D11215086FD0080A256 /* HighlightableSearchBar.swift */,
+				2E2F7D10215086FD0080A256 /* HighlightableSearchBar.xib */,
 				2EB88C62213DF50000B523BE /* ButtonLayoutViewController.swift */,
 				2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */,
 				2E7FB43A21225791000A852D /* DynamicHeightCollectionViewLayout.swift */,
@@ -259,7 +277,11 @@
 				2E8AAADB212F692E00D7BD99 /* AdorableCollectionViewCell.xib in Resources */,
 				494873FD1C53555800B689D3 /* LaunchScreen.storyboard in Resources */,
 				2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */,
+				2E2F7D12215086FD0080A256 /* HighlightableSearchBar.xib in Resources */,
 				494873FA1C53555800B689D3 /* Assets.xcassets in Resources */,
+				2EA9CDFD215E0BFA0013280B /* DividerPseudoCollectionReusableView.xib in Resources */,
+				2EF9C0CE2159C13E00539D20 /* LargePseudoCollectionReusableView.xib in Resources */,
+				2EF9C0D02159C24E00539D20 /* SmallPseudoCollectionViewCell.xib in Resources */,
 				490224B22122EEF8009E9AC4 /* PillarCollectionReusableView.xib in Resources */,
 				2E7FB43521225123000A852D /* CuteCollectionViewCell.xib in Resources */,
 				49FDA13F20D071D500750592 /* AutoLayoutTableViewCell.xib in Resources */,
@@ -284,6 +306,7 @@
 				2E0E9DF821487DFA00D5D98F /* TextHeightCalculator.swift in Sources */,
 				2E7FB43B21225791000A852D /* DynamicHeightCollectionViewLayout.swift in Sources */,
 				4974E141212C26B3004AE3D0 /* MenuViewController.swift in Sources */,
+				2ED728F52159B4F40064C3E7 /* PseudoCollectionViewController.swift in Sources */,
 				2E7FB43721225208000A852D /* CuteCollectionViewCell.swift in Sources */,
 				49116FA420E3C24C00C4C31C /* CollectionMovementViewController.swift in Sources */,
 				494873F51C53555800B689D3 /* ViewController.swift in Sources */,
@@ -308,6 +331,7 @@
 				49D169FC210B159500518365 /* NavigationBarDisappearViewController.swift in Sources */,
 				491C11FC208F44B400C59999 /* ConstrainedLabelViewController.swift in Sources */,
 				2E80ADC120BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift in Sources */,
+				2E2F7D13215086FD0080A256 /* HighlightableSearchBar.swift in Sources */,
 				49702DF6208F5A1000064C84 /* TableMovementViewController.swift in Sources */,
 				4909802C20A451540078CA4E /* FirstTabViewController.swift in Sources */,
 				49A98043207253EA00A492D5 /* StaticNavBar.swift in Sources */,

@@ -105,9 +105,95 @@ class TallTabBarController: UITabBarController, UITabBarControllerDelegate {
         //print(bottomLayoutGuide.length)
         //tabBar.isHidden = true
     }
-    
+
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+
+        guard let newSelectedIndex = viewControllers?.index(of: viewController),
+            let navVC = viewController as? UINavigationController else {
+                return true
+        }
+
+        let currentSelectedIndex = tabBarController.selectedIndex
+        let isAttemptingPopToRoot = (newSelectedIndex == currentSelectedIndex)
+        let shouldAnimatePopToRoot = navVC.viewControllers.last?.prefersPopToRootAnimated ?? true
+        if isAttemptingPopToRoot && !shouldAnimatePopToRoot {
+
+            navVC.popToRootViewController(animated: false)
+            return false
+        }
+        return true
+    }
+
+//    var lastSelectedIndex = 0
+
+//    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+//
+//        if let selectedIndex = tabBar.items?.index(of: item),
+//            let navVC = viewControllers?[selectedIndex] as? UINavigationController {
+//
+//            guard selectedIndex != lastSelectedIndex else {
+//                return
+//            }
+//
+//            lastSelectedIndex = selectedIndex
+//
+//            if navVC.viewControllers.last is TabPopWithoutAnimationViewController {
+//                navVC.popToRootViewController(animated: false)
+//            }
+//        }
+//    }
+
+//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        if let vc = viewController as? UINavigationController {
+//            vc.popViewController(animated: false)
+//        }
+//    }
+
 
 }
 
+class TabPopWithAnimationViewController: UIViewController {
 
+    override var prefersPopToRootAnimated: Bool {
+        return true
+    }
+
+}
+
+class TabPopWithoutAnimationViewController: UIViewController {
+
+    override var prefersPopToRootAnimated: Bool {
+        return false
+    }
+
+}
+
+extension UIViewController {
+
+    @objc var prefersPopToRootAnimated: Bool {
+        return true
+    }
+
+}
+
+//extension TabPopWithAnimationViewController: NavigationPopToRootControllable {
+//    var shouldPopToRootAnimated: Bool {
+//        return true
+//    }
+//}
+
+//extension TabPopWithoutAnimationViewController: NavigationPopToRootControllable {
+//    var shouldPopToRootAnimated: Bool {
+//        return false
+//    }
+//}
+
+//protocol NavigationPopToRootControllable { }
+//
+//extension NavigationPopToRootControllable {
+//
+//    var shouldPopToRootAnimated: Bool {
+//        return true
+//    }
+//}
 

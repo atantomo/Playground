@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="UniqloProBold.otf">
+            <string>UniqloPro-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HighlightableSearchBar" customModule="Playground" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButton" destination="Yh2-bu-hOx" id="dE4-jX-uKH"/>
+                <outlet property="cancelButtonContainerHideConstraint" destination="bxU-P0-gi4" id="wgi-Na-Y3E"/>
+                <outlet property="textField" destination="GKx-MZ-cnF" id="ngP-TZ-O3d"/>
+                <outlet property="textFieldFrameView" destination="n1s-xb-XCb" id="UkX-Je-XVo"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sG1-ab-xEQ">
+                    <rect key="frame" x="0.0" y="0.0" width="322" height="56"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n1s-xb-XCb">
+                            <rect key="frame" x="16" y="8" width="294" height="40"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forest_house" translatesAutoresizingMaskIntoConstraints="NO" id="d6o-zL-msv">
+                                    <rect key="frame" x="8" y="8" width="24" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="24" id="qAf-kp-AyW"/>
+                                        <constraint firstAttribute="width" constant="24" id="uhU-V1-Erf"/>
+                                    </constraints>
+                                </imageView>
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="商品を検索" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GKx-MZ-cnF">
+                                    <rect key="frame" x="40" y="0.0" width="246" height="40"/>
+                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="GKx-MZ-cnF" secondAttribute="trailing" constant="8" id="4AB-I1-81F"/>
+                                <constraint firstItem="GKx-MZ-cnF" firstAttribute="centerY" secondItem="n1s-xb-XCb" secondAttribute="centerY" id="Amc-zZ-Ch3"/>
+                                <constraint firstItem="GKx-MZ-cnF" firstAttribute="leading" secondItem="d6o-zL-msv" secondAttribute="trailing" constant="8" id="Pci-VO-jGT"/>
+                                <constraint firstItem="d6o-zL-msv" firstAttribute="leading" secondItem="n1s-xb-XCb" secondAttribute="leading" constant="8" id="QtD-54-kJT"/>
+                                <constraint firstItem="d6o-zL-msv" firstAttribute="centerY" secondItem="n1s-xb-XCb" secondAttribute="centerY" id="V0e-uF-cVZ"/>
+                                <constraint firstAttribute="bottom" secondItem="GKx-MZ-cnF" secondAttribute="bottom" id="a0Q-ls-wir"/>
+                                <constraint firstItem="GKx-MZ-cnF" firstAttribute="top" secondItem="n1s-xb-XCb" secondAttribute="top" id="nHR-ce-AZj"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="viewBackgroundColor">
+                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" red="0.6705882352941176" green="0.6705882352941176" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="n1s-xb-XCb" firstAttribute="top" secondItem="sG1-ab-xEQ" secondAttribute="top" constant="8" id="73d-OP-xQS"/>
+                        <constraint firstItem="n1s-xb-XCb" firstAttribute="leading" secondItem="sG1-ab-xEQ" secondAttribute="leading" constant="16" id="7qA-1j-Nd3"/>
+                        <constraint firstAttribute="trailing" secondItem="n1s-xb-XCb" secondAttribute="trailing" constant="12" id="qYv-c1-w0C"/>
+                        <constraint firstAttribute="bottom" secondItem="n1s-xb-XCb" secondAttribute="bottom" constant="8" id="xwB-lk-oSh"/>
+                    </constraints>
+                </view>
+                <view clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="C0l-nS-J3n">
+                    <rect key="frame" x="322" y="0.0" width="53" height="56"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yh2-bu-hOx">
+                            <rect key="frame" x="0.0" y="4" width="49" height="48"/>
+                            <fontDescription key="fontDescription" name="UniqloPro-Bold" family="Uniqlo Pro" pointSize="13"/>
+                            <color key="tintColor" red="0.21568627450980393" green="0.52549019607843139" blue="0.58039215686274503" alpha="1" colorSpace="calibratedRGB"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="8" maxY="16"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="1"/>
+                            <state key="normal" title="Cancel"/>
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="l0i-ha-vZS"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Yh2-bu-hOx" firstAttribute="leading" secondItem="C0l-nS-J3n" secondAttribute="leading" priority="251" id="6t0-vR-JCQ"/>
+                        <constraint firstAttribute="width" priority="250" constant="4" id="bxU-P0-gi4"/>
+                        <constraint firstItem="Yh2-bu-hOx" firstAttribute="centerY" secondItem="C0l-nS-J3n" secondAttribute="centerY" id="mft-pZ-gcE"/>
+                        <constraint firstAttribute="trailing" secondItem="Yh2-bu-hOx" secondAttribute="trailing" priority="252" constant="4" id="uTO-Ij-6PJ"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="sG1-ab-xEQ" secondAttribute="bottom" id="08o-GU-MBx"/>
+                <constraint firstItem="C0l-nS-J3n" firstAttribute="leading" secondItem="sG1-ab-xEQ" secondAttribute="trailing" id="4i0-xJ-e89"/>
+                <constraint firstItem="sG1-ab-xEQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JIw-Nd-K13"/>
+                <constraint firstAttribute="bottom" secondItem="C0l-nS-J3n" secondAttribute="bottom" id="jAR-QC-zrh"/>
+                <constraint firstItem="C0l-nS-J3n" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lIH-vR-CvO"/>
+                <constraint firstItem="sG1-ab-xEQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="o8X-29-TSl"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="C0l-nS-J3n" secondAttribute="trailing" id="rca-06-yHP"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="55.5" y="54"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="forest_house" width="620" height="413"/>
+    </resources>
+</document>

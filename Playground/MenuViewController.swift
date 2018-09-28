@@ -44,6 +44,7 @@ class MenuViewController: UIViewController {
         "navResizer",
         "navHide",
         "navParallax",
+        "pseudoCollection",
         "dynamicCollection",
         "tabbedPage",
         "navTransition",

@@ -52,13 +52,13 @@ class PseudoCollectionViewController: UIViewController {
 }
 
 
-class ShortPseudoCollectionViewCell: UICollectionViewCell {
+class ShortPseudoCollectionViewCell: HighlightableCollectionViewCell {
 
     @IBOutlet weak var textLabel: UILabel!
 
 }
 
-class LargePseudoCollectionReusableView: UICollectionReusableView {
+class LargePseudoCollectionReusableView: HighlightableCollectionViewCell {
 
     @IBOutlet weak var textLabel: UILabel!
 
@@ -69,6 +69,10 @@ class DividerPseudoCollectionReusableView: UICollectionReusableView {
 }
 
 extension PseudoCollectionViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
@@ -99,6 +103,7 @@ extension PseudoCollectionViewController: UICollectionViewDataSource {
         let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: "small", for: indexPath)
         if let cell = dequeuedCell as? ShortPseudoCollectionViewCell {
             cell.textLabel.text = collectionData[indexPath.section].1
+            cell.backgroundView = UIView()
             return cell
         }
         return dequeuedCell
@@ -208,5 +213,28 @@ struct FlexibleTableSectionLayout {
 
         let totalHeight = headerHeight + cellsHeight + footerHeight
         return totalHeight
+    }
+}
+
+
+class HighlightableCollectionViewCell: UICollectionViewCell {
+    override var isHighlighted: Bool {
+        didSet {
+            if isHighlighted {
+                backgroundView?.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
+            } else {
+                backgroundView?.backgroundColor = UIColor.white
+            }
+        }
+    }
+
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                backgroundView?.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
+            } else {
+                backgroundView?.backgroundColor = UIColor.white
+            }
+        }
     }
 }

@@ -11,3 +11,7 @@ import UIKit
 class PillarCollectionReusableView: UICollectionReusableView {
         
 }
+
+class InsetSeparatorReusableView: UICollectionReusableView {
+
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Ol2-Em-ehS" customClass="InsetSeparatorReusableView" customModule="Playground" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uz-la-VW8">
+                    <rect key="frame" x="15" y="0.0" width="360" height="44"/>
+                    <color key="backgroundColor" red="0.82352941180000006" green="0.25098039220000001" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Usf-f2-e31">
+                    <rect key="frame" x="0.0" y="0.0" width="15" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="15" id="NgW-xC-YAV"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="9uz-la-VW8" secondAttribute="trailing" id="0J3-Np-fbw"/>
+                <constraint firstItem="Usf-f2-e31" firstAttribute="bottom" secondItem="8cR-XL-PNt" secondAttribute="bottom" id="HRB-xm-O1r"/>
+                <constraint firstItem="Usf-f2-e31" firstAttribute="top" secondItem="8cR-XL-PNt" secondAttribute="top" id="Mkb-SI-ZzN"/>
+                <constraint firstAttribute="bottom" secondItem="9uz-la-VW8" secondAttribute="bottom" id="h8v-kU-IUR"/>
+                <constraint firstItem="Usf-f2-e31" firstAttribute="leading" secondItem="8cR-XL-PNt" secondAttribute="leading" id="jyX-P2-S0q"/>
+                <constraint firstItem="9uz-la-VW8" firstAttribute="leading" secondItem="Usf-f2-e31" secondAttribute="trailing" id="tmD-8N-y1Q"/>
+                <constraint firstItem="9uz-la-VW8" firstAttribute="top" secondItem="Ol2-Em-ehS" secondAttribute="top" id="zJA-ke-7VZ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="8cR-XL-PNt"/>
+            <point key="canvasLocation" x="-93.599999999999994" y="239.28035982008998"/>
+        </collectionReusableView>
+    </objects>
+</document>

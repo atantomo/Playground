@@ -34,6 +34,7 @@
 		491572521DCEA0AD0046AD0D /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491572511DCEA0AD0046AD0D /* CustomView.swift */; };
 		49172CB01C54ABE70008B61B /* MemeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49172CAF1C54ABE70008B61B /* MemeTextField.swift */; };
 		491C11FC208F44B400C59999 /* ConstrainedLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491C11FB208F44B400C59999 /* ConstrainedLabelViewController.swift */; };
+		49376B052164DF6600933057 /* InsetSeparatorReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49376B042164DF6600933057 /* InsetSeparatorReusableView.xib */; };
 		494873F31C53555800B689D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494873F21C53555800B689D3 /* AppDelegate.swift */; };
 		494873F51C53555800B689D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494873F41C53555800B689D3 /* ViewController.swift */; };
 		494873F81C53555800B689D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494873F61C53555800B689D3 /* Main.storyboard */; };
@@ -88,6 +89,7 @@
 		491572511DCEA0AD0046AD0D /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		49172CAF1C54ABE70008B61B /* MemeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTextField.swift; sourceTree = "<group>"; };
 		491C11FB208F44B400C59999 /* ConstrainedLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstrainedLabelViewController.swift; sourceTree = "<group>"; };
+		49376B042164DF6600933057 /* InsetSeparatorReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InsetSeparatorReusableView.xib; sourceTree = "<group>"; };
 		494873EF1C53555800B689D3 /* Playground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Playground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494873F21C53555800B689D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		494873F41C53555800B689D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */,
 				2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */,
 				490224B12122EEF8009E9AC4 /* PillarCollectionReusableView.xib */,
+				49376B042164DF6600933057 /* InsetSeparatorReusableView.xib */,
 				490224B32122EF7E009E9AC4 /* PillarCollectionReusableView.swift */,
 				2E318B44210547C500E6EF83 /* SearchBarViewController.swift */,
 				49D169FB210B159500518365 /* NavigationBarDisappearViewController.swift */,
@@ -276,6 +279,7 @@
 				2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */,
 				2E2F7D12215086FD0080A256 /* HighlightableSearchBar.xib in Resources */,
 				494873FA1C53555800B689D3 /* Assets.xcassets in Resources */,
+				49376B052164DF6600933057 /* InsetSeparatorReusableView.xib in Resources */,
 				2EF9C0CE2159C13E00539D20 /* LargePseudoCollectionReusableView.xib in Resources */,
 				2EF9C0D02159C24E00539D20 /* SmallPseudoCollectionViewCell.xib in Resources */,
 				490224B22122EEF8009E9AC4 /* PillarCollectionReusableView.xib in Resources */,

@@ -134,12 +134,12 @@ class SeparatorAdjustableCollectionViewLayout: UICollectionViewFlowLayout {
 
     override init() {
         super.init()
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: horizontalSeparatorIdentifier)
+        register(UINib(nibName: "InsetSeparatorReusableView", bundle: nil), forDecorationViewOfKind: horizontalSeparatorIdentifier)
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        register(UINib(nibName: "PillarCollectionReusableView", bundle: nil), forDecorationViewOfKind: horizontalSeparatorIdentifier)
+        register(UINib(nibName: "InsetSeparatorReusableView", bundle: nil), forDecorationViewOfKind: horizontalSeparatorIdentifier)
     }
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -173,6 +173,7 @@ class SeparatorAdjustableCollectionViewLayout: UICollectionViewFlowLayout {
                 return nil
         }
         attributes.frame = frame
+        attributes.zIndex = -10
         return attributes
     }
 
@@ -218,12 +219,33 @@ class HighlightableCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundView = UIView()
+        commonInit()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        commonInit()
+    }
+
+    func commonInit() {
+        clipsToBounds = false
         backgroundView = UIView()
+
+        //        print(backgroundView?.frame)
+
+        let bv = backgroundView!
+//        bv.frame = CGRect(x: bv.frame.origin.x - 1,
+//                          y: bv.frame.origin.y - 1,
+//                          width: bv.frame.width + 2,
+//                          height: bv.frame.height + 2)
+
+        backgroundView?.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bv.topAnchor.constraint(equalTo: topAnchor, constant: -1),
+            bv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -1),
+            bv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 1),
+            bv.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 1)
+            ])
     }
 
     override var isHighlighted: Bool {
@@ -231,7 +253,7 @@ class HighlightableCollectionViewCell: UICollectionViewCell {
             if isHighlighted {
                 backgroundView?.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
             } else {
-                backgroundView?.backgroundColor = UIColor.white
+                backgroundView?.backgroundColor = UIColor.clear
             }
         }
     }
@@ -241,7 +263,7 @@ class HighlightableCollectionViewCell: UICollectionViewCell {
             if isSelected {
                 backgroundView?.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
             } else {
-                backgroundView?.backgroundColor = UIColor.white
+                backgroundView?.backgroundColor = UIColor.clear
             }
         }
     }

@@ -55,7 +55,8 @@ class MenuViewController: UIViewController {
         "centerScroll",
         "customSearchBar",
         "skeleton",
-        "buttonLayout"
+        "buttonLayout",
+        "presenter"
     ]
 
     override func viewDidLoad() {

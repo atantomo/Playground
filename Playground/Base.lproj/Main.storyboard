@@ -2110,6 +2110,68 @@
             </objects>
             <point key="canvasLocation" x="-58.399999999999999" y="11049.625187406298"/>
         </scene>
+        <!--Presenter View Controller-->
+        <scene sceneID="i4c-8I-fpB">
+            <objects>
+                <viewController storyboardIdentifier="presenter" id="S83-Ph-ayn" customClass="PresenterViewController" customModule="Playground" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AtW-Tt-5U2"/>
+                        <viewControllerLayoutGuide type="bottom" id="pH2-7R-nlB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8Vz-27-jNM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tsj-zX-9cc">
+                                <rect key="frame" x="81.5" y="318.5" width="212" height="30"/>
+                                <state key="normal" title="Using viewDidDisappearHook!!"/>
+                                <connections>
+                                    <action selector="teleportButtonTapped:" destination="S83-Ph-ayn" eventType="touchUpInside" id="rAh-s2-uhu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96862745100000003" green="0.60784313729999995" blue="0.086274509799999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="Tsj-zX-9cc" firstAttribute="centerX" secondItem="8Vz-27-jNM" secondAttribute="centerX" id="2f0-AT-K4z"/>
+                            <constraint firstItem="Tsj-zX-9cc" firstAttribute="centerY" secondItem="8Vz-27-jNM" secondAttribute="centerY" id="Bea-pF-L6P"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pdg-pc-ttj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-58" y="11725"/>
+        </scene>
+        <!--Presenter Replacer View Controller-->
+        <scene sceneID="MFq-Ns-nr4">
+            <objects>
+                <viewController storyboardIdentifier="presenterReplacer" id="972-Hn-hqH" customClass="PresenterReplacerViewController" customModule="Playground" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IaZ-pS-kli"/>
+                        <viewControllerLayoutGuide type="bottom" id="zMl-z5-tjs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Jfe-AS-Xk6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uO8-iV-S7m">
+                                <rect key="frame" x="66.5" y="318.5" width="242" height="30"/>
+                                <state key="normal" title="Using dismiss' completionHandler!!"/>
+                                <connections>
+                                    <action selector="teleportButtonTapped:" destination="972-Hn-hqH" eventType="touchUpInside" id="6HZ-4K-m4i"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.86274509799999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="uO8-iV-S7m" firstAttribute="centerY" secondItem="Jfe-AS-Xk6" secondAttribute="centerY" id="LVu-D6-3NN"/>
+                            <constraint firstItem="uO8-iV-S7m" firstAttribute="centerX" secondItem="Jfe-AS-Xk6" secondAttribute="centerX" id="h9I-oy-U3Z"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LKP-Fl-pIh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="644" y="11724"/>
+        </scene>
     </scenes>
     <resources>
         <image name="forest_house" width="620" height="413"/>

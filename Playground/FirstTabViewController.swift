@@ -14,13 +14,25 @@ class FirstTabViewController: UIViewController {
         super.viewDidLoad()
 //        print(bottomLayoutGuide.length)
 //        print(tabBarController?.bottomLayoutGuide.length)
+        setupObservers()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+    func setupObservers() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(post),
+                                               name: NSNotification.Name.UIApplicationWillEnterForeground,
+                                               object: nil)
+    }
+
+    @objc
+    func post() {
+        print("aaa")
+    }
 
     @IBAction func loveButtonTapped(_ sender: Any) {
         let item = tabBarItem

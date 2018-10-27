@@ -56,7 +56,8 @@ class MenuViewController: UIViewController {
         "customSearchBar",
         "skeleton",
         "buttonLayout",
-        "presenter"
+        "presenter",
+        "attributedString"
     ]
 
     override func viewDidLoad() {

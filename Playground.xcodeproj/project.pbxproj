@@ -58,6 +58,7 @@
 		49D169FE210B15A600518365 /* NavigationBarAppearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D169FD210B15A600518365 /* NavigationBarAppearViewController.swift */; };
 		49D56ECE2088D9AF006A32F0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D56ECD2088D9AF006A32F0 /* MapKit.framework */; };
 		49F51971216E0D15000FE0AA /* PresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F51970216E0D15000FE0AA /* PresenterViewController.swift */; };
+		49F519A421840790000FE0AA /* AttributedStringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F519A321840790000FE0AA /* AttributedStringViewController.swift */; };
 		49FDA13F20D071D500750592 /* AutoLayoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49FDA13E20D071D500750592 /* AutoLayoutTableViewCell.xib */; };
 		49FDA14120D0758100750592 /* AutoLayoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDA14020D0758100750592 /* AutoLayoutTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -116,6 +117,7 @@
 		49D169FD210B15A600518365 /* NavigationBarAppearViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarAppearViewController.swift; sourceTree = "<group>"; };
 		49D56ECD2088D9AF006A32F0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		49F51970216E0D15000FE0AA /* PresenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterViewController.swift; sourceTree = "<group>"; };
+		49F519A321840790000FE0AA /* AttributedStringViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedStringViewController.swift; sourceTree = "<group>"; };
 		49FDA13E20D071D500750592 /* AutoLayoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AutoLayoutTableViewCell.xib; sourceTree = "<group>"; };
 		49FDA14020D0758100750592 /* AutoLayoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayoutTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +165,7 @@
 				491572511DCEA0AD0046AD0D /* CustomView.swift */,
 				494873F61C53555800B689D3 /* Main.storyboard */,
 				4974E140212C26B3004AE3D0 /* MenuViewController.swift */,
+				49F519A321840790000FE0AA /* AttributedStringViewController.swift */,
 				49F51970216E0D15000FE0AA /* PresenterViewController.swift */,
 				2ED728F42159B4F40064C3E7 /* PseudoCollectionViewController.swift */,
 				2EF9C0CD2159C13E00539D20 /* LargePseudoCollectionReusableView.xib */,
@@ -301,6 +304,7 @@
 			files = (
 				49A9803D2072506500A492D5 /* SecondNavViewController.swift in Sources */,
 				491572521DCEA0AD0046AD0D /* CustomView.swift in Sources */,
+				49F519A421840790000FE0AA /* AttributedStringViewController.swift in Sources */,
 				2E318B45210547C500E6EF83 /* SearchBarViewController.swift in Sources */,
 				2E0E9DF621487D9500D5D98F /* Array+Extension.swift in Sources */,
 				49A98041207253D700A492D5 /* StaticNavController.swift in Sources */,

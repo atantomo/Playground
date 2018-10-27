@@ -2141,6 +2141,39 @@
             </objects>
             <point key="canvasLocation" x="-58" y="11725"/>
         </scene>
+        <!--Attributed String View Controller-->
+        <scene sceneID="5Hg-lP-2ZG">
+            <objects>
+                <viewController storyboardIdentifier="attributedString" id="je2-Z0-ttE" customClass="AttributedStringViewController" customModule="Playground" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4Uc-9t-plv"/>
+                        <viewControllerLayoutGuide type="bottom" id="6HL-4h-ChE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rS7-CE-T54">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6j-kN-pRK">
+                                <rect key="frame" x="163.5" y="321.5" width="48" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="y6j-kN-pRK" firstAttribute="centerX" secondItem="rS7-CE-T54" secondAttribute="centerX" id="4on-E1-ts7"/>
+                            <constraint firstItem="y6j-kN-pRK" firstAttribute="centerY" secondItem="rS7-CE-T54" secondAttribute="centerY" id="P8d-rU-7uQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="attributedStringLabel" destination="y6j-kN-pRK" id="tzp-Bf-g5l"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WQc-iU-YQK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-58" y="12397"/>
+        </scene>
         <!--Presenter Replacer View Controller-->
         <scene sceneID="MFq-Ns-nr4">
             <objects>

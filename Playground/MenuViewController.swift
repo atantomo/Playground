@@ -44,7 +44,6 @@ class MenuViewController: UIViewController {
         "navResizer",
         "navHide",
         "navParallax",
-        "pseudoCollection",
         "dynamicCollection",
         "tabbedPage",
         "navTransition",
@@ -56,6 +55,7 @@ class MenuViewController: UIViewController {
         "customSearchBar",
         "skeleton",
         "buttonLayout",
+        "pseudoCollection",
         "presenter",
         "attributedString"
     ]

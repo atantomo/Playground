@@ -13,6 +13,15 @@ struct PseudoCollectionViewControllerData {
         (nil, "Cell 1"),
         ("Header 2", "Cell 2"),
         ("Header 3", "Cell 3"),
+        (nil, "Cell 1"),
+        ("Header 2", "Cell 2"),
+        ("Header 3", "Cell 3"),
+        (nil, "Cell 1"),
+        ("Header 2", "Cell 2"),
+        ("Header 3", "Cell 3"),
+        (nil, "Cell 1"),
+        ("Header 2", "Cell 2"),
+        ("Header 3", "Cell 3")
         ]
 }
 
@@ -21,10 +30,13 @@ class PseudoCollectionViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
     var collectionData: [(String?, String?)] = PseudoCollectionViewControllerData.data
+    var isLoading: Bool = false
+    var isEndOfData: Bool = false
 
     override func viewDidLoad() {
         collectionView.register(UINib(nibName: "SmallPseudoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "small")
         collectionView.register(UINib(nibName: "LargePseudoCollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "large")
+        collectionView.register(UINib(nibName: "LoaderCollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "loader")
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -43,9 +55,19 @@ class PseudoCollectionViewController: UIViewController {
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.itemSize = CGSize(width: collectionView.bounds.width, height: 48)
             flowLayout.minimumLineSpacing = 1
-            flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+//            flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
 //            flowLayout.headerReferenceSize = CGSize(width: collectionView.bounds.width, height: 64)
         }
+    }
+
+    func updateLoadingState(isLoading: Bool) {
+        if isLoading {
+            collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        } else {
+            collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+        }
+        self.isLoading = isLoading
+        collectionView.collectionViewLayout.invalidateLayout()
     }
 
 }
@@ -67,7 +89,33 @@ class DividerPseudoCollectionReusableView: UICollectionReusableView {
 
 }
 
+class LoaderCollectionReusableView: UICollectionReusableView {
+
+}
+
 extension PseudoCollectionViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard !isEndOfData else {
+            return
+        }
+        let willAppearIndex = indexPath.item
+        let currentBatchLastIndex = collectionData.count - 1
+        if willAppearIndex >= currentBatchLastIndex {
+            updateLoadingState(isLoading: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                guard let vc = self else {
+                    return
+                }
+                vc.updateLoadingState(isLoading: false)
+                vc.collectionData = vc.collectionData + PseudoCollectionViewControllerData.data
+                if vc.collectionData.count >= 50 {
+                    vc.isEndOfData = true
+                }
+                vc.collectionView.reloadData()
+            }
+        }
+    }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
@@ -80,6 +128,14 @@ extension PseudoCollectionViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionView.bounds.width, height: 64)
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if isLoading {
+            return CGSize(width: collectionView.bounds.width, height: 64)
+        } else {
+            return CGSize.zero
+        }
+    }
+
 }
 
 
@@ -87,11 +143,11 @@ extension PseudoCollectionViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         let count = collectionData.count
-        return count
+        return 1//count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return collectionData.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -110,6 +166,10 @@ extension PseudoCollectionViewController: UICollectionViewDataSource {
                 cell.textLabel.text = collectionData[indexPath.section].0
                 return cell
             }
+            return dequeuedCell
+        }
+        if kind == UICollectionElementKindSectionFooter {
+            let dequeuedCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "loader", for: indexPath)
             return dequeuedCell
         }
         return UICollectionReusableView()

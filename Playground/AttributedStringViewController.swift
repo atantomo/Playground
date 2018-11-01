@@ -38,9 +38,9 @@ class AttributedStringViewController: UIViewController {
         let title2 = NSAttributedString(string: "int", attributes: orangeAttribute)
         let title3 = NSAttributedString(string: "def", attributes: yellowAttribute)
         let title4 = NSAttributedString(string: "spd", attributes: greenAttribute)
-        let separator = NSAttributedString(string: ", ", attributes: grayAttribute)
+        let separator = NSAttributedString(string: "・", attributes: grayAttribute)
 
-        let attributedString = joinedAttributedString(elements: [title, title2, title3, title4], separator: separator)
+        let attributedString = joinAttributedString(elements: [title, title2, title3, title4], separator: separator)
 
         title.append(title2)
 //         ([title] + [title]).jo
@@ -49,7 +49,7 @@ class AttributedStringViewController: UIViewController {
         attributedStringLabel.attributedText = attributedString
     }
 
-    private func joinedAttributedString(elements: [NSAttributedString], separator: NSAttributedString) -> NSAttributedString {
+    private func joinAttributedString(elements: [NSAttributedString], separator: NSAttributedString) -> NSAttributedString {
         let concatAttributedString = NSMutableAttributedString()
         for (index, element) in elements.enumerated() {
             if index > 0 {

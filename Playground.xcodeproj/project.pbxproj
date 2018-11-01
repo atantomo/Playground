@@ -41,6 +41,7 @@
 		494873FA1C53555800B689D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 494873F91C53555800B689D3 /* Assets.xcassets */; };
 		494873FD1C53555800B689D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494873FB1C53555800B689D3 /* LaunchScreen.storyboard */; };
 		494874051C5371C600B689D3 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494874041C5371C600B689D3 /* Meme.swift */; };
+		496454A5218B1D9900F790C9 /* LoaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496454A4218B1D9900F790C9 /* LoaderCollectionReusableView.xib */; };
 		49702DF6208F5A1000064C84 /* TableMovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49702DF5208F5A1000064C84 /* TableMovementViewController.swift */; };
 		4974E141212C26B3004AE3D0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4974E140212C26B3004AE3D0 /* MenuViewController.swift */; };
 		4975419D21470C56006CC7C0 /* ChangeTracerArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975419C21470C56006CC7C0 /* ChangeTracerArray.swift */; };
@@ -100,6 +101,7 @@
 		494873FC1C53555800B689D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		494873FE1C53555800B689D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494874041C5371C600B689D3 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
+		496454A4218B1D9900F790C9 /* LoaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		49702DF5208F5A1000064C84 /* TableMovementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableMovementViewController.swift; sourceTree = "<group>"; };
 		4974E140212C26B3004AE3D0 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		4975419C21470C56006CC7C0 /* ChangeTracerArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeTracerArray.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				49F519A321840790000FE0AA /* AttributedStringViewController.swift */,
 				49F51970216E0D15000FE0AA /* PresenterViewController.swift */,
 				2ED728F42159B4F40064C3E7 /* PseudoCollectionViewController.swift */,
+				496454A4218B1D9900F790C9 /* LoaderCollectionReusableView.xib */,
 				2EF9C0CD2159C13E00539D20 /* LargePseudoCollectionReusableView.xib */,
 				2EF9C0CF2159C24E00539D20 /* SmallPseudoCollectionViewCell.xib */,
 				2E2F7D11215086FD0080A256 /* HighlightableSearchBar.swift */,
@@ -289,6 +292,7 @@
 				2EF9C0CE2159C13E00539D20 /* LargePseudoCollectionReusableView.xib in Resources */,
 				2EF9C0D02159C24E00539D20 /* SmallPseudoCollectionViewCell.xib in Resources */,
 				490224B22122EEF8009E9AC4 /* PillarCollectionReusableView.xib in Resources */,
+				496454A5218B1D9900F790C9 /* LoaderCollectionReusableView.xib in Resources */,
 				2E7FB43521225123000A852D /* CuteCollectionViewCell.xib in Resources */,
 				49FDA13F20D071D500750592 /* AutoLayoutTableViewCell.xib in Resources */,
 				494873F81C53555800B689D3 /* Main.storyboard in Resources */,

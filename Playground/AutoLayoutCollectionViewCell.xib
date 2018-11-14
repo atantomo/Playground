@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,40 +20,62 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gQs-S1-QKD">
-                        <rect key="frame" x="4" y="4" width="492" height="327"/>
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="335"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIF-x8-Dv8">
-                                <rect key="frame" x="4" y="4" width="484" height="319"/>
-                                <color key="backgroundColor" red="0.82352941180000006" green="0.25098039220000001" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIF-x8-Dv8">
+                                <rect key="frame" x="4" y="4" width="388" height="327"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3D-Hf-2Yv">
+                                <rect key="frame" x="408" y="152.5" width="76" height="30"/>
+                                <color key="backgroundColor" red="0.83921568629999999" green="0.37254901959999998" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="h34-sK-VSw"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                <state key="normal" title="Lovely">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="lovelyButtonTapped:" destination="yyL-rG-4xJ" eventType="touchUpInside" id="J3I-ld-xBF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="jIF-x8-Dv8" firstAttribute="top" secondItem="gQs-S1-QKD" secondAttribute="top" constant="4" id="0HT-Bm-TMU"/>
+                            <constraint firstItem="g3D-Hf-2Yv" firstAttribute="centerY" secondItem="gQs-S1-QKD" secondAttribute="centerY" id="Gs0-Cx-BHM"/>
                             <constraint firstItem="jIF-x8-Dv8" firstAttribute="leading" secondItem="gQs-S1-QKD" secondAttribute="leading" constant="4" id="Myl-NL-mIB"/>
+                            <constraint firstAttribute="trailing" secondItem="g3D-Hf-2Yv" secondAttribute="trailing" constant="16" id="dEb-PE-Rfu"/>
+                            <constraint firstItem="g3D-Hf-2Yv" firstAttribute="leading" secondItem="jIF-x8-Dv8" secondAttribute="trailing" constant="16" id="djP-mX-dei"/>
                             <constraint firstAttribute="bottom" secondItem="jIF-x8-Dv8" secondAttribute="bottom" constant="4" id="fgC-F8-pxc"/>
-                            <constraint firstAttribute="width" constant="492" id="gGW-qo-B0H"/>
-                            <constraint firstAttribute="trailing" secondItem="jIF-x8-Dv8" secondAttribute="trailing" constant="4" id="olO-B9-J9T"/>
+                            <constraint firstAttribute="width" constant="500" id="xvf-bO-q4M"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="gQs-S1-QKD" firstAttribute="leading" secondItem="yyL-rG-4xJ" secondAttribute="leading" constant="4" id="5zu-8H-iIX"/>
-                <constraint firstAttribute="bottom" secondItem="gQs-S1-QKD" secondAttribute="bottom" constant="4" id="NJr-bW-fxC"/>
-                <constraint firstItem="gQs-S1-QKD" firstAttribute="top" secondItem="yyL-rG-4xJ" secondAttribute="top" constant="4" id="O1f-nC-dcY"/>
-                <constraint firstAttribute="trailing" secondItem="gQs-S1-QKD" secondAttribute="trailing" constant="4" id="TAo-19-VbJ"/>
+                <constraint firstItem="gQs-S1-QKD" firstAttribute="leading" secondItem="yyL-rG-4xJ" secondAttribute="leading" id="5zu-8H-iIX"/>
+                <constraint firstAttribute="bottom" secondItem="gQs-S1-QKD" secondAttribute="bottom" id="NJr-bW-fxC"/>
+                <constraint firstItem="gQs-S1-QKD" firstAttribute="top" secondItem="yyL-rG-4xJ" secondAttribute="top" id="O1f-nC-dcY"/>
+                <constraint firstAttribute="trailing" secondItem="gQs-S1-QKD" secondAttribute="trailing" id="TAo-19-VbJ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="YhB-Qa-mE9"/>
             <size key="customSize" width="784" height="335"/>
             <connections>
-                <outlet property="containerWidthConstraint" destination="gGW-qo-B0H" id="L7U-lZ-qYS"/>
+                <outlet property="containerWidthConstraint" destination="xvf-bO-q4M" id="Qra-pe-CMy"/>
+                <outlet property="lovelyButton" destination="g3D-Hf-2Yv" id="V1Q-MK-6Gp"/>
                 <outlet property="messageLabel" destination="jIF-x8-Dv8" id="0yb-1W-bXH"/>
             </connections>
-            <point key="canvasLocation" x="133" y="142"/>
+            <point key="canvasLocation" x="132.80000000000001" y="141.67916041979012"/>
         </collectionViewCell>
     </objects>
 </document>

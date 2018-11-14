@@ -19,7 +19,7 @@ class TableMovementViewController: UIViewController {
             "Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24",
             "Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24",
         ]
-        return a //+ a + a
+        return a + a + a
     }()
 
     lazy var dataSourceBackupB: [String] = {
@@ -74,8 +74,11 @@ class TableMovementViewController: UIViewController {
         let position = button.superview!.convert(button.center, to: tableView)
         if let indexPath = tableView.indexPathForRow(at: position) {
 
-            dataSource.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .left)
+            let newData = dataSource[indexPath.row] + dataSource[indexPath.row]
+            dataSource[indexPath.row] = newData
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+//            dataSource.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: .left)
         }
     }
 
@@ -95,7 +98,7 @@ extension TableMovementViewController: UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "AutoLayout", for: indexPath) as! AutoLayoutTableViewCell
         cell.messageLabel.text = dataSource[indexPath.row]
-        cell.skeletonView.show()
+//        cell.skeletonView.show()
         return cell
     }
 }

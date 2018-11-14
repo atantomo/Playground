@@ -11,12 +11,18 @@ import UIKit
 class AutoLayoutCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet var lovelyButton: UIButton!
+
     @IBOutlet weak var containerWidthConstraint: NSLayoutConstraint!
 
     override func awakeFromNib() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         let screenWidth = UIScreen.main.bounds.size.width
-        containerWidthConstraint.constant = (screenWidth - 64) / 2
+        containerWidthConstraint.constant = (screenWidth - 0)//64) / 2
+    }
+
+    @IBAction func lovelyButtonTapped(_ sender: Any) {
+        NotificationCenter.default.post(name: NotificationName.DeleteCell, object: lovelyButton)
     }
 }
 

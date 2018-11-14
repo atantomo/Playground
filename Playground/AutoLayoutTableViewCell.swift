@@ -12,6 +12,7 @@ class AutoLayoutTableViewCell: UITableViewCell {
 
     @IBOutlet weak var messageLabel: UILabel!
 
+    @IBOutlet var lovelyButton: UIButton!
     @IBOutlet var skeletonParts: [UIView]!
     lazy var skeletonView: SkeletonView = {
         let view = SkeletonView(parentFrame: self.frame, roundedCornerParts: self.skeletonParts)
@@ -21,13 +22,17 @@ class AutoLayoutTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addSubview(skeletonView)
+//        addSubview(skeletonView)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+
+    @IBAction func lovelyButtonTapped(_ sender: Any) {
+        NotificationCenter.default.post(name: NotificationName.DeleteCell, object: lovelyButton)
     }
 
 }

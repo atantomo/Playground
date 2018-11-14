@@ -1430,7 +1430,7 @@
         <!--Color Select View Controller-->
         <scene sceneID="yjo-eT-S3c">
             <objects>
-                <viewController storyboardIdentifier="tabbedPage" id="5sK-k6-VV9" customClass="ColorSelectViewController" customModule="Playground" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5sK-k6-VV9" customClass="ColorSelectViewController" customModule="Playground" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ehz-ni-XkJ"/>
                         <viewControllerLayoutGuide type="bottom" id="aLd-qg-5bg"/>
@@ -1440,7 +1440,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="IWU-Z9-lQk">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yuX-X5-2Uc">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1620,11 +1620,11 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZsD-vY-AYT">
-                                        <rect key="frame" x="0.0" y="88" width="375" height="439"/>
+                                        <rect key="frame" x="0.0" y="88" width="375" height="395"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H0i-nI-1Ql">
-                                        <rect key="frame" x="0.0" y="527" width="375" height="120"/>
+                                        <rect key="frame" x="0.0" y="483" width="375" height="120"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7W-xw-Saf">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
@@ -1684,6 +1684,7 @@
                             <constraint firstItem="IWU-Z9-lQk" firstAttribute="leading" secondItem="exL-Qp-1ZV" secondAttribute="leading" id="xJS-aW-MHH"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="yso-kI-Adv"/>
                     <connections>
                         <outlet property="colorPageView" destination="ZsD-vY-AYT" id="RIL-gT-fys"/>
                         <outlet property="emptyView" destination="a7W-xw-Saf" id="yOd-I8-nkm"/>
@@ -1710,7 +1711,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Hf-D1-Ij6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58" y="3921"/>
+            <point key="canvasLocation" x="880.79999999999995" y="3920.6896551724139"/>
         </scene>
         <!--Color Page View Controller-->
         <scene sceneID="gFg-7k-0tR">
@@ -1718,7 +1719,7 @@
                 <pageViewController storyboardIdentifier="ColorPage" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Msl-7Q-db7" customClass="ColorPageViewController" customModule="Playground" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G4a-z6-tmX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="644" y="3921"/>
+            <point key="canvasLocation" x="1583.2" y="3920.6896551724139"/>
         </scene>
         <!--Custom Navigation Controller-->
         <scene sceneID="Sbp-N4-3RH">
@@ -2159,11 +2160,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Swv-ep-MS3">
+                                <rect key="frame" x="177.5" y="285.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="y6j-kN-pRK" firstAttribute="centerX" secondItem="rS7-CE-T54" secondAttribute="centerX" id="4on-E1-ts7"/>
+                            <constraint firstItem="Swv-ep-MS3" firstAttribute="centerX" secondItem="rS7-CE-T54" secondAttribute="centerX" id="LDx-9H-Tjq"/>
                             <constraint firstItem="y6j-kN-pRK" firstAttribute="centerY" secondItem="rS7-CE-T54" secondAttribute="centerY" id="P8d-rU-7uQ"/>
+                            <constraint firstItem="y6j-kN-pRK" firstAttribute="top" secondItem="Swv-ep-MS3" secondAttribute="bottom" constant="16" id="bVo-zz-nmk"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2204,6 +2210,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKP-Fl-pIh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="644" y="11724"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="GcG-wl-0o4">
+            <objects>
+                <navigationController storyboardIdentifier="tabbedPage" automaticallyAdjustsScrollViewInsets="NO" id="PLk-JO-t6i" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eyW-SE-SKe">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5sK-k6-VV9" kind="relationship" relationship="rootViewController" id="k50-6e-3dI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TnS-Oa-6s2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-58.399999999999999" y="3920.6896551724139"/>
         </scene>
     </scenes>
     <resources>

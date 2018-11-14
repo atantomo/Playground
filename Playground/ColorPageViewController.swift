@@ -74,6 +74,21 @@ class ButtonedViewController: UIViewController {
 //        rightTapView.addGestureRecognizer(rightTapGesture)
     }
 
+    override func willMove(toParentViewController parent: UIViewController?) {
+        super.willMove(toParentViewController: parent)
+        print("meromero willMove")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("meromero viewWillAppear")
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("meromero viewDidDisappear")
+    }
+
     override func didMove(toParentViewController parent: UIViewController?) {
 
         if let parent = parent {
@@ -82,15 +97,23 @@ class ButtonedViewController: UIViewController {
     }
 
     @objc func buttonTapped(button: UIButton) {
-        pageVC.setViewControllers([pageVC.childVCs.last!], direction: UIPageViewControllerNavigationDirection.reverse, animated: true) { (completed) in
-            if !completed {
-                return
-            }
-        }
-        guard let vcs = self.pageVC.viewControllers else {
+        print(parent)
+        print(navigationController?.storyboard)
+        print(navigationController)
+        guard let vc = navigationController?.storyboard?.instantiateViewController(withIdentifier: "customLabel") else {
             return
         }
-        pageVC.pageChangeHandler?(vcs)
+        navigationController?.pushViewController(vc, animated: true)
+
+//        pageVC.setViewControllers([pageVC.childVCs.last!], direction: UIPageViewControllerNavigationDirection.reverse, animated: true) { (completed) in
+//            if !completed {
+//                return
+//            }
+//        }
+//        guard let vcs = self.pageVC.viewControllers else {
+//            return
+//        }
+//        pageVC.pageChangeHandler?(vcs)
     }
 
     func transparentViewTapped(gestureRecognizer: UIGestureRecognizer) {
@@ -128,6 +151,8 @@ class ColorPageViewController: UIPageViewController {
         super.viewDidLoad()
         dataSource = self
         delegate = self
+        print(navigationController)
+        print(parent)
         setViewControllers([childVCs.first!], direction: UIPageViewControllerNavigationDirection.forward, animated: true) { (completed) in
             
         }
@@ -163,6 +188,10 @@ class ColorPageViewController: UIPageViewController {
         }
 
         scrollView = traverseScrollView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        print("mikamikan")
     }
 
     override func didReceiveMemoryWarning() {

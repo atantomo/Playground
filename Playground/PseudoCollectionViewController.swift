@@ -61,11 +61,11 @@ class PseudoCollectionViewController: UIViewController {
     }
 
     func updateLoadingState(isLoading: Bool) {
-        if isLoading {
-            collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        } else {
-            collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
-        }
+//        if isLoading {
+//            collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        } else {
+//            collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+//        }
         self.isLoading = isLoading
         collectionView.collectionViewLayout.invalidateLayout()
     }
@@ -103,17 +103,17 @@ extension PseudoCollectionViewController: UICollectionViewDelegateFlowLayout {
         let currentBatchLastIndex = collectionData.count - 1
         if willAppearIndex >= currentBatchLastIndex {
             updateLoadingState(isLoading: true)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-                guard let vc = self else {
-                    return
-                }
-                vc.updateLoadingState(isLoading: false)
-                vc.collectionData = vc.collectionData + PseudoCollectionViewControllerData.data
-                if vc.collectionData.count >= 50 {
-                    vc.isEndOfData = true
-                }
-                vc.collectionView.reloadData()
-            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+//                guard let vc = self else {
+//                    return
+//                }
+//                vc.updateLoadingState(isLoading: false)
+//                vc.collectionData = vc.collectionData + PseudoCollectionViewControllerData.data
+//                if vc.collectionData.count >= 50 {
+//                    vc.isEndOfData = true
+//                }
+//                vc.collectionView.reloadData()
+//            }
         }
     }
 
@@ -132,7 +132,7 @@ extension PseudoCollectionViewController: UICollectionViewDelegateFlowLayout {
         if isLoading {
             return CGSize(width: collectionView.bounds.width, height: 64)
         } else {
-            return CGSize.zero
+            return CGSize(width: collectionView.bounds.width, height: 16)
         }
     }
 
@@ -327,4 +327,40 @@ class HighlightableCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+}
+
+// TODO: [COLLECTION_LAYOUT_REFACTOR] This is a temporary class to adjust the collection view offset between layout transitions.
+// We may need to migrate this logic into a new UICollectionViewLayout subclass when we want to do manual layout calculation in the future.
+class TransitionOffsetRatioFlowLayout: UICollectionViewFlowLayout {
+
+    private var previousOffsetRatio: CGFloat?
+
+    override func prepareForTransition(from oldLayout: UICollectionViewLayout) {
+        guard let collectionView = collectionView else {
+            return
+        }
+        let topInset = collectionView.contentInset.top
+        let topOffset = collectionView.contentOffset.y + topInset
+        previousOffsetRatio = topOffset / oldLayout.collectionViewContentSize.height
+    }
+
+    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+        guard let collectionView = collectionView,
+            let offsetRatio = previousOffsetRatio else {
+                return proposedContentOffset
+        }
+        previousOffsetRatio = nil
+        let topInset = collectionView.contentInset.top
+        let topOffset = (offsetRatio * collectionViewContentSize.height) - topInset
+
+        let forecastedContentHeight = topOffset + collectionView.bounds.height
+        if forecastedContentHeight > collectionViewContentSize.height {
+            let maxTopOffet = collectionViewContentSize.height - collectionView.bounds.height
+            return CGPoint(x: proposedContentOffset.x, y: maxTopOffet)
+
+        } else {
+            return CGPoint(x: proposedContentOffset.x, y: topOffset)
+        }
+    }
+
 }

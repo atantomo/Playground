@@ -54,6 +54,8 @@ class CuteCollectionViewCell: UICollectionViewCell {
 extension CuteCollectionViewCell: HeightCalculable {
 
     func heightForWidth(width: CGFloat, model: DynamicCollectionCellModel) -> CGFloat {
+        layoutIfNeeded()
+        print(theLabel.constraints)
         let imageHeight = width * imageAspectConstraint.multiplier
 
         let labelWidth = width - labelSidePadding

@@ -43,6 +43,7 @@
 		494874051C5371C600B689D3 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494874041C5371C600B689D3 /* Meme.swift */; };
 		496454A5218B1D9900F790C9 /* LoaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496454A4218B1D9900F790C9 /* LoaderCollectionReusableView.xib */; };
 		49702DF6208F5A1000064C84 /* TableMovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49702DF5208F5A1000064C84 /* TableMovementViewController.swift */; };
+		497239C021C3BAB10071E700 /* TableShadowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497239BF21C3BAB10071E700 /* TableShadowViewController.swift */; };
 		4974E141212C26B3004AE3D0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4974E140212C26B3004AE3D0 /* MenuViewController.swift */; };
 		4975419D21470C56006CC7C0 /* ChangeTracerArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975419C21470C56006CC7C0 /* ChangeTracerArray.swift */; };
 		4979EC5F2063DDE40024BC6F /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4979EC5E2063DDE40024BC6F /* SkeletonView.swift */; };
@@ -103,6 +104,7 @@
 		494874041C5371C600B689D3 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 		496454A4218B1D9900F790C9 /* LoaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		49702DF5208F5A1000064C84 /* TableMovementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableMovementViewController.swift; sourceTree = "<group>"; };
+		497239BF21C3BAB10071E700 /* TableShadowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableShadowViewController.swift; sourceTree = "<group>"; };
 		4974E140212C26B3004AE3D0 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		4975419C21470C56006CC7C0 /* ChangeTracerArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeTracerArray.swift; sourceTree = "<group>"; };
 		4979EC5E2063DDE40024BC6F /* SkeletonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				491572511DCEA0AD0046AD0D /* CustomView.swift */,
 				494873F61C53555800B689D3 /* Main.storyboard */,
 				4974E140212C26B3004AE3D0 /* MenuViewController.swift */,
+				497239BF21C3BAB10071E700 /* TableShadowViewController.swift */,
 				49F519A321840790000FE0AA /* AttributedStringViewController.swift */,
 				49F51970216E0D15000FE0AA /* PresenterViewController.swift */,
 				2ED728F42159B4F40064C3E7 /* PseudoCollectionViewController.swift */,
@@ -323,6 +326,7 @@
 				49116FA420E3C24C00C4C31C /* CollectionMovementViewController.swift in Sources */,
 				494873F51C53555800B689D3 /* ViewController.swift in Sources */,
 				494873F31C53555800B689D3 /* AppDelegate.swift in Sources */,
+				497239C021C3BAB10071E700 /* TableShadowViewController.swift in Sources */,
 				49172CB01C54ABE70008B61B /* MemeTextField.swift in Sources */,
 				2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */,
 				498BA3F42082E29B00BAF4FB /* ColorSelectViewController.swift in Sources */,

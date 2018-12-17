@@ -57,7 +57,8 @@ class MenuViewController: UIViewController {
         "buttonLayout",
         "pseudoCollection",
         "presenter",
-        "attributedString"
+        "attributedString",
+        "tableShadow"
     ]
 
     override func viewDidLoad() {

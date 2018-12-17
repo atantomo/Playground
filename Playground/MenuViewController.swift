@@ -58,7 +58,8 @@ class MenuViewController: UIViewController {
         "pseudoCollection",
         "presenter",
         "attributedString",
-        "tableShadow"
+        "tableShadow",
+        "collectionIndexRange"
     ]
 
     override func viewDidLoad() {
@@ -72,7 +73,7 @@ class MenuViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
 
     /*
     // MARK: - Navigation

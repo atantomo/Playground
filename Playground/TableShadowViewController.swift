@@ -174,13 +174,13 @@ extension TableShadowViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         if indexPath.row % 3 != 0 {
-            cell = tableView.dequeueReusableCell(withIdentifier: "flower", for: indexPath) as! FlowerLeafTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "flower", for: indexPath) as! FlowerTableViewCell
 //            if tableView == plainTableView {
 //                cell.contentView.alpha = 0
 //                cell.backgroundColor = .clear
 //            }
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "leaf", for: indexPath) as! FlowerLeafTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "leaf", for: indexPath) as! LeafTableViewCell
 //            if tableView == shadowTableView {
 //                cell.contentView.alpha = 0
 ////                cell.backgroundColor = .red

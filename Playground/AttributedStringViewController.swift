@@ -11,10 +11,15 @@ import UIKit
 class AttributedStringViewController: UIViewController {
 
     @IBOutlet var attributedStringLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLabel()
+    }
+    override func viewDidLayoutSubviews() {
+        print(attributedStringLabel.constraints)
+        super.viewDidLayoutSubviews()
     }
 
     private func setupLabel() {
@@ -46,6 +51,7 @@ class AttributedStringViewController: UIViewController {
 //         ([title] + [title]).jo
 
 //        ["a"].joined(separator: <#T##Sequence#>)
+
         attributedStringLabel.attributedText = attributedString
     }
 
@@ -60,4 +66,22 @@ class AttributedStringViewController: UIViewController {
         return concatAttributedString
     }
 
+    private func trySwift() {
+
+        let s = "Taylor Swift"
+        if case Pattern("Swift") = s {
+            print("\(String(reflecting: s)) contains \"Swift\"")
+        }
+        //
+    }
+
+}
+
+struct Pattern {
+    let s: String
+    init(_ s: String) { self.s = s }
+}
+
+func ~=(pattern: Pattern, value: String) -> Bool {
+    return value.range(of: pattern.s) != nil
 }

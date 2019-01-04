@@ -26,6 +26,8 @@
 		2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */; };
 		2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */; };
 		2ED728F52159B4F40064C3E7 /* PseudoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED728F42159B4F40064C3E7 /* PseudoCollectionViewController.swift */; };
+		2EDBDDE921C866A100ED4879 /* ShadowAllowedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBDDE821C866A100ED4879 /* ShadowAllowedTableViewCell.xib */; };
+		2EDBDDEB21C866B000ED4879 /* ShadowProhibitedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBDDEA21C866B000ED4879 /* ShadowProhibitedTableViewCell.xib */; };
 		2EF9C0CE2159C13E00539D20 /* LargePseudoCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF9C0CD2159C13E00539D20 /* LargePseudoCollectionReusableView.xib */; };
 		2EF9C0D02159C24E00539D20 /* SmallPseudoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF9C0CF2159C24E00539D20 /* SmallPseudoCollectionViewCell.xib */; };
 		490224B22122EEF8009E9AC4 /* PillarCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 490224B12122EEF8009E9AC4 /* PillarCollectionReusableView.xib */; };
@@ -86,6 +88,8 @@
 		2ECFEA6020E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoLayoutCollectionViewCell.swift; sourceTree = "<group>"; };
 		2ECFEA6220E44D490064E12B /* AutoLayoutCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoLayoutCollectionViewCell.xib; sourceTree = "<group>"; };
 		2ED728F42159B4F40064C3E7 /* PseudoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PseudoCollectionViewController.swift; sourceTree = "<group>"; };
+		2EDBDDE821C866A100ED4879 /* ShadowAllowedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShadowAllowedTableViewCell.xib; sourceTree = "<group>"; };
+		2EDBDDEA21C866B000ED4879 /* ShadowProhibitedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShadowProhibitedTableViewCell.xib; sourceTree = "<group>"; };
 		2EF9C0CD2159C13E00539D20 /* LargePseudoCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargePseudoCollectionReusableView.xib; sourceTree = "<group>"; };
 		2EF9C0CF2159C24E00539D20 /* SmallPseudoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SmallPseudoCollectionViewCell.xib; sourceTree = "<group>"; };
 		490224B12122EEF8009E9AC4 /* PillarCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PillarCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -172,6 +176,8 @@
 				494873F61C53555800B689D3 /* Main.storyboard */,
 				4974E140212C26B3004AE3D0 /* MenuViewController.swift */,
 				497239BF21C3BAB10071E700 /* TableShadowViewController.swift */,
+				2EDBDDE821C866A100ED4879 /* ShadowAllowedTableViewCell.xib */,
+				2EDBDDEA21C866B000ED4879 /* ShadowProhibitedTableViewCell.xib */,
 				2E830E3721ACD0F5003320CD /* CollectionIndexRangeViewController.swift */,
 				49F519A321840790000FE0AA /* AttributedStringViewController.swift */,
 				49F51970216E0D15000FE0AA /* PresenterViewController.swift */,
@@ -289,6 +295,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EDBDDE921C866A100ED4879 /* ShadowAllowedTableViewCell.xib in Resources */,
 				2E8AAADB212F692E00D7BD99 /* AdorableCollectionViewCell.xib in Resources */,
 				494873FD1C53555800B689D3 /* LaunchScreen.storyboard in Resources */,
 				2ECFEA6320E44D490064E12B /* AutoLayoutCollectionViewCell.xib in Resources */,
@@ -297,6 +304,7 @@
 				49376B052164DF6600933057 /* InsetSeparatorReusableView.xib in Resources */,
 				2EF9C0CE2159C13E00539D20 /* LargePseudoCollectionReusableView.xib in Resources */,
 				2EF9C0D02159C24E00539D20 /* SmallPseudoCollectionViewCell.xib in Resources */,
+				2EDBDDEB21C866B000ED4879 /* ShadowProhibitedTableViewCell.xib in Resources */,
 				490224B22122EEF8009E9AC4 /* PillarCollectionReusableView.xib in Resources */,
 				496454A5218B1D9900F790C9 /* LoaderCollectionReusableView.xib in Resources */,
 				2E7FB43521225123000A852D /* CuteCollectionViewCell.xib in Resources */,

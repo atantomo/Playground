@@ -115,7 +115,7 @@ extension ShadowSeparableTableContainerView: UITableViewDataSource {
     }
 }
 
-class TableShadowViewController: UIViewController {
+class TableShadowViewController: UIViewController, ShadowSeparating {
 
     @IBOutlet var shadowSeparableTableContainer: ShadowSeparableTableContainerView!
     @IBOutlet var shadowTableView: UITableView!
@@ -197,9 +197,37 @@ class LeafTableViewCell: UITableViewCell {
     //    @IBOutlet var titleLabel: UILabel!
 }
 
-class ShadowAllowedTableViewCell: UITableViewCell { }
+class ShadowAllowedTableViewCell: UITableViewCell {
 
-class ShadowProhibitedTableViewCell: UITableViewCell, ShadowErasable { }
+    @IBOutlet weak var shadowOKButton: UIButton!
+
+    override var isHighlighted: Bool {
+        didSet {
+            print("aaa")
+            if isHighlighted {
+                backgroundColor = UIColor.green
+            } else {
+                backgroundColor = UIColor.lightGray
+            }
+        }
+    }
+}
+
+class ShadowProhibitedTableViewCell: UITableViewCell, ShadowErasable {
+
+    @IBOutlet weak var shadowNGButton: UIButton!
+
+    override var isHighlighted: Bool {
+        didSet {
+            print("aaa")
+            if isHighlighted {
+                backgroundColor = UIColor.red
+            } else {
+                backgroundColor = UIColor.lightGray
+            }
+        }
+    }
+}
 
 extension TableShadowViewController: UITableViewDelegate {
 
@@ -251,16 +279,25 @@ extension TableShadowViewController: UITableViewDataSource {
 
         if indexPath.row % 3 != 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "shadow", for: indexPath) as! ShadowAllowedTableViewCell
-            if !isShadowAppliedToTable {
-                cell.contentView.alpha = 0
-            }
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: "noShadow", for: indexPath) as! ShadowProhibitedTableViewCell
-            if isShadowAppliedToTable {
-                cell.contentView.alpha = 0
-            }
         }
         cell.backgroundColor = .clear
+        cell.selectionStyle = .none
+        hideIfContainsShadow(cell: cell, tableView: tableView)
         return cell
+    }
+}
+
+protocol ShadowSeparating { }
+extension ShadowSeparating {
+
+    func hideIfContainsShadow(cell: UITableViewCell, tableView: UITableView) {
+        let isShadowAppliedToTable = tableView.layer.shadowOpacity != 0
+        if isShadowAppliedToTable {
+            cell.contentView.alpha = cell is ShadowAllowedTableViewCell ? 1 : 0
+        } else {
+            cell.contentView.alpha = cell is ShadowProhibitedTableViewCell ? 1 : 0
+        }
     }
 }

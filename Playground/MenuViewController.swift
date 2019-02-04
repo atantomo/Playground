@@ -59,7 +59,8 @@ class MenuViewController: UIViewController {
         "presenter",
         "attributedString",
         "tableShadow",
-        "collectionIndexRange"
+        "collectionIndexRange",
+        "hitTest"
     ]
 
     override func viewDidLoad() {

@@ -13,6 +13,7 @@
 		2E2F7D12215086FD0080A256 /* HighlightableSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2F7D10215086FD0080A256 /* HighlightableSearchBar.xib */; };
 		2E2F7D13215086FD0080A256 /* HighlightableSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2F7D11215086FD0080A256 /* HighlightableSearchBar.swift */; };
 		2E318B45210547C500E6EF83 /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E318B44210547C500E6EF83 /* SearchBarViewController.swift */; };
+		2E5A483921DEFD3D0076162D /* HitTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A483821DEFD3D0076162D /* HitTestViewController.swift */; };
 		2E7FB43521225123000A852D /* CuteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */; };
 		2E7FB43721225208000A852D /* CuteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */; };
 		2E7FB43921225518000A852D /* DynamicCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */; };
@@ -75,6 +76,7 @@
 		2E2F7D10215086FD0080A256 /* HighlightableSearchBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighlightableSearchBar.xib; sourceTree = "<group>"; };
 		2E2F7D11215086FD0080A256 /* HighlightableSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightableSearchBar.swift; sourceTree = "<group>"; };
 		2E318B44210547C500E6EF83 /* SearchBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
+		2E5A483821DEFD3D0076162D /* HitTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitTestViewController.swift; sourceTree = "<group>"; };
 		2E7FB43421225123000A852D /* CuteCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CuteCollectionViewCell.xib; sourceTree = "<group>"; };
 		2E7FB43621225208000A852D /* CuteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuteCollectionViewCell.swift; sourceTree = "<group>"; };
 		2E7FB43821225518000A852D /* DynamicCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCollectionViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				491572511DCEA0AD0046AD0D /* CustomView.swift */,
 				494873F61C53555800B689D3 /* Main.storyboard */,
 				4974E140212C26B3004AE3D0 /* MenuViewController.swift */,
+				2E5A483821DEFD3D0076162D /* HitTestViewController.swift */,
 				497239BF21C3BAB10071E700 /* TableShadowViewController.swift */,
 				2EDBDDE821C866A100ED4879 /* ShadowAllowedTableViewCell.xib */,
 				2EDBDDEA21C866B000ED4879 /* ShadowProhibitedTableViewCell.xib */,
@@ -267,7 +270,7 @@
 				TargetAttributes = {
 					494873EE1C53555800B689D3 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = GZA5R9P42G;
+						DevelopmentTeam = 65J9XQ5X7G;
 						LastSwiftMigration = 0930;
 					};
 				};
@@ -342,6 +345,7 @@
 				2ECFEA6120E44D3A0064E12B /* AutoLayoutCollectionViewCell.swift in Sources */,
 				498BA3F42082E29B00BAF4FB /* ColorSelectViewController.swift in Sources */,
 				2EB88C63213DF50000B523BE /* ButtonLayoutViewController.swift in Sources */,
+				2E5A483921DEFD3D0076162D /* HitTestViewController.swift in Sources */,
 				2E7FB43921225518000A852D /* DynamicCollectionViewController.swift in Sources */,
 				49A9803B2072504F00A492D5 /* FirstNavViewController.swift in Sources */,
 				49FDA14120D0758100750592 /* AutoLayoutTableViewCell.swift in Sources */,
@@ -496,7 +500,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = GZA5R9P42G;
+				DEVELOPMENT_TEAM = 65J9XQ5X7G;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Playground/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -514,7 +518,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = GZA5R9P42G;
+				DEVELOPMENT_TEAM = 65J9XQ5X7G;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Playground/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

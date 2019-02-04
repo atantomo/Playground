@@ -50,6 +50,9 @@
                     <constraint firstItem="0xh-iX-gRX" firstAttribute="leading" secondItem="8ew-5r-AFS" secondAttribute="leading" constant="16" id="oRn-WN-Csg"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="shadowNGButton" destination="5dN-yz-Wt3" id="mcI-XT-FfE"/>
+            </connections>
             <point key="canvasLocation" x="320.5" y="-10"/>
         </tableViewCell>
     </objects>

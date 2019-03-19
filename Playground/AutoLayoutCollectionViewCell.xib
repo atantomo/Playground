@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,7 +24,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIF-x8-Dv8">
                                 <rect key="frame" x="4" y="4" width="388" height="327"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -48,20 +48,31 @@
                                     <action selector="lovelyButtonTapped:" destination="yyL-rG-4xJ" eventType="touchUpInside" id="J3I-ld-xBF"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hd-US-mVW">
+                                <rect key="frame" x="16" y="334.5" width="484" height="0.5"/>
+                                <color key="backgroundColor" red="0.83921568629999999" green="0.37254901959999998" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="jkr-dN-yOJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.29411764709999999" green="0.50588235290000005" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="jIF-x8-Dv8" firstAttribute="top" secondItem="gQs-S1-QKD" secondAttribute="top" constant="4" id="0HT-Bm-TMU"/>
                             <constraint firstItem="g3D-Hf-2Yv" firstAttribute="centerY" secondItem="gQs-S1-QKD" secondAttribute="centerY" id="Gs0-Cx-BHM"/>
+                            <constraint firstItem="6hd-US-mVW" firstAttribute="leading" secondItem="gQs-S1-QKD" secondAttribute="leading" constant="16" id="IZ8-aT-e2l"/>
                             <constraint firstItem="jIF-x8-Dv8" firstAttribute="leading" secondItem="gQs-S1-QKD" secondAttribute="leading" constant="4" id="Myl-NL-mIB"/>
                             <constraint firstAttribute="trailing" secondItem="g3D-Hf-2Yv" secondAttribute="trailing" constant="16" id="dEb-PE-Rfu"/>
                             <constraint firstItem="g3D-Hf-2Yv" firstAttribute="leading" secondItem="jIF-x8-Dv8" secondAttribute="trailing" constant="16" id="djP-mX-dei"/>
                             <constraint firstAttribute="bottom" secondItem="jIF-x8-Dv8" secondAttribute="bottom" constant="4" id="fgC-F8-pxc"/>
+                            <constraint firstAttribute="trailing" secondItem="6hd-US-mVW" secondAttribute="trailing" id="oeW-pV-ieh"/>
+                            <constraint firstAttribute="bottom" secondItem="6hd-US-mVW" secondAttribute="bottom" id="rgZ-9X-vcp"/>
                             <constraint firstAttribute="width" constant="500" id="xvf-bO-q4M"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
+            <color key="backgroundColor" red="0.85247917280295971" green="0.6586733626449961" blue="0.71013693600685501" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
                 <constraint firstItem="gQs-S1-QKD" firstAttribute="leading" secondItem="yyL-rG-4xJ" secondAttribute="leading" id="5zu-8H-iIX"/>
                 <constraint firstAttribute="bottom" secondItem="gQs-S1-QKD" secondAttribute="bottom" id="NJr-bW-fxC"/>

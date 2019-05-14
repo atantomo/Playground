@@ -1799,7 +1799,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14Y-vy-INS">
-                                                    <rect key="frame" x="187.5" y="16" width="0.0" height="118"/>
+                                                    <rect key="frame" x="187.5" y="16" width="0.0" height="68"/>
                                                     <color key="backgroundColor" red="1" green="0.81568627449999997" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" priority="750" id="g6V-R9-dP4"/>
@@ -2541,6 +2541,28 @@
                                     <constraint firstAttribute="width" constant="100" id="Mu5-bs-nLf"/>
                                 </constraints>
                             </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iXD-SH-rbq">
+                                <rect key="frame" x="72" y="475" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Tv-gz-ESv">
+                                        <rect key="frame" x="-30" y="8" width="240" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.83921568629999999" green="0.37254901959999998" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.85247917279999996" green="0.65867336259999998" blue="0.71013693600000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ewK-RM-4of">
+                                <rect key="frame" x="119" y="519" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="519-RA-hZB">
+                                <rect key="frame" x="95" y="499" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.29411764709999999" green="0.50588235290000005" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -2585,7 +2607,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="coralBox" destination="0Tv-gz-ESv" id="PV4-kv-ccj"/>
+                        <outlet property="grayBox" destination="ewK-RM-4of" id="hFJ-mt-g8M"/>
+                        <outlet property="pinkBox" destination="iXD-SH-rbq" id="EN5-qR-xM2"/>
                         <outlet property="randomRangeView" destination="Kv9-0a-1Es" id="GDE-nt-EWl"/>
+                        <outlet property="tealBox" destination="519-RA-hZB" id="jta-0l-NmD"/>
                         <outletCollection property="cellFrames" destination="yfq-AP-VWO" collectionClass="NSMutableArray" id="qxj-FW-eof"/>
                         <outletCollection property="cellFrames" destination="tZ4-eE-iFI" collectionClass="NSMutableArray" id="cbj-Lx-2I4"/>
                         <outletCollection property="cellFrames" destination="EMr-Zu-V1K" collectionClass="NSMutableArray" id="szc-Vk-6Bh"/>

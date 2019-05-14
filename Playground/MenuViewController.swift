@@ -68,6 +68,9 @@ class MenuViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
+
+//        let a = Array(1..<2)
+//        print(a)
     }
 
     override func didReceiveMemoryWarning() {

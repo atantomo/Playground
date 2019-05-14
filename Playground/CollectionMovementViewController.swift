@@ -40,6 +40,17 @@ class CollectionMovementViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
 
+        var emptyArr = [[Int]]()
+        print(emptyArr.isEmpty)
+        emptyArr = [[], []]
+        print(emptyArr.flatMap { $0 }.isEmpty)
+
+        var numArr = [1, 2]
+        print(numArr[2...])
+        print(numArr[3...])
+        print(numArr[4...])
+        print(numArr[5...])
+
         let nib = UINib(nibName: "AutoLayoutCollectionViewCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "AutoLayout")
 

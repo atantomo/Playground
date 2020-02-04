@@ -15,11 +15,6 @@ class CollectionIndexRangeViewController: UIViewController {
     @IBOutlet var horizontalSeparatorFrames: [UIView]!
     @IBOutlet weak var randomRangeView: UIView!
 
-    @IBOutlet weak var coralBox: UIView!
-    @IBOutlet weak var pinkBox: UIView!
-    @IBOutlet weak var tealBox: UIView!
-    @IBOutlet weak var grayBox: UIView!
-
     var columnCount: Int = 3
     var columnWidth: CGFloat = 88.0
     var verticalSeparatorWidth: CGFloat = 10.0
@@ -32,10 +27,6 @@ class CollectionIndexRangeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        view.bringSubview(toFront: randomRangeView)
-        pinkBox.layer.zPosition = -10
-        tealBox.layer.zPosition = 0
-        grayBox.layer.zPosition = 1
-        coralBox.layer.zPosition = -200
     }
 
 //    override func viewDidAppear(_ animated: Bool) {
@@ -100,11 +91,6 @@ class CollectionIndexRangeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let execute = {
-            print("Love")
-        }
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5, execute: execute)
-        
         var loopYPosition: CGFloat = 0
         var cellIndexes = [Int]()
         var verticalSeparatorIndexes = [Int]()

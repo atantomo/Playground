@@ -41,6 +41,8 @@ class MenuViewController: UIViewController {
         ]
 
     let items: [String] = [
+        "web",
+        "web",
         "navResizer",
         "navHide",
         "navParallax",
@@ -60,7 +62,8 @@ class MenuViewController: UIViewController {
         "attributedString",
         "tableShadow",
         "collectionIndexRange",
-        "hitTest"
+        "hitTest",
+        "safeNav"
     ]
 
     override func viewDidLoad() {
@@ -69,8 +72,34 @@ class MenuViewController: UIViewController {
         tableView.dataSource = self
         // Do any additional setup after loading the view.
 
-//        let a = Array(1..<2)
-//        print(a)
+        let number = 1234.5678 // 🤔
+
+        let formatter3 = NumberFormatter()
+        formatter3.minimumFractionDigits = 0
+        formatter3.maximumFractionDigits = 2
+        formatter3.numberStyle = .currency
+
+        formatter3.locale = Locale(identifier: "en_US")
+        let aa = formatter3.string(for: number) // $1,234.57
+
+        formatter3.locale = Locale(identifier: "ja_JP")
+        let a = formatter3.string(for: number) // ￥ 1,235 😵
+
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+
+        // Avoid not getting a zero on numbers lower than 1
+        // Eg: .5, .67, etc...
+        formatter.numberStyle = .currency
+        formatter.currencyCode = "JPY"
+        formatter.locale = Locale(identifier: "ja_JP")
+
+        let nums = [3.0, 5.1, 7.21, 9.311, 607920.0, 0.5677, 0.6988]
+
+        for num in nums {
+            print(formatter.string(from: num as NSNumber) ?? "n/a")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -146,6 +175,7 @@ extension MenuViewController: UITableViewDelegate {
             backButton.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor, constant: 16.0),
             backButton.topAnchor.constraint(equalTo: vc.topLayoutGuide.bottomAnchor, constant: 64.0)
             ])
+        
         navigationController?.present(vc, animated: true)
     }
 

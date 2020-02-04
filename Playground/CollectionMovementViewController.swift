@@ -13,7 +13,6 @@ class CollectionMovementViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
     lazy var dataSourceBackup: [String] = {
-        return ["odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even"]
         let a = [
             "Created by Andrew Tantomo on 2018/04/24",
             "Created by Andrew Tantomo on 2018/04/24 Created by Andrew Tantomo on 2018/04/24",
@@ -38,18 +37,6 @@ class CollectionMovementViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
-        collectionView.delegate = self
-
-        var emptyArr = [[Int]]()
-        print(emptyArr.isEmpty)
-        emptyArr = [[], []]
-        print(emptyArr.flatMap { $0 }.isEmpty)
-
-        var numArr = [1, 2]
-        print(numArr[2...])
-        print(numArr[3...])
-        print(numArr[4...])
-        print(numArr[5...])
 
         let nib = UINib(nibName: "AutoLayoutCollectionViewCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "AutoLayout")
@@ -58,8 +45,7 @@ class CollectionMovementViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(deleteCell(sender:)), name: NotificationName.DeleteCell, object: nil)
 
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-//            flowLayout.estimatedItemSize = CGSize(width: 375, height: 200)
-            flowLayout.minimumLineSpacing = 20.0
+            flowLayout.estimatedItemSize = CGSize(width: 375, height: 200)
         }
     }
 
@@ -86,12 +72,6 @@ class CollectionMovementViewController: UIViewController {
         collectionView.reloadData()
     }
 
-    @IBAction func swapButtonTapped(_ sender: Any) {
-        let firstIndexPath = IndexPath(item: 0, section: 0)
-        let secondIndexPath = IndexPath(item: 1, section: 0)
-        collectionView.moveItem(at: secondIndexPath, to: firstIndexPath)
-    }
-
     @objc func deleteCell(sender: Notification) {
 
         let button = sender.object as! UIButton
@@ -103,17 +83,6 @@ class CollectionMovementViewController: UIViewController {
         }
     }
 
-}
-
-extension CollectionMovementViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.item % 2 == 0 {
-            return CGSize(width: 300, height: 100)
-        } else {
-            return CGSize(width: 300, height: 40)
-        }
-    }
 }
 
 extension CollectionMovementViewController: UICollectionViewDataSource {

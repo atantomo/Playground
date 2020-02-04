@@ -10,6 +10,10 @@ import UIKit
 
 class HitTestViewController: UIViewController {
 
+    @IBOutlet var intrinsicLabel: UILabel!
+    @IBOutlet var greedyContainer: UIView!
+    @IBOutlet var greedyView: GreedyView!
+    @IBOutlet var pressConstraint: NSLayoutConstraint!
     @IBOutlet weak var frontScrollView: TouchSelectiveScrollView!
     @IBOutlet weak var backScrollView: UIScrollView!
     @IBOutlet weak var redView: UIView!
@@ -50,6 +54,14 @@ class HitTestViewController: UIViewController {
 //        print(frontScrollView.contentSize)
 //    }
 
+    @IBAction func buttonTapped(_ sender: Any) {
+        greedyView.desiredSize = CGSize(width: 100, height: 100)
+        pressConstraint.priority = .defaultHigh
+        greedyView.setNeedsLayout()
+        greedyView.layoutIfNeeded()
+        print(intrinsicLabel.intrinsicContentSize)
+        print(intrinsicLabel.intrinsicContentSize)
+    }
 }
 
 
@@ -87,4 +99,46 @@ class TouchSelectiveScrollView: UIScrollView {
         return super.hitTest(point, with: e)
     }
     
+}
+
+
+class GreedyView: UIView {
+
+    //    override func sizeThatFits(_ size: CGSize) -> CGSize {
+    //        return CGSize(width: 300, height: 300)
+    //    }
+
+    var desiredSize: CGSize = CGSize(width: 300, height: 300)
+
+    //    override var bounds: CGRect {
+    //        didSet {
+    //            invalidateIntrinsicContentSize()
+    //        }
+    //    }
+
+    //    override func updateConstraints() {
+    //        super.updateConstraints()
+    //        print("Called")
+    //    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        invalidateIntrinsicContentSize()
+        print("Called")
+    }
+
+    override var intrinsicContentSize: CGSize {
+        print(bounds)
+        return desiredSize
+    }
+
+}
+
+class TimidView: UIView {
+
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        print("AAAAa")
+        return sizeThatFits(size)
+    }
+
 }

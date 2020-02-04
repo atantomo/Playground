@@ -45,7 +45,9 @@
 		494873FA1C53555800B689D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 494873F91C53555800B689D3 /* Assets.xcassets */; };
 		494873FD1C53555800B689D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494873FB1C53555800B689D3 /* LaunchScreen.storyboard */; };
 		494874051C5371C600B689D3 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494874041C5371C600B689D3 /* Meme.swift */; };
+		495F7CD823E99D7700D041AE /* SafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495F7CD723E99D7700D041AE /* SafeViewController.swift */; };
 		496454A5218B1D9900F790C9 /* LoaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496454A4218B1D9900F790C9 /* LoaderCollectionReusableView.xib */; };
+		4967ED8223343C0D004D24A5 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4967ED8123343C0D004D24A5 /* WebViewController.swift */; };
 		49702DF6208F5A1000064C84 /* TableMovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49702DF5208F5A1000064C84 /* TableMovementViewController.swift */; };
 		497239C021C3BAB10071E700 /* TableShadowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497239BF21C3BAB10071E700 /* TableShadowViewController.swift */; };
 		4974E141212C26B3004AE3D0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4974E140212C26B3004AE3D0 /* MenuViewController.swift */; };
@@ -110,7 +112,9 @@
 		494873FC1C53555800B689D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		494873FE1C53555800B689D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494874041C5371C600B689D3 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
+		495F7CD723E99D7700D041AE /* SafeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeViewController.swift; sourceTree = "<group>"; };
 		496454A4218B1D9900F790C9 /* LoaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoaderCollectionReusableView.xib; sourceTree = "<group>"; };
+		4967ED8123343C0D004D24A5 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		49702DF5208F5A1000064C84 /* TableMovementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableMovementViewController.swift; sourceTree = "<group>"; };
 		497239BF21C3BAB10071E700 /* TableShadowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableShadowViewController.swift; sourceTree = "<group>"; };
 		4974E140212C26B3004AE3D0 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 				491572511DCEA0AD0046AD0D /* CustomView.swift */,
 				494873F61C53555800B689D3 /* Main.storyboard */,
 				4974E140212C26B3004AE3D0 /* MenuViewController.swift */,
+				495F7CD723E99D7700D041AE /* SafeViewController.swift */,
+				4967ED8123343C0D004D24A5 /* WebViewController.swift */,
 				2E5A483821DEFD3D0076162D /* HitTestViewController.swift */,
 				497239BF21C3BAB10071E700 /* TableShadowViewController.swift */,
 				2EDBDDE821C866A100ED4879 /* ShadowAllowedTableViewCell.xib */,
@@ -270,7 +276,7 @@
 				TargetAttributes = {
 					494873EE1C53555800B689D3 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 65J9XQ5X7G;
+						DevelopmentTeam = GZA5R9P42G;
 						LastSwiftMigration = 0930;
 					};
 				};
@@ -280,6 +286,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -351,8 +358,10 @@
 				49FDA14120D0758100750592 /* AutoLayoutTableViewCell.swift in Sources */,
 				4979EC5F2063DDE40024BC6F /* SkeletonView.swift in Sources */,
 				4975419D21470C56006CC7C0 /* ChangeTracerArray.swift in Sources */,
+				4967ED8223343C0D004D24A5 /* WebViewController.swift in Sources */,
 				4979EC622063E2FB0024BC6F /* SkeletonTestViewController.swift in Sources */,
 				499992C8205CA934001871CF /* LabelViewController.swift in Sources */,
+				495F7CD823E99D7700D041AE /* SafeViewController.swift in Sources */,
 				498BA3F2208207AC00BAF4FB /* ColorPageViewController.swift in Sources */,
 				490224B42122EF7E009E9AC4 /* PillarCollectionReusableView.swift in Sources */,
 				2E0E9DF421487D5500D5D98F /* HeightCalculable.swift in Sources */,
@@ -500,7 +509,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 65J9XQ5X7G;
+				DEVELOPMENT_TEAM = GZA5R9P42G;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Playground/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

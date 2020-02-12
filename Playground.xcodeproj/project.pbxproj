@@ -38,6 +38,14 @@
 		491572521DCEA0AD0046AD0D /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491572511DCEA0AD0046AD0D /* CustomView.swift */; };
 		49172CB01C54ABE70008B61B /* MemeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49172CAF1C54ABE70008B61B /* MemeTextField.swift */; };
 		491C11FC208F44B400C59999 /* ConstrainedLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491C11FB208F44B400C59999 /* ConstrainedLabelViewController.swift */; };
+		492D20BC23F4238900F36E47 /* BasicBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D20BB23F4238900F36E47 /* BasicBarChart.swift */; };
+		492D20BE23F4238E00F36E47 /* BasicBarChartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D20BD23F4238E00F36E47 /* BasicBarChartPresenter.swift */; };
+		492D20C023F4239200F36E47 /* BasicBarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D20BF23F4239200F36E47 /* BasicBarEntry.swift */; };
+		492D20C223F423E900F36E47 /* DataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D20C123F423E900F36E47 /* DataEntry.swift */; };
+		492D20C423F4240E00F36E47 /* CustomSegments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D20C323F4240D00F36E47 /* CustomSegments.swift */; };
+		492D20C623F4242E00F36E47 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D20C523F4242E00F36E47 /* ArrayExtension.swift */; };
+		492D20C823F4243E00F36E47 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D20C723F4243E00F36E47 /* CALayerExtension.swift */; };
+		492D20CA23F4244C00F36E47 /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492D20C923F4244C00F36E47 /* UIBezierPathExtension.swift */; };
 		49376B052164DF6600933057 /* InsetSeparatorReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49376B042164DF6600933057 /* InsetSeparatorReusableView.xib */; };
 		494873F31C53555800B689D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494873F21C53555800B689D3 /* AppDelegate.swift */; };
 		494873F51C53555800B689D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494873F41C53555800B689D3 /* ViewController.swift */; };
@@ -103,6 +111,14 @@
 		491572511DCEA0AD0046AD0D /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		49172CAF1C54ABE70008B61B /* MemeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTextField.swift; sourceTree = "<group>"; };
 		491C11FB208F44B400C59999 /* ConstrainedLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstrainedLabelViewController.swift; sourceTree = "<group>"; };
+		492D20BB23F4238900F36E47 /* BasicBarChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicBarChart.swift; sourceTree = "<group>"; };
+		492D20BD23F4238E00F36E47 /* BasicBarChartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicBarChartPresenter.swift; sourceTree = "<group>"; };
+		492D20BF23F4239200F36E47 /* BasicBarEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicBarEntry.swift; sourceTree = "<group>"; };
+		492D20C123F423E900F36E47 /* DataEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntry.swift; sourceTree = "<group>"; };
+		492D20C323F4240D00F36E47 /* CustomSegments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegments.swift; sourceTree = "<group>"; };
+		492D20C523F4242E00F36E47 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		492D20C723F4243E00F36E47 /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
+		492D20C923F4244C00F36E47 /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
 		49376B042164DF6600933057 /* InsetSeparatorReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InsetSeparatorReusableView.xib; sourceTree = "<group>"; };
 		494873EF1C53555800B689D3 /* Playground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Playground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494873F21C53555800B689D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +196,14 @@
 				499992C7205CA934001871CF /* LabelViewController.swift */,
 				491572511DCEA0AD0046AD0D /* CustomView.swift */,
 				494873F61C53555800B689D3 /* Main.storyboard */,
+				492D20C923F4244C00F36E47 /* UIBezierPathExtension.swift */,
+				492D20C723F4243E00F36E47 /* CALayerExtension.swift */,
+				492D20C523F4242E00F36E47 /* ArrayExtension.swift */,
+				492D20C123F423E900F36E47 /* DataEntry.swift */,
+				492D20C323F4240D00F36E47 /* CustomSegments.swift */,
+				492D20BB23F4238900F36E47 /* BasicBarChart.swift */,
+				492D20BD23F4238E00F36E47 /* BasicBarChartPresenter.swift */,
+				492D20BF23F4239200F36E47 /* BasicBarEntry.swift */,
 				4974E140212C26B3004AE3D0 /* MenuViewController.swift */,
 				495F7CD723E99D7700D041AE /* SafeViewController.swift */,
 				4967ED8123343C0D004D24A5 /* WebViewController.swift */,
@@ -334,14 +358,18 @@
 				491572521DCEA0AD0046AD0D /* CustomView.swift in Sources */,
 				49F519A421840790000FE0AA /* AttributedStringViewController.swift in Sources */,
 				2E318B45210547C500E6EF83 /* SearchBarViewController.swift in Sources */,
+				492D20BC23F4238900F36E47 /* BasicBarChart.swift in Sources */,
 				2E0E9DF621487D9500D5D98F /* Array+Extension.swift in Sources */,
+				492D20C223F423E900F36E47 /* DataEntry.swift in Sources */,
 				49A98041207253D700A492D5 /* StaticNavController.swift in Sources */,
 				49A9803F2072508100A492D5 /* ThirdNavViewController.swift in Sources */,
+				492D20BE23F4238E00F36E47 /* BasicBarChartPresenter.swift in Sources */,
 				494874051C5371C600B689D3 /* Meme.swift in Sources */,
 				49F51971216E0D15000FE0AA /* PresenterViewController.swift in Sources */,
 				2E0E9DF821487DFA00D5D98F /* TextHeightCalculator.swift in Sources */,
 				2E7FB43B21225791000A852D /* DynamicHeightCollectionViewLayout.swift in Sources */,
 				4974E141212C26B3004AE3D0 /* MenuViewController.swift in Sources */,
+				492D20CA23F4244C00F36E47 /* UIBezierPathExtension.swift in Sources */,
 				2ED728F52159B4F40064C3E7 /* PseudoCollectionViewController.swift in Sources */,
 				2E7FB43721225208000A852D /* CuteCollectionViewCell.swift in Sources */,
 				49116FA420E3C24C00C4C31C /* CollectionMovementViewController.swift in Sources */,
@@ -359,6 +387,7 @@
 				4979EC5F2063DDE40024BC6F /* SkeletonView.swift in Sources */,
 				4975419D21470C56006CC7C0 /* ChangeTracerArray.swift in Sources */,
 				4967ED8223343C0D004D24A5 /* WebViewController.swift in Sources */,
+				492D20C023F4239200F36E47 /* BasicBarEntry.swift in Sources */,
 				4979EC622063E2FB0024BC6F /* SkeletonTestViewController.swift in Sources */,
 				499992C8205CA934001871CF /* LabelViewController.swift in Sources */,
 				495F7CD823E99D7700D041AE /* SafeViewController.swift in Sources */,
@@ -372,10 +401,13 @@
 				491C11FC208F44B400C59999 /* ConstrainedLabelViewController.swift in Sources */,
 				2E80ADC120BF894C00A6DCD4 /* FirstCustomTransitionViewController.swift in Sources */,
 				2E2F7D13215086FD0080A256 /* HighlightableSearchBar.swift in Sources */,
+				492D20C423F4240E00F36E47 /* CustomSegments.swift in Sources */,
 				49702DF6208F5A1000064C84 /* TableMovementViewController.swift in Sources */,
+				492D20C823F4243E00F36E47 /* CALayerExtension.swift in Sources */,
 				4909802C20A451540078CA4E /* FirstTabViewController.swift in Sources */,
 				49A98043207253EA00A492D5 /* StaticNavBar.swift in Sources */,
 				2E830E3821ACD0F5003320CD /* CollectionIndexRangeViewController.swift in Sources */,
+				492D20C623F4242E00F36E47 /* ArrayExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

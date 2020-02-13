@@ -2813,6 +2813,41 @@
             </objects>
             <point key="canvasLocation" x="-58.399999999999999" y="15773.163418290856"/>
         </scene>
+        <!--Chart View Controller-->
+        <scene sceneID="yxe-wd-qTm">
+            <objects>
+                <viewController storyboardIdentifier="chart" id="Gt3-yi-Id4" customClass="ChartViewController" customModule="Playground" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="le2-RE-cMK"/>
+                        <viewControllerLayoutGuide type="bottom" id="RD9-gu-itR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wAS-wu-PDM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q8o-Ob-wJ6" customClass="BarLineChart" customModule="Playground" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="120" width="375" height="216"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="6U4-mr-so6"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="q8o-Ob-wJ6" secondAttribute="trailing" id="65q-Lc-9Af"/>
+                            <constraint firstItem="q8o-Ob-wJ6" firstAttribute="leading" secondItem="wAS-wu-PDM" secondAttribute="leading" id="D5v-4O-h0R"/>
+                            <constraint firstItem="q8o-Ob-wJ6" firstAttribute="top" secondItem="le2-RE-cMK" secondAttribute="bottom" constant="120" id="WbR-59-LcW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="barLineChart" destination="q8o-Ob-wJ6" id="eNX-OZ-Vt8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h6f-rk-v79" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-58.399999999999999" y="16461.319340329836"/>
+        </scene>
     </scenes>
     <resources>
         <image name="forest_house" width="620" height="413"/>

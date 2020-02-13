@@ -41,6 +41,7 @@ class MenuViewController: UIViewController {
         ]
 
     let items: [String] = [
+        "chart",
         "web",
         "web",
         "navResizer",

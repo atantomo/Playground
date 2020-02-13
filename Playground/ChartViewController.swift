@@ -25,10 +25,12 @@ class ChartViewController: UIViewController {
         if #available(iOS 10.0, *) {
             let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {[unowned self] (timer) in
                 let dataEntriesForBar = self.generateRandomDataEntries()
-                self.barLineChart.updateBarDataEntries(dataEntries: dataEntriesForBar, animated: true)
+                self.barLineChart.loadBarDataEntries(dataEntries: dataEntriesForBar)
 
-                let dataEntriesForLine = self.generateRandomDataEntries()
-                self.barLineChart.updateLineDataEntries(dataEntries: dataEntriesForLine, animated: true)
+                let dataEntriesForPoint = self.generateRandomDataEntries()
+                self.barLineChart.loadPointDataEntries(dataEntries: dataEntriesForPoint)
+
+                self.barLineChart.updateEntries(animated: true)
 
             }
             timer.fire()

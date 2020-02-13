@@ -8,48 +8,12 @@
 
 import UIKit
 
-extension UIBezierPath {
-    convenience init(curvedSegment: CurvedSegment) {
-        self.init()
-        move(to: curvedSegment.startPoint)
-        addCurve(to: curvedSegment.toPoint, controlPoint1: curvedSegment.controlPoint1, controlPoint2: curvedSegment.controlPoint2)
-        addLine(to: curvedSegment.endPoint)
-    }
-
-    convenience init(lineSegment: LineSegment) {
-        self.init()
-        move(to: lineSegment.startPoint)
-        addLine(to: lineSegment.endPoint)
-    }
-}
-
-struct DataEntry {
-    let color: UIColor
-    let height: Float
-    let title: String
-}
-
-struct CurvedSegment {
-    let startPoint: CGPoint
-    let endPoint: CGPoint
-    let toPoint: CGPoint
-    var controlPoint1: CGPoint
-    var controlPoint2: CGPoint
-}
-
-struct LineSegment {
-    let startPoint: CGPoint
-    let endPoint: CGPoint
-}
-
 extension Array {
-    func safeValue(at index: Int) -> Element? {
-        if index < count {
-            return self[index]
-        } else {
-            return nil
-        }
+
+    subscript(safe idx: Int) -> Element? {
+        return idx < endIndex ? self[idx] : nil
     }
+
 }
 
 extension CALayer {
@@ -61,17 +25,21 @@ extension CALayer {
         layer.strokeColor = color
         addSublayer(layer)
 
-        if animated, let oldPath = oldPath {
-            layer.animate(
-                fromValue: oldPath,
-                toValue: layer.path!,
-                keyPath: "path")
+        if animated,
+            let oldPath = oldPath,
+            let newPath = layer.path {
+            layer.animate(fromValue: oldPath, toValue: newPath, keyPath: "path")
         }
     }
 
-    func addLineLayer(lineSegment: LineSegment, color: CGColor, width: CGFloat, isDashed: Bool, animated: Bool, oldSegment: LineSegment?) {
+    func addLineLayer(lineSegment: LineSegment, color: CGColor, width: CGFloat, isDashed: Bool, animated: Bool, oldLineSegment: LineSegment?) {
         let layer = CAShapeLayer()
-        layer.path = UIBezierPath(lineSegment: lineSegment).cgPath
+
+        let bezierPath = UIBezierPath()
+        bezierPath.move(to: lineSegment.startPoint)
+        bezierPath.addLine(to: lineSegment.endPoint)
+        layer.path = bezierPath.cgPath
+
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = color
         layer.lineWidth = width
@@ -80,11 +48,16 @@ extension CALayer {
         }
         addSublayer(layer)
 
-        if animated, let segment = oldSegment {
-            layer.animate(
-                fromValue: UIBezierPath(lineSegment: segment).cgPath,
-                toValue: layer.path!,
-                keyPath: "path")
+        if animated,
+            let oldLineSegment = oldLineSegment,
+            let newPath = layer.path {
+
+            let oldBezierPath = UIBezierPath()
+            oldBezierPath.move(to: oldLineSegment.startPoint)
+            oldBezierPath.addLine(to: oldLineSegment.endPoint)
+            let oldPath = oldBezierPath.cgPath
+
+            layer.animate(fromValue: oldPath, toValue: newPath, keyPath: "path")
         }
     }
 
@@ -100,40 +73,10 @@ extension CALayer {
         textLayer.string = text
         addSublayer(textLayer)
 
-        if animated, let oldFrame = oldFrame {
-            // "frame" property is not animatable in CALayer, so, I use "position" instead
-            // Position is at the center of the frame (if you don't change the anchor point)
+        if animated,
+            let oldFrame = oldFrame {
             let oldPosition = CGPoint(x: oldFrame.midX, y: oldFrame.midY)
             textLayer.animate(fromValue: oldPosition, toValue: textLayer.position, keyPath: "position")
-        }
-    }
-
-    func addCircleLayer(origin: CGPoint, radius: CGFloat, color: CGColor, animated: Bool, oldOrigin: CGPoint?) {
-        let layer = CALayer()
-        layer.frame = CGRect(x: origin.x, y: origin.y, width: radius * 2, height: radius * 2)
-        layer.backgroundColor = color
-        layer.cornerRadius = radius
-        addSublayer(layer)
-
-        if animated, let oldOrigin = oldOrigin {
-            let oldFrame = CGRect(x: oldOrigin.x, y: oldOrigin.y, width: radius * 2, height: radius * 2)
-
-            // "frame" property is not animatable in CALayer, so, I use "position" instead
-            layer.animate(fromValue: CGPoint(x: oldFrame.midX, y: oldFrame.midY),
-                          toValue: CGPoint(x: layer.frame.midX, y: layer.frame.midY),
-                          keyPath: "position")
-        }
-    }
-
-    func addRectangleLayer(frame: CGRect, color: CGColor, animated: Bool, oldFrame: CGRect?) {
-        let layer = CALayer()
-        layer.frame = frame
-        layer.backgroundColor = color
-        addSublayer(layer)
-
-        if animated, let oldFrame = oldFrame {
-            layer.animate(fromValue: CGPoint(x: oldFrame.midX, y: oldFrame.midY), toValue: layer.position, keyPath: "position")
-            layer.animate(fromValue: CGRect(x: 0, y: 0, width: oldFrame.width, height: oldFrame.height), toValue: layer.bounds, keyPath: "bounds")
         }
     }
 
@@ -161,11 +104,12 @@ extension CALayer {
         anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         add(anim, forKey: keyPath)
     }
+
 }
 
 class CurveAlgorithm {
 
-    static let shared = CurveAlgorithm()
+    static let shared: CurveAlgorithm = CurveAlgorithm()
 
     private func controlPointsFrom(points: [CGPoint]) -> [CurvedSegment] {
         var result: [CurvedSegment] = []
@@ -174,33 +118,33 @@ class CurveAlgorithm {
 
         // Calculate temporary control points, these control points make Bezier segments look straight and not curving at all
         for i in 1..<points.count {
-            let A = points[i-1]
+            let A = points[i - 1]
             let B = points[i]
-            let controlPoint1 = CGPoint(x: A.x + delta*(B.x-A.x), y: A.y + delta*(B.y - A.y))
-            let controlPoint2 = CGPoint(x: B.x - delta*(B.x-A.x), y: B.y - delta*(B.y - A.y))
-            let curvedSegment = CurvedSegment(startPoint: .zero, endPoint: .zero, toPoint: .zero, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
+            let controlPoint1 = CGPoint(x: A.x + delta * (B.x - A.x), y: A.y + delta * (B.y - A.y))
+            let controlPoint2 = CGPoint(x: B.x - delta * (B.x - A.x), y: B.y - delta * (B.y - A.y))
+            let curvedSegment = CurvedSegment(controlPoint1: controlPoint1, controlPoint2: controlPoint2)
             result.append(curvedSegment)
         }
 
         // Calculate good control points
-        for i in 1..<points.count-1 {
-            /// A temporary control point
-            let M = result[i-1].controlPoint2
+        for i in 1..<points.count - 1 {
+            // Temporary control point
+            let M = result[i - 1].controlPoint2
 
-            /// A temporary control point
+            // Temporary control point
             let N = result[i].controlPoint1
 
-            /// central point
+            // Central point
             let A = points[i]
 
-            /// Reflection of M over the point A
+            // Reflection of M over the point A
             let MM = CGPoint(x: 2 * A.x - M.x, y: 2 * A.y - M.y)
 
-            /// Reflection of N over the point A
+            // Reflection of N over the point A
             let NN = CGPoint(x: 2 * A.x - N.x, y: 2 * A.y - N.y)
 
-            result[i].controlPoint1 = CGPoint(x: (MM.x + N.x)/2, y: (MM.y + N.y)/2)
-            result[i-1].controlPoint2 = CGPoint(x: (NN.x + M.x)/2, y: (NN.y + M.y)/2)
+            result[i].controlPoint1 = CGPoint(x: (MM.x + N.x) / 2, y: (MM.y + N.y) / 2)
+            result[i - 1].controlPoint2 = CGPoint(x: (NN.x + M.x) / 2, y: (NN.y + M.y) / 2)
         }
 
         return result
@@ -217,7 +161,7 @@ class CurveAlgorithm {
         curveSegments = controlPointsFrom(points: dataPoints)
 
         for i in 1..<dataPoints.count {
-            path.addCurve(to: dataPoints[i], controlPoint1: curveSegments[i-1].controlPoint1, controlPoint2: curveSegments[i-1].controlPoint2)
+            path.addCurve(to: dataPoints[i], controlPoint1: curveSegments[i - 1].controlPoint1, controlPoint2: curveSegments[i - 1].controlPoint2)
         }
         return path
     }
@@ -225,54 +169,57 @@ class CurveAlgorithm {
 
 class BarLineChart: UIView {
 
+    private let presenter: BasicBarChartPresenter = BasicBarChartPresenter()
+
     private let mainLayer: CALayer = CALayer()
     private let barDataLayer: CALayer = CALayer()
     private let gridLayer: CALayer = CALayer()
-    private let lineDataLayer: CALayer = CALayer()
+    private let curveDataLayer: CALayer = CALayer()
     private let gradientLayer: CAGradientLayer = CAGradientLayer()
 
-    private var animated = false
+    private var barEntries: [BarEntry] = []
+    private var pointEntries: [PointEntry] = []
+    private var oldBarEntries: [BarEntry] = []
+    private var oldPointEntries: [PointEntry] = []
 
-    private let presenter = BasicBarChartPresenter(barWidth: 30, space: 20)
-
-    private var barEntries: [BasicBarEntry] = [] {
-        didSet {
-            barDataLayer.sublayers?.forEach({$0.removeFromSuperlayer()})
-
-            mainLayer.frame = CGRect(x: 0, y: 0, width: presenter.computeContentWidth(), height: frame.size.height)
-            barDataLayer.frame = CGRect(x: 0, y: 0, width: presenter.computeContentWidth(), height: frame.size.height)
-
-            showHorizontalLines()
-
-            for (index, entry) in barEntries.enumerated() {
-                showBarEntry(index: index, entry: entry, animated: animated, oldEntries: oldValue.safeValue(at: index))
-            }
-        }
-    }
-
-    private var pointEntries: [PointEntry] = [] {
-        didSet {
-            lineDataLayer.sublayers?.forEach({$0.removeFromSuperlayer()})
-            gradientLayer.sublayers?.forEach({$0.removeFromSuperlayer()})
-
-            let lineChartFrame = CGRect(x: 0, y: 0, width: presenter.computeContentWidth(), height: frame.size.height)
-            lineDataLayer.frame = lineChartFrame
-            gradientLayer.frame = lineChartFrame
-
-            showPointEntry(entries: pointEntries, animated: animated, oldEntries: oldValue)
-        }
-    }
-
-    func updateBarDataEntries(dataEntries: [DataEntry], animated: Bool) {
-        self.animated = animated
+    func loadBarDataEntries(dataEntries: [DataEntry]) {
         presenter.barDataEntries = dataEntries
+
+        let barCountCGFloat = CGFloat(presenter.barDataEntries.count)
+        let allSpacing = presenter.space * (barCountCGFloat + 1)
+        let barWidth = (bounds.width - allSpacing) / barCountCGFloat
+        presenter.barWidth = barWidth
+
+        oldBarEntries = barEntries
         barEntries = presenter.computeBarEntries(viewHeight: frame.height)
     }
 
-    func updateLineDataEntries(dataEntries: [DataEntry], animated: Bool) {
-        self.animated = animated
-        presenter.lineDataEntries = dataEntries
+    func loadPointDataEntries(dataEntries: [DataEntry]) {
+        presenter.pointDataEntries = dataEntries
+
+        oldPointEntries = pointEntries
         pointEntries = presenter.computePointEntries(viewHeight: frame.height)
+    }
+
+    func updateEntries(animated: Bool) {
+        removeAllSublayers(layer: gridLayer)
+        removeAllSublayers(layer: barDataLayer)
+        removeAllSublayers(layer: curveDataLayer)
+        removeAllSublayers(layer: gradientLayer)
+
+        let contentWidth = presenter.computeContentWidth()
+        let generalFrame = CGRect(x: 0, y: 0, width: contentWidth, height: frame.size.height)
+        mainLayer.frame = generalFrame
+        gridLayer.frame = generalFrame
+        barDataLayer.frame = generalFrame
+        curveDataLayer.frame = generalFrame
+        gradientLayer.frame = generalFrame
+
+        showHorizontalLines()
+        for (index, entry) in barEntries.enumerated() {
+            showBarEntry(index: index, entry: entry, animated: animated, oldEntries: oldBarEntries[safe: index])
+        }
+        showPointEntry(entries: pointEntries, animated: animated, oldEntries: oldPointEntries)
     }
 
     override init(frame: CGRect) {
@@ -286,23 +233,22 @@ class BarLineChart: UIView {
     }
 
     private func setupView() {
+        presenter.space = 20.0
         gradientLayer.colors = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7).cgColor, UIColor.clear.cgColor]
 
         layer.addSublayer(mainLayer)
         mainLayer.addSublayer(gridLayer)
-        mainLayer.addSublayer(lineDataLayer)
+        mainLayer.addSublayer(curveDataLayer)
         mainLayer.addSublayer(gradientLayer)
         mainLayer.addSublayer(barDataLayer)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        presenter.barWidth = (bounds.width - (presenter.space * 8)) / 7
-        updateBarDataEntries(dataEntries: presenter.barDataEntries, animated: false)
-        updateLineDataEntries(dataEntries: presenter.lineDataEntries, animated: false)
+        updateEntries(animated: false)
     }
 
-    private func showBarEntry(index: Int, entry: BasicBarEntry, animated: Bool, oldEntries: BasicBarEntry?) {
+    private func showBarEntry(index: Int, entry: BarEntry, animated: Bool, oldEntries: BarEntry?) {
         let cgColor = entry.data.color.cgColor
 
         barDataLayer.addTopRoundedRectangleLayer(frame: entry.barFrame, color: cgColor, animated: animated, oldFrame: oldEntries?.barFrame)
@@ -321,10 +267,10 @@ class BarLineChart: UIView {
         }
         if let path = CurveAlgorithm.shared.createCurvedPath(dataPoints) {
             let oldPath = CurveAlgorithm.shared.createCurvedPath(oldDataPoints)
-            lineDataLayer.addCurvedLayer(path: path.cgPath, color: UIColor.green.cgColor, animated: true, oldPath: oldPath?.cgPath)
+            curveDataLayer.addCurvedLayer(path: path.cgPath, color: UIColor.green.cgColor, animated: true, oldPath: oldPath?.cgPath)
         }
 
-        let baseY = presenter.computeBaseY(viewHeight: lineDataLayer.bounds.height)
+        let baseY = presenter.computeBaseY(viewHeight: curveDataLayer.bounds.height)
         let path = UIBezierPath()
         path.move(to: CGPoint(x: firstDataPoint.x, y: baseY))
         path.addLine(to: firstDataPoint)
@@ -347,25 +293,23 @@ class BarLineChart: UIView {
         if animated,
             let newPath = maskLayer.path,
             let oldPath = oldPath?.path {
-            maskLayer.animate(
-                fromValue: oldPath,
-                toValue: newPath,
-                keyPath: "path")
+            maskLayer.animate(fromValue: oldPath, toValue: newPath,keyPath: "path")
         }
     }
 
     private func showHorizontalLines() {
-        gridLayer.frame = bounds
-        if let sublayers = gridLayer.sublayers {
-            for sublayer in sublayers {
-                if sublayer is CAShapeLayer {
-                    sublayer.removeFromSuperlayer()
-                }
-            }
-        }
         let lines = presenter.computeHorizontalLines(viewHeight: frame.height)
         for line in lines {
-            gridLayer.addLineLayer(lineSegment: line.segment, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1).cgColor, width: line.width, isDashed: line.isDashed, animated: false, oldSegment: nil)
+            gridLayer.addLineLayer(lineSegment: line.segment, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1).cgColor, width: line.width, isDashed: line.isDashed, animated: false, oldLineSegment: nil)
+        }
+    }
+
+    private func removeAllSublayers(layer: CALayer?) {
+        guard let sublayers = layer?.sublayers else {
+            return
+        }
+        for sublayer in sublayers {
+            sublayer.removeFromSuperlayer()
         }
     }
 

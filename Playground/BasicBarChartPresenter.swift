@@ -11,19 +11,14 @@ import CoreGraphics.CGGeometry
 
 class BasicBarChartPresenter {
 
-    var barWidth: CGFloat
-    let space: CGFloat
+    var barWidth: CGFloat = 40.0
+    var space: CGFloat = 20.0
 
     var barDataEntries: [DataEntry] = []
-    var lineDataEntries: [DataEntry] = []
+    var pointDataEntries: [DataEntry] = []
 
     private let topSpace: CGFloat = 40.0
     private let bottomSpace: CGFloat = 40.0
-
-    init(barWidth: CGFloat = 40, space: CGFloat = 20) {
-        self.barWidth = barWidth
-        self.space = space
-    }
 
     func computeContentWidth() -> CGFloat {
         if barDataEntries.isEmpty {
@@ -36,8 +31,8 @@ class BasicBarChartPresenter {
         return viewHeight - bottomSpace
     }
 
-    func computeBarEntries(viewHeight: CGFloat) -> [BasicBarEntry] {
-        var result: [BasicBarEntry] = []
+    func computeBarEntries(viewHeight: CGFloat) -> [BarEntry] {
+        var result: [BarEntry] = []
 
         for (index, entry) in barDataEntries.enumerated() {
             let entryHeight = CGFloat(entry.height) * (viewHeight - bottomSpace - topSpace)
@@ -45,7 +40,7 @@ class BasicBarChartPresenter {
             let yPosition = viewHeight - bottomSpace - entryHeight
             let origin = CGPoint(x: xPosition, y: yPosition)
 
-            let barEntry = BasicBarEntry(origin: origin, barWidth: barWidth, barHeight: entryHeight, space: space, data: entry)
+            let barEntry = BarEntry(origin: origin, barWidth: barWidth, barHeight: entryHeight, space: space, data: entry)
             result.append(barEntry)
         }
         return result
@@ -54,7 +49,7 @@ class BasicBarChartPresenter {
     func computePointEntries(viewHeight: CGFloat) -> [PointEntry] {
         var result: [PointEntry] = []
 
-        for (index, entry) in lineDataEntries.enumerated() {
+        for (index, entry) in pointDataEntries.enumerated() {
             let entryHeight = CGFloat(entry.height) * (viewHeight - bottomSpace - topSpace)
             let xPosition: CGFloat = space + CGFloat(index) * (barWidth + space) + barWidth / 2
             let yPosition = viewHeight - bottomSpace - entryHeight
@@ -87,10 +82,7 @@ class BasicBarChartPresenter {
             let yPosition = viewHeight - bottomSpace -  lineInfo.value * (viewHeight - bottomSpace - topSpace)
 
             let length = self.computeContentWidth()
-            let lineSegment = LineSegment(
-                startPoint: CGPoint(x: 0, y: yPosition),
-                endPoint: CGPoint(x: length, y: yPosition)
-            )
+            let lineSegment = LineSegment(startPoint: CGPoint(x: 0, y: yPosition), endPoint: CGPoint(x: length, y: yPosition))
             let line = HorizontalLine(segment: lineSegment, isDashed: lineInfo.isDashed, width: 0.5)
             result.append(line)
         }

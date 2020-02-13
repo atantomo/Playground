@@ -1,5 +1,5 @@
 //
-//  BasicBarEntry.swift
+//  BarEntry.swift
 //  BarChart
 //
 //  Created by Nguyen Vu Nhat Minh on 22/5/19.
@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import UIKit
 import CoreGraphics.CGGeometry
 
-struct BasicBarEntry {
+struct BarEntry {
     let origin: CGPoint
     let barWidth: CGFloat
     let barHeight: CGFloat
@@ -34,4 +35,20 @@ struct HorizontalLine {
     let segment: LineSegment
     let isDashed: Bool
     let width: CGFloat
+}
+
+struct DataEntry {
+    let color: UIColor
+    let height: Float
+    let title: String
+}
+
+struct CurvedSegment {
+    var controlPoint1: CGPoint
+    var controlPoint2: CGPoint
+}
+
+struct LineSegment {
+    let startPoint: CGPoint
+    let endPoint: CGPoint
 }

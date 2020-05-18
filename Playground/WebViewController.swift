@@ -32,10 +32,30 @@ class WebViewController: UIViewController {
         return script
     }
 
+//    var scrapingScript: String {
+//        let script = """
+//        var h1s = document.getElementsByTagName("h1");
+//        alert(h1s[0].textContent);
+//        """
+//        return script
+//    }
+
     var scrapingScript: String {
         let script = """
-        var h1s = document.getElementsByTagName("h1");
-        alert(h1s[0].textContent);
+        var elements = document.getElementsByClassName("vi-bin-primary-price__main-price");
+        var trimmedContent = elements[0].textContent.trim();
+
+        const regex = /\\$.*[0-9\\.]*/g;
+        const found = trimmedContent.match(regex);
+        alert(found[0]);
+        if (found[0]) {
+        const amountRegex = /(\\d).*/g;
+        const amountFound = found[0].match(amountRegex);
+        var amountFloat = amountFound[0].replace(/[,]*/g, "");
+        var result = parseFloat(amountFloat)
+
+        alert(result);
+        }
         """
         return script
     }
@@ -62,9 +82,9 @@ class WebViewController: UIViewController {
         }
 
 
-
+        let url = URL(string: "https://www.ebay.com/itm/5-Charitable-Donation-For-Delivering-Critical-Blood-to-Those-in-Need/133366892539?_trkparms=%26rpp_cid%3D5e73a6708361a24eb9ad6d93%26rpp_icid%3D5e73a6708361a24eb9ad6d92&_trkparms=pageci%3A10e7a187-9596-11ea-9f61-74dbd180f9a5%7Cparentrq%3A114e2a6f1720acc1a8d906d0ffa0e3e5%7Ciid%3A1")!
 //        let url = URL(string: "https://www.w3schools.com/js/js_htmldom_elements.asp")!
-        let url = URL(string: "https://www.ebay.com/")!
+//        let url = URL(string: "https://www.ebay.com/")!
 //        let url = URL(string: "https://www.booking.com/")!
         let request = URLRequest(url: url)
         webView.load(request)

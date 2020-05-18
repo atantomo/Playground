@@ -102,14 +102,23 @@
                                             <constraint firstAttribute="height" constant="40" id="HG8-66-JKe"/>
                                         </constraints>
                                     </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="36K-Ta-cjG" customClass="LinkInteractiveTextView" customModule="Playground" customModuleProvider="target">
+                                        <rect key="frame" x="64" y="316.5" width="247" height="129.5"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dBX-iQ-f1j" secondAttribute="trailing" constant="16" id="3Uj-tb-1AY"/>
                                     <constraint firstItem="B55-dK-yN5" firstAttribute="top" secondItem="kE9-Eh-hYv" secondAttribute="top" constant="200" id="G61-aA-n2h"/>
+                                    <constraint firstItem="36K-Ta-cjG" firstAttribute="top" secondItem="B55-dK-yN5" secondAttribute="bottom" constant="16" id="H7L-3T-fTn"/>
                                     <constraint firstItem="Gwt-ob-xGa" firstAttribute="leading" secondItem="kE9-Eh-hYv" secondAttribute="leading" id="Htm-bS-yQ1"/>
                                     <constraint firstItem="dBX-iQ-f1j" firstAttribute="top" secondItem="kE9-Eh-hYv" secondAttribute="top" constant="34" id="I22-ej-Amn"/>
                                     <constraint firstAttribute="trailing" secondItem="dBX-iQ-f1j" secondAttribute="trailing" priority="748" constant="32" id="InB-AS-JAp"/>
+                                    <constraint firstAttribute="trailing" secondItem="36K-Ta-cjG" secondAttribute="trailing" constant="64" id="KyO-gB-8oD"/>
                                     <constraint firstItem="Gwt-ob-xGa" firstAttribute="top" secondItem="kE9-Eh-hYv" secondAttribute="top" constant="121" id="M3h-cc-geX"/>
                                     <constraint firstItem="IQU-hz-yr1" firstAttribute="leading" secondItem="B55-dK-yN5" secondAttribute="trailing" priority="750" constant="16" id="Nbs-ZI-pI4"/>
                                     <constraint firstItem="iOJ-ha-hyg" firstAttribute="leading" secondItem="kE9-Eh-hYv" secondAttribute="leading" priority="750" constant="8" id="Ruy-Dx-GaQ"/>
@@ -117,6 +126,8 @@
                                     <constraint firstItem="IQU-hz-yr1" firstAttribute="top" secondItem="kE9-Eh-hYv" secondAttribute="top" constant="200" id="bDV-DG-ONd"/>
                                     <constraint firstItem="dBX-iQ-f1j" firstAttribute="leading" secondItem="kE9-Eh-hYv" secondAttribute="leading" priority="749" constant="32" id="d2V-m2-xSg"/>
                                     <constraint firstItem="B55-dK-yN5" firstAttribute="leading" secondItem="iOJ-ha-hyg" secondAttribute="trailing" priority="750" constant="16" id="dyH-Zm-mQO"/>
+                                    <constraint firstAttribute="bottom" secondItem="36K-Ta-cjG" secondAttribute="bottom" constant="57" placeholder="YES" id="gm2-M4-WUK"/>
+                                    <constraint firstItem="36K-Ta-cjG" firstAttribute="leading" secondItem="kE9-Eh-hYv" secondAttribute="leading" constant="64" id="i1c-AG-cx6"/>
                                     <constraint firstItem="v5f-ed-8hr" firstAttribute="leading" secondItem="E35-HL-uXh" secondAttribute="trailing" id="iiN-Zi-qx4"/>
                                     <constraint firstItem="E35-HL-uXh" firstAttribute="leading" secondItem="Gwt-ob-xGa" secondAttribute="trailing" id="jrD-Kd-paN"/>
                                     <constraint firstAttribute="trailing" secondItem="IQU-hz-yr1" secondAttribute="trailing" priority="750" constant="8" id="q46-82-M4S"/>
@@ -175,6 +186,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="T4Y-Vg-KXT"/>
                     <connections>
+                        <outlet property="atMentionTextView" destination="36K-Ta-cjG" id="pZA-H6-M8M"/>
                         <outlet property="centerLabel" destination="B55-dK-yN5" id="azB-un-26A"/>
                         <outlet property="centerTextField" destination="bsR-fl-VvB" id="qSS-Zw-B9w"/>
                         <outlet property="container" destination="kE9-Eh-hYv" id="wAG-yk-c0f"/>

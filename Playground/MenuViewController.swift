@@ -101,6 +101,15 @@ class MenuViewController: UIViewController {
         for num in nums {
             print(formatter.string(from: num as NSNumber) ?? "n/a")
         }
+
+        print(NSLocale.current.regionCode)
+        print(NSLocale.preferredLanguages)
+//        print(NSLocale.isoLanguageCodes)
+        print(Locale.current.regionCode)
+        print(Locale.current.languageCode)
+        print(Locale.preferredLanguages)
+        print(Bundle.main.preferredLocalizations)
+        print(Bundle.main.preferredLocalizations)
     }
 
     override func didReceiveMemoryWarning() {

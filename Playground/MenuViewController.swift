@@ -204,7 +204,7 @@ class MenuViewController: UIViewController {
             dateFormatter.dateFormat = "K:mm a, z"
             print(dateFormatter.string(from: initialDate))
         }
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.timeZone = TimeZone(abbreviation: "JST")
 
         dateFormatter.locale = Locale(identifier: "ja_JP")
         printDates("ja_JP")
@@ -220,12 +220,34 @@ class MenuViewController: UIViewController {
 
         if #available(iOS 10.0, *) {
             let formatter = ISO8601DateFormatter()
-            let isoDate = formatter.date(from: "2020-06-06T00:00:00+00:00")
+            formatter.timeZone = TimeZone(abbreviation: "JST")
+            let isoDate = formatter.date(from: "2020-06-05T23:00:00+00:00")
+
+
+            let hourAndMinuteArray = "2020-06-06T00:00:00+00:00".components(separatedBy: "+").last?.components(separatedBy: ":")
+            let hour = Int(hourAndMinuteArray?.first ?? "0") ?? 0
+            let minute = Int(hourAndMinuteArray?.last ?? "0") ?? 0
+            let secondsFromGMT = hour * 3600 + minute * 60
+
+            let timeZone = TimeZone(secondsFromGMT: secondsFromGMT)
+            print("----ISO Date")
+            print(timeZone?.abbreviation())
             print(isoDate)
-            print(formatter.timeZone.abbreviation())
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .full
+            dateFormatter.timeStyle = .full
+            print(dateFormatter.string(from: isoDate!))
+
+//            print(serverToLocal(date: "2020-06-06T22:03:02+09:00"))
+//            print(formatter.timeZone.abbreviation())
+//            print(formatter.string(from: Date()))
         } else {
             // Fallback on earlier versions
         }
+//        print(serverToLocal(date: "2020-06-06T22:03:02+09:00"))
+//        print(serverToLocal(date: "2020-06-06T22:03:02+00:00"))
+
     }
 
     func generate(dateString: String, format: String) -> Date? {
@@ -236,6 +258,15 @@ class MenuViewController: UIViewController {
 
         let date = dateFormatter.date(from:dateString)
         return date
+    }
+
+    func serverToLocal(date: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        dateFormatter.timeZone = TimeZone(abbreviation: "JST")
+        let localDate = dateFormatter.date(from: date)
+
+        return localDate
     }
 
 }

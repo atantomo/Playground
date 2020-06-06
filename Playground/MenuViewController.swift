@@ -73,34 +73,7 @@ class MenuViewController: UIViewController {
         tableView.dataSource = self
         // Do any additional setup after loading the view.
 
-        let number = 1234.5678 // 🤔
-
-        let formatter3 = NumberFormatter()
-        formatter3.minimumFractionDigits = 0
-        formatter3.maximumFractionDigits = 2
-        formatter3.numberStyle = .currency
-
-        formatter3.locale = Locale(identifier: "en_US")
-        let aa = formatter3.string(for: number) // $1,234.57
-
-        formatter3.locale = Locale(identifier: "ja_JP")
-        let a = formatter3.string(for: number) // ￥ 1,235 😵
-
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
-
-        // Avoid not getting a zero on numbers lower than 1
-        // Eg: .5, .67, etc...
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "JPY"
-        formatter.locale = Locale(identifier: "ja_JP")
-
-        let nums = [3.0, 5.1, 7.21, 9.311, 607920.0, 0.5677, 0.6988]
-
-        for num in nums {
-            print(formatter.string(from: num as NSNumber) ?? "n/a")
-        }
+        printTests()
     }
 
     override func didReceiveMemoryWarning() {
@@ -131,6 +104,138 @@ class MenuViewController: UIViewController {
     @objc
     func dismissVC() {
         presentedViewController?.dismiss(animated: true, completion: nil)
+    }
+
+    private func printTests() {
+//        let number = 1234.5678 // 🤔
+//
+//        let formatter3 = NumberFormatter()
+//        formatter3.minimumFractionDigits = 0
+//        formatter3.maximumFractionDigits = 2
+//        formatter3.numberStyle = .currency
+//
+//        formatter3.locale = Locale(identifier: "en_US")
+//        let aa = formatter3.string(for: number) // $1,234.57
+//
+//        formatter3.locale = Locale(identifier: "ja_JP")
+//        let a = formatter3.string(for: number) // ￥ 1,235 😵
+//
+//        let formatter = NumberFormatter()
+//        formatter.minimumFractionDigits = 0
+//        formatter.maximumFractionDigits = 2
+//
+//        // Avoid not getting a zero on numbers lower than 1
+//        // Eg: .5, .67, etc...
+//        formatter.numberStyle = .currency
+//        formatter.currencyCode = "JPY"
+//        formatter.locale = Locale(identifier: "ja_JP")
+//
+//        let nums = [3.0, 5.1, 7.21, 9.311, 607920.0, 0.5677, 0.6988]
+//
+//        for num in nums {
+//            print(formatter.string(from: num as NSNumber) ?? "n/a")
+//        }
+
+        let current = Locale.current
+
+        // Without JP localization: en_JP (current)
+        // With JP localization: ja_JP (current)
+        print(current)
+
+        let localizedTestString = NSLocalizedString("test", comment: "")
+        print(localizedTestString)
+        print(localizedTestString)
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .none
+
+        let initialDate = Date.init(timeIntervalSince1970: 0)
+
+        let printDates = { (localeString: String) -> Void in
+            print("-----" + localeString)
+
+            dateFormatter.dateStyle = .full
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.dateStyle = .long
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.dateStyle = .medium
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.dateStyle = .short
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.dateStyle = .none
+            print(dateFormatter.string(from: initialDate))
+
+            print("-----")
+
+            dateFormatter.timeStyle = .full
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.timeStyle = .long
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.timeStyle = .medium
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.timeStyle = .short
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.timeStyle = .none
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.dateFormat = "d zzz"
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.dateFormat = "yyyy.MM.dd G 'at' HH:mm:ss zzz"
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.dateFormat = "EEE, MMM d, ''yy"
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.dateFormat = "h:mm a"
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.dateFormat = "hh 'o''clock' a, zzzz"
+            print(dateFormatter.string(from: initialDate))
+
+            dateFormatter.dateFormat = "K:mm a, z"
+            print(dateFormatter.string(from: initialDate))
+        }
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+        printDates("ja_JP")
+
+        dateFormatter.locale = Locale(identifier: "en_US")
+        printDates("en_US")
+
+        dateFormatter.locale = Locale(identifier: "ja")
+        printDates("ja")
+
+        dateFormatter.locale = Locale(identifier: "en")
+        printDates("en")
+
+        if #available(iOS 10.0, *) {
+            let formatter = ISO8601DateFormatter()
+            let isoDate = formatter.date(from: "2020-06-06T00:00:00+00:00")
+            print(isoDate)
+            print(formatter.timeZone.abbreviation())
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+
+    func generate(dateString: String, format: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        let date = dateFormatter.date(from:dateString)
+        return date
     }
 
 }

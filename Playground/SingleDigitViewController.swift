@@ -181,7 +181,6 @@ extension SingleDigitViewController: UITextFieldDelegate {
         let textFields = textFieldComponents.map { component in
             return component.textField
         }
-        print(("ANDREWO", textField, range, string))
 
         let isMultipleCharacterString = string.count > 1
         if let currentTextFieldindex = textFields.firstIndex(of: textField) {

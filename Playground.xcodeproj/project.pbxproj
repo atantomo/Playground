@@ -48,6 +48,7 @@
 		494873FA1C53555800B689D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 494873F91C53555800B689D3 /* Assets.xcassets */; };
 		494873FD1C53555800B689D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494873FB1C53555800B689D3 /* LaunchScreen.storyboard */; };
 		494874051C5371C600B689D3 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494874041C5371C600B689D3 /* Meme.swift */; };
+		494D0ED924A70F6F00A16FCC /* SingleDigitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494D0ED824A70F6F00A16FCC /* SingleDigitViewController.swift */; };
 		495F7CD823E99D7700D041AE /* SafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495F7CD723E99D7700D041AE /* SafeViewController.swift */; };
 		496454A5218B1D9900F790C9 /* LoaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 496454A4218B1D9900F790C9 /* LoaderCollectionReusableView.xib */; };
 		4966ADC023F4CCA70081718E /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966ADBF23F4CCA70081718E /* ChartViewController.swift */; };
@@ -119,6 +120,7 @@
 		494873FC1C53555800B689D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		494873FE1C53555800B689D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494874041C5371C600B689D3 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
+		494D0ED824A70F6F00A16FCC /* SingleDigitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleDigitViewController.swift; sourceTree = "<group>"; };
 		495F7CD723E99D7700D041AE /* SafeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeViewController.swift; sourceTree = "<group>"; };
 		496454A4218B1D9900F790C9 /* LoaderCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		4966ADBF23F4CCA70081718E /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				492D20BD23F4238E00F36E47 /* BasicBarChartPresenter.swift */,
 				492D20BF23F4239200F36E47 /* BasicBarEntry.swift */,
 				4974E140212C26B3004AE3D0 /* MenuViewController.swift */,
+				494D0ED824A70F6F00A16FCC /* SingleDigitViewController.swift */,
 				4966ADBF23F4CCA70081718E /* ChartViewController.swift */,
 				495F7CD723E99D7700D041AE /* SafeViewController.swift */,
 				4967ED8123343C0D004D24A5 /* WebViewController.swift */,
@@ -347,6 +350,7 @@
 				49F519A421840790000FE0AA /* AttributedStringViewController.swift in Sources */,
 				2E318B45210547C500E6EF83 /* SearchBarViewController.swift in Sources */,
 				492D20BC23F4238900F36E47 /* BasicBarChart.swift in Sources */,
+				494D0ED924A70F6F00A16FCC /* SingleDigitViewController.swift in Sources */,
 				2E0E9DF621487D9500D5D98F /* Array+Extension.swift in Sources */,
 				49A98041207253D700A492D5 /* StaticNavController.swift in Sources */,
 				49A9803F2072508100A492D5 /* ThirdNavViewController.swift in Sources */,

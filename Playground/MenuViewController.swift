@@ -41,6 +41,7 @@ class MenuViewController: UIViewController {
         ]
 
     let items: [String] = [
+        "singleDigitTextField",
         "chart",
         "web",
         "web",

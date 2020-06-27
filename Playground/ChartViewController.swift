@@ -11,7 +11,7 @@ import UIKit
 class ChartViewController: UIViewController {
 
     @IBOutlet weak var barLineChart: BarLineChart!
-
+    
     private let numEntry = 7
 
     override func viewDidLoad() {

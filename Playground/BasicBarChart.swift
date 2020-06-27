@@ -11,7 +11,7 @@ import UIKit
 extension Array {
 
     subscript(safe idx: Int) -> Element? {
-        return idx < endIndex ? self[idx] : nil
+        return idx >= 0 && idx < endIndex ? self[idx] : nil
     }
 
 }

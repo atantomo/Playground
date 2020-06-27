@@ -10,168 +10,166 @@ import UIKit
 
 class SingleDigitViewController: UIViewController {
 
-    @IBOutlet weak var firstTextField: OTPTextField!
-    @IBOutlet weak var secondTextField: OTPTextField!
-    @IBOutlet weak var thirdTextField: OTPTextField!
-    @IBOutlet weak var fourthTextField: OTPTextField!
-    @IBOutlet weak var fifthTextField: OTPTextField!
-    @IBOutlet weak var sixthTextField: OTPTextField!
-    @IBOutlet weak var touchResponderView: OTPButton!
+    @IBOutlet weak var stackView: UIStackView!
 
-    @IBOutlet weak var firstTextFieldUnderline: UIView!
-    @IBOutlet weak var secondTextFieldUnderline: UIView!
-    @IBOutlet weak var thirdTextFieldUnderline: UIView!
-    @IBOutlet weak var fourthTextFieldUnderline: UIView!
-    @IBOutlet weak var fifthTextFieldUnderline: UIView!
-    @IBOutlet weak var sixthTextFieldUnderline: UIView!
+    var inputCompletionHandler: ((String) -> Void)?
 
-    @IBOutlet weak var firstUnderlineHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var secondUnderlineHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var thirdUnderlineHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var fourthUnderlineHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var fifthUnderlineHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var sixthUnderlineHeightConstraint: NSLayoutConstraint!
-
-    lazy var orderedTextFields: [UITextField] = [
-        firstTextField,
-        secondTextField,
-        thirdTextField,
-        fourthTextField,
-        fifthTextField,
-        sixthTextField
-    ]
-
-    var editingChangeHandler: (() -> Void)?
-    lazy var inputCompletionHandler: (() -> Void)? = { [weak self] in
-        self?.firstUnderlineHeightConstraint.constant = 1
-        self?.secondUnderlineHeightConstraint.constant = 1
-        self?.thirdUnderlineHeightConstraint.constant = 1
-        self?.fourthUnderlineHeightConstraint.constant = 1
-        self?.fifthUnderlineHeightConstraint.constant = 1
-        self?.sixthUnderlineHeightConstraint.constant = 1
-
-        self?.firstTextFieldUnderline.backgroundColor = .lightGray
-        self?.secondTextFieldUnderline.backgroundColor = .lightGray
-        self?.thirdTextFieldUnderline.backgroundColor = .lightGray
-        self?.fourthTextFieldUnderline.backgroundColor = .lightGray
-        self?.fifthTextFieldUnderline.backgroundColor = .lightGray
-        self?.sixthTextFieldUnderline.backgroundColor = .lightGray
-        self?.view.endEditing(true)
-    }
+    private var textFieldComponents: [(baseView:UIView, textField: UITextField, underline: UIView, underlineHeightConstraint: NSLayoutConstraint)] = []
+    private var editingChangeHandler: (() -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupContent(fieldCount: 6)
+    }
 
-        firstTextField.delegate = self
-        secondTextField.delegate = self
-        thirdTextField.delegate = self
-        fourthTextField.delegate = self
-        fifthTextField.delegate = self
-        sixthTextField.delegate = self
+    func setupContent(fieldCount: Int) {
+        for textFieldComponent in textFieldComponents {
+            textFieldComponent.baseView.removeFromSuperview()
+        }
+        textFieldComponents = []
+        for index in 0..<fieldCount {
+            let baseView = UIView()
+            baseView.backgroundColor = .white
 
-        secondTextField.deleteEmptyHandler = { [weak self] in
-            self?.firstTextField.text = ""
-            self?.firstTextField.becomeFirstResponder()
-        }
-        thirdTextField.deleteEmptyHandler = { [weak self] in
-            self?.secondTextField.text = ""
-            self?.secondTextField.becomeFirstResponder()
-        }
-        fourthTextField.deleteEmptyHandler = { [weak self] in
-            self?.thirdTextField.text = ""
-            self?.thirdTextField.becomeFirstResponder()
-        }
-        fifthTextField.deleteEmptyHandler = { [weak self] in
-            self?.fourthTextField.text = ""
-            self?.fourthTextField.becomeFirstResponder()
-        }
-        sixthTextField.deleteEmptyHandler = { [weak self] in
-            self?.fifthTextField.text = ""
-            self?.fifthTextField.becomeFirstResponder()
-        }
-
-        touchResponderView.pasteHandler = { [weak self] in
-            guard let vc = self else {
-                return
+            let textField = OTPTextField()
+            textField.borderStyle = .none
+            textField.tintColor = .systemBlue
+            textField.font = .systemFont(ofSize: 22.0)
+            textField.textAlignment = .center
+            textField.keyboardType = .numberPad
+            if #available(iOS 12.0, *) {
+                textField.textContentType = .oneTimeCode
             }
-            let pasteString = UIPasteboard.general.string ?? ""
-            let lastTextFieldIndex = vc.orderedTextFields.count - 1
-
-            var cleanPasteString = ""
-            for pasteCharacter in pasteString {
-                let string = String(pasteCharacter)
-                if let _ = Int(string) {
-                    cleanPasteString += string
-                }
+            textField.deleteEmptyHandler = { [weak self] in
+                self?.textFieldComponents[safe: index - 1]?.textField.text = ""
+                self?.textFieldComponents[safe: index - 1]?.textField.becomeFirstResponder()
             }
+            textField.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
+            textField.delegate = self
+            textField.translatesAutoresizingMaskIntoConstraints = false
 
-            for (index, pasteCharacter) in cleanPasteString.enumerated() {
-                self?.orderedTextFields[safe: index]?.text =  String(pasteCharacter)
-                if index == lastTextFieldIndex {
-                    self?.inputCompletionHandler?()
+            let underline = UIView()
+            underline.backgroundColor = .lightGray
+            underline.translatesAutoresizingMaskIntoConstraints = false
+
+            baseView.addSubview(textField)
+            baseView.addSubview(underline)
+
+            let heightConstraint = underline.heightAnchor.constraint(equalToConstant: 1)
+
+            textFieldComponents.append((baseView, textField, underline, heightConstraint))
+
+            stackView.addArrangedSubview(baseView)
+
+            NSLayoutConstraint.activate([
+                baseView.widthAnchor.constraint(equalToConstant: 32),
+                baseView.heightAnchor.constraint(equalToConstant: 44),
+
+                textField.topAnchor.constraint(equalTo: baseView.topAnchor),
+                textField.leadingAnchor.constraint(equalTo: baseView.leadingAnchor),
+                textField.bottomAnchor.constraint(equalTo: baseView.bottomAnchor),
+                textField.trailingAnchor.constraint(equalTo: baseView.trailingAnchor),
+
+                underline.leadingAnchor.constraint(equalTo: baseView.leadingAnchor),
+                underline.bottomAnchor.constraint(equalTo: baseView.bottomAnchor),
+                underline.trailingAnchor.constraint(equalTo: baseView.trailingAnchor),
+
+                heightConstraint
+            ])
+        }
+
+        let touchResponderView = OTPTouchResponderView(frame: .zero)
+        touchResponderView.tapHandler = { [weak self] in
+            self?.startInput()
+
+            var isTextFieldFirstResponder = false
+            let components = self?.textFieldComponents ?? []
+            for textFieldComponent in components {
+                if textFieldComponent.textField.isFirstResponder {
+                    isTextFieldFirstResponder = true
                     break
                 }
-                let isLastCharacter = index == pasteString.count - 1
-                if isLastCharacter {
-                    self?.orderedTextFields[safe: index + 1]?.becomeFirstResponder()
+            }
+            var nextRespondingTextField = components.last?.textField
+            for textFieldComponent in components {
+                if textFieldComponent.textField.text?.isEmpty ?? true {
+                    nextRespondingTextField = textFieldComponent.textField
+                    break
                 }
+            }
+
+            if isTextFieldFirstResponder {
+                touchResponderView.showMenu(sender: touchResponderView)
+
+            } else {
+                touchResponderView.hideMenu(sender: touchResponderView)
+                nextRespondingTextField?.becomeFirstResponder()
+            }
+        }
+        touchResponderView.pasteHandler = { [weak self] in
+            let pasteString = UIPasteboard.general.string ?? ""
+            self?.insertString(string: pasteString, startIndex: 0)
+        }
+
+        touchResponderView.isUserInteractionEnabled = true
+        touchResponderView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(touchResponderView, aboveSubview: stackView)
+        NSLayoutConstraint.activate([
+            touchResponderView.topAnchor.constraint(equalTo: stackView.topAnchor),
+            touchResponderView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            touchResponderView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+            touchResponderView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
+        ])
+    }
+
+    private func startInput() {
+        for textFieldComponent in textFieldComponents {
+            textFieldComponent.underline.backgroundColor = .systemBlue
+            textFieldComponent.underlineHeightConstraint.constant = 2
+        }
+    }
+
+    private func endInput() {
+        let text = textFieldComponents.map { component in
+            return component.textField.text
+        }
+        .reduce("", { x, y in
+            return x + (y ?? "")
+        })
+        inputCompletionHandler?(text)
+        for textFieldComponent in textFieldComponents {
+            textFieldComponent.underline.backgroundColor = .lightGray
+            textFieldComponent.underlineHeightConstraint.constant = 1
+        }
+        view.endEditing(true)
+    }
+
+    private func insertString(string: String, startIndex: Int) {
+        let lastTextFieldIndex = textFieldComponents.count - 1
+        var cleanPasteString = ""
+        for character in string {
+            let string = String(character)
+            if let _ = Int(string), !character.isWhitespace {
+                cleanPasteString += string
+            }
+        }
+
+        for (index, pasteCharacter) in cleanPasteString.enumerated() {
+            let textFieldIndex = startIndex + index
+            textFieldComponents[safe: textFieldIndex]?.textField.text =  String(pasteCharacter)
+            if textFieldIndex == lastTextFieldIndex {
+                endInput()
+                break
+            }
+            let isLastCharacter = index == string.count - 1
+            if isLastCharacter {
+                textFieldComponents[safe: textFieldIndex + 1]?.textField.becomeFirstResponder()
             }
         }
     }
 
-    @IBAction func fieldButtonTapped(_ sender: Any) {
-        firstUnderlineHeightConstraint.constant = 2
-        secondUnderlineHeightConstraint.constant = 2
-        thirdUnderlineHeightConstraint.constant = 2
-        fourthUnderlineHeightConstraint.constant = 2
-        fifthUnderlineHeightConstraint.constant = 2
-        sixthUnderlineHeightConstraint.constant = 2
-
-        firstTextFieldUnderline.backgroundColor = .purple
-        secondTextFieldUnderline.backgroundColor = .purple
-        thirdTextFieldUnderline.backgroundColor = .purple
-        fourthTextFieldUnderline.backgroundColor = .purple
-        fifthTextFieldUnderline.backgroundColor = .purple
-        sixthTextFieldUnderline.backgroundColor = .purple
-
-        if firstTextField.isFirstResponder ||
-            secondTextField.isFirstResponder ||
-            thirdTextField.isFirstResponder ||
-            fourthTextField.isFirstResponder ||
-            fifthTextField.isFirstResponder ||
-            sixthTextField.isFirstResponder {
-            touchResponderView.showMenu(sender: touchResponderView)
-            return
-        }
-
-        touchResponderView.hideMenu(sender: touchResponderView)
-        let firstText = firstTextField.text ?? ""
-        let secondText = secondTextField.text ?? ""
-        let thirdText = thirdTextField.text ?? ""
-        let fourthText = fourthTextField.text ?? ""
-        let fifthText = fifthTextField.text ?? ""
-
-        if firstText == "" {
-            firstTextField.becomeFirstResponder()
-
-        } else if secondText == "" {
-            secondTextField.becomeFirstResponder()
-
-        } else if thirdText == "" {
-            thirdTextField.becomeFirstResponder()
-
-        } else if fourthText == "" {
-            fourthTextField.becomeFirstResponder()
-
-        } else if fifthText == "" {
-            fifthTextField.becomeFirstResponder()
-
-        } else {
-            sixthTextField.becomeFirstResponder()
-        }
-    }
-
-    @IBAction func editingChangeHandler(_ sender: Any) {
+    @objc
+    private func editingChanged(_ sender: Any) {
         editingChangeHandler?()
     }
 
@@ -180,54 +178,29 @@ class SingleDigitViewController: UIViewController {
 extension SingleDigitViewController: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let textFields = textFieldComponents.map { component in
+            return component.textField
+        }
+        print(("ANDREWO", textField, range, string))
 
-        var isDeleting = string.isEmpty
-        // add range: (location: index, length: 0)
-        // delete range: (location: index (after delete), length: 1)
-
-        var movement = string.count
-        let totalTextFieldCount = orderedTextFields.count
-        var nextIndex = 0
-        if let index = orderedTextFields.firstIndex(of: textField) {
-            nextIndex = index + movement
-            //            print(nextIndex)
-            //            print(nextIndex)
+        let isMultipleCharacterString = string.count > 1
+        if let currentTextFieldindex = textFields.firstIndex(of: textField) {
             editingChangeHandler = { [weak self] in
-                if !isDeleting && index == totalTextFieldCount - 1 {
-                    self?.inputCompletionHandler?()
+                if isMultipleCharacterString {
+                    self?.insertString(string: string, startIndex: 0)
                 } else {
-                    self?.orderedTextFields[safe: nextIndex]?.becomeFirstResponder()
+                    self?.insertString(string: string, startIndex: currentTextFieldindex)
                 }
             }
-            //            textField.text = string
-            //            orderedTextFields[nextIndex].becomeFirstResponder()
-            //            return false
         }
-        //        switch textField {
-        //        case firstTextField:
-        //            if
-        //
-        //        case secondTextField:
-        //            <#code#>
-        //
-        //        case thirdTextField:
-        //
-        //        case fourthTextField:
-        //
-        //        case fifthTextField:
-        //
-        //        case sixthTextField:
-        //
-        //        default:
-        //            break
-        //        }
         return true
     }
 
 }
 
-class OTPButton: UIButton {
+class OTPTouchResponderView: UIView {
 
+    var tapHandler: (() -> Void)?
     var pasteHandler: (() -> Void)?
 
     override public var canBecomeFirstResponder: Bool {
@@ -255,13 +228,9 @@ class OTPButton: UIButton {
         return (action == #selector(paste(_:)))
     }
 
-    private func commonInit() {
-        setupGestureRecognizer()
-    }
-
-    private func setupGestureRecognizer() {
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(showMenu(sender:)))
-        addGestureRecognizer(longPress)
+    @objc
+    func handleTap(sender: Any?) {
+        tapHandler?()
     }
 
     @objc
@@ -280,6 +249,18 @@ class OTPButton: UIButton {
         if menu.isMenuVisible {
             menu.setMenuVisible(false, animated: true)
         }
+    }
+
+    private func commonInit() {
+        setupGestureRecognizer()
+    }
+
+    private func setupGestureRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        addGestureRecognizer(tap)
+
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(showMenu))
+        addGestureRecognizer(longPress)
     }
 
 }
